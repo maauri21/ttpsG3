@@ -13,6 +13,17 @@
                         @csrf
 
                         <div class="form-group row">
+                            <label for="tipo" class="col-md-4 col-form-label text-md-right">{{ __('Tipo') }}</label>
+
+                            <div class="col-md-6">
+                                <select id="tipo" name="tipo" class="form-control">
+                                    <option value="medico" {{ old('tipo') == 'medico' ? 'selected="selected"' : '' }}>Médico</option>
+                                    <option value="jefe" {{ old('tipo') == 'jefe' ? 'selected="selected"' : '' }}>Jefe</option>
+                                  </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
                             <label for="nombre" class="col-md-4 col-form-label text-md-right">{{ __('Nombre') }}</label>
 
                             <div class="col-md-6">
