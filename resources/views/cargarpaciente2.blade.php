@@ -91,6 +91,66 @@
                                     @enderror
                                 </div>
                             </div>
+
+                            <div class="border-top my-4"></div>
+
+                            <h4 class="my-4" align=center>Contacto</h4>
+
+                            <div class="form-group row">
+                                <label for="nombreContacto" class="col-md-4 col-form-label text-md-right">{{ __('Nombre') }}</label>
+    
+                                <div class="col-md-6">
+                                    <input id="nombreContacto" type="text" maxlength="15" class="form-control @error('nombreContacto') is-invalid @enderror" name="nombreContacto" value="{{ old('nombreContacto') }}" autocomplete="nombreContacto" autofocus>
+    
+                                    @error('nombreContacto')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                        <div class="form-group row">
+                            <label for="apellidoContacto" class="col-md-4 col-form-label text-md-right">{{ __('Apellido') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="apellidoContacto" type="text" maxlength="20" class="form-control @error('apellidoContacto') is-invalid @enderror" name="apellidoContacto" value="{{ old('apellidoContacto') }}" autocomplete="apellidoContacto" autofocus>
+
+                                @error('apellidoContacto')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="relacion" class="col-md-4 col-form-label text-md-right">{{ __('Relación') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="relacion" type="text" maxlength="15" class="form-control @error('relacion') is-invalid @enderror" name="relacion" value="{{ old('relacion') }}" autocomplete="relacion" autofocus>
+
+                                @error('relacion')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="telefonoContacto" class="col-md-4 col-form-label text-md-right">{{ __('Telefono') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="telefonoContacto" type="text" maxlength="15" class="form-control @error('telefonoContacto') is-invalid @enderror" name="telefonoContacto" value="{{ old('telefonoContacto') }}" autocomplete="telefonoContacto" autofocus>
+
+                                @error('telefonoContacto')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
     
                             <div class="form-group row mb-0">
                                 <div class="col-md-6 offset-md-4">

@@ -8,7 +8,7 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('register', 'App\Http\Controllers\Auth\RegisterController@showRegistrationForm')->name('register')->middleware('permission:cargarPersonal');
+Route::get('register', 'App\Http\Controllers\Auth\RegisterController@showRegistrationForm')->name('register');#->middleware('permission:cargarPersonal');
 
 Route::get('cargarpaciente', 'App\Http\Controllers\PagesController@cargarpaciente')->name('cargarpaciente');
 Route::get('cargarpaciente2', 'App\Http\Controllers\PagesController@cargarpaciente2')->name('cargarpaciente2');

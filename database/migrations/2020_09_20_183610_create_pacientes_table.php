@@ -21,6 +21,7 @@ class CreatePacientesTable extends Migration
             $table->string('direccion');
             $table->integer('telefono');
             $table->date('fnac');
+            $table->unsignedInteger('contacto_id')->nullable();
             $table->timestamps();
         });
     }
