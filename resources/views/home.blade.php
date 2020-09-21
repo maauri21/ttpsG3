@@ -19,6 +19,7 @@
                     @can('cargarPaciente')
                     <h2>Cosa de medico</h2>
                     @endcan
+                    <a href="{{route('cargarpaciente')}}" class="btn btn-primary">Cargar paciente</a>
                 </div>
             </div>
         </div>
