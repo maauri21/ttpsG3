@@ -10,6 +10,10 @@ class Paciente extends Model
     use HasFactory;
 
     public function contacto(){
-        return $this->belongsTo('App\Models\Contacto');
+        return $this->belongsTo(Contacto::class); // 1 a muchos
+    }
+
+    public function sistemas(){
+        return $this->belongsToMany(Sistema::class); // Muchos a muchos
     }
 }

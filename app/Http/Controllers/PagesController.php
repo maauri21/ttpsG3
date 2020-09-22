@@ -56,9 +56,11 @@ class PagesController extends Controller
         $pacienteNuevo->direccion = $request->direccion;
         $pacienteNuevo->telefono = $request->telefono;
         $pacienteNuevo->fnac = $request->fnac;
-        $pacienteNuevo->contacto_id = $contactoNuevo->id;
+        $pacienteNuevo->contacto()->associate($contactoNuevo);
         $pacienteNuevo->save();
 
+        #$pacienteNuevo->sistemas()->attach(1);     #Le asigno guardia
+        $pacienteNuevo->sistemas()->attach(1, ['inicio' => date('Y-m-d')]);     #Ademas de asignarle guardia, Agrego fecha en la tabla intermedia
     }
 
 }
