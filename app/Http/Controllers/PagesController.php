@@ -34,6 +34,8 @@ class PagesController extends Controller
             'direccion' => ['required', 'string', 'min:2', 'max:20'],
             'telefono' => ['required', 'numeric', 'digits_between:5,15'],
             'fnac' => ['required', 'date', 'after_or_equal:01/01/1920', 'before_or_equal:today'],
+            'email' => ['required', 'string', 'email', 'max:30'],
+            'obrasocial' => ['nullable', 'string', 'max:15'],
             'nombreContacto' => ['nullable', 'string', 'min:2', 'max:15'],
             'apellidoContacto' => ['nullable', 'string', 'min:2', 'max:20'],
             'relacion' => ['nullable', 'string', 'min:2', 'max:15'],
@@ -56,11 +58,36 @@ class PagesController extends Controller
         $pacienteNuevo->direccion = $request->direccion;
         $pacienteNuevo->telefono = $request->telefono;
         $pacienteNuevo->fnac = $request->fnac;
+        $pacienteNuevo->email = $request->email;
+        $pacienteNuevo->obrasocial = $request->obrasocial;
+        $pacienteNuevo->antecedentes = $request->antecedentes;
         $pacienteNuevo->contacto()->associate($contactoNuevo);
         $pacienteNuevo->save();
 
         #$pacienteNuevo->sistemas()->attach(1);     #Le asigno guardia
         $pacienteNuevo->sistemas()->attach(1, ['inicio' => date('Y-m-d')]);     #Ademas de asignarle guardia, Agrego fecha en la tabla intermedia
+    }
+
+    public function administrarsistema() {
+        return view('administrarsistema');
+    }
+
+    public function administrarsala(Request $request) {
+        $idSistema=$request->sistema;
+        return view('administrarsala',compact('idSistema'));
+    }
+
+    public function crearsala(Request $request, $idSistema) {
+        $request->validate([
+            'nombre' => ['required', 'string', 'min:2', 'max:15'],
+            'camas' => ['required', 'numeric', 'digits_between:1,4'],
+        ]);
+        $sistema=App\Models\Sistema::findOrFail($idSistema);
+
+        $salaNueva = new App\Models\Sala;
+        $salaNueva->nombre = $request->nombre;
+        $salaNueva->sistema()->associate($sistema);
+        $salaNueva->save();
     }
 
 }

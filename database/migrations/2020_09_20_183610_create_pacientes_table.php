@@ -21,6 +21,9 @@ class CreatePacientesTable extends Migration
             $table->string('direccion');
             $table->integer('telefono');
             $table->date('fnac');
+            $table->string('email');
+            $table->string('obrasocial')->nullable();
+            $table->text('antecedentes')->nullable();
             $table->unsignedInteger('contacto_id')->nullable();
             $table->timestamps();
         });

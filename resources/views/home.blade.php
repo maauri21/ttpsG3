@@ -13,13 +13,12 @@
                             {{ session('status') }}
                         </div>
                     @endif
-                    @can('cargarPersonal')
-                    <a href="{{route('register')}}" class="btn btn-primary">Cargar personal</a>
-                    @endcan
+                    <div class="form-group row"><a href="{{route('register')}}" class="btn btn-primary ml-3">Cargar personal</a></div>
                     @can('cargarPaciente')
                     <h2>Cosa de medico</h2>
                     @endcan
-                    <a href="{{route('cargarpaciente')}}" class="btn btn-primary">Cargar paciente</a>
+                    <div class="form-group row"><a href="{{route('cargarpaciente')}}" class="btn btn-primary ml-3">Cargar paciente</a></div>
+                    <div class="form-group row"><a href="{{route('administrarsistema')}}" class="btn btn-primary ml-3">Administrar sistema</a></div>
                 </div>
             </div>
         </div>

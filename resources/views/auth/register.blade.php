@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Registar Médico o Jefe') }}</div>
+                <div class="card-header">{{ __('Cargar personal') }}</div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('register') }}">
@@ -16,6 +16,7 @@
 
                             <div class="col-md-6">
                                 <select id="tipo" name="tipo" class="form-control">
+                                    <option value="administrador" {{ old('tipo') == 'administrador' ? 'selected="selected"' : '' }}>Administrador</option>
                                     <option value="medico" {{ old('tipo') == 'medico' ? 'selected="selected"' : '' }}>Médico</option>
                                     <option value="jefe" {{ old('tipo') == 'jefe' ? 'selected="selected"' : '' }}>Jefe</option>
                                   </select>
@@ -54,7 +55,7 @@
                             <label for="legajo" class="col-md-4 col-form-label text-md-right">{{ __('Legajo') }}</label>
 
                             <div class="col-md-6">
-                                <input id="legajo" type="text" maxlength="10" class="form-control @error('legajo') is-invalid @enderror" name="legajo" value="{{ old('legajo') }}" required autocomplete="legajo" autofocus>
+                                <input id="legajo" type="text" maxlength="10" class="form-control @error('legajo') is-invalid @enderror" name="legajo" value="{{ old('legajo') }}" autocomplete="legajo" autofocus>
 
                                 @error('legajo')
                                     <span class="invalid-feedback" role="alert">

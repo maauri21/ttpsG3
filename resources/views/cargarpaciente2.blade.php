@@ -92,8 +92,49 @@
                                 </div>
                             </div>
 
-                            <div class="border-top my-4"></div>
+                            <div class="form-group row">
+                                <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('Mail') }}</label>
+    
+                                <div class="col-md-6">
+                                    <input id="email" type="email" maxlength="30" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
+    
+                                    @error('email')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
 
+                            <div class="form-group row">
+                                <label for="obrasocial" class="col-md-4 col-form-label text-md-right">{{ __('Obra Social') }}</label>
+    
+                                <div class="col-md-6">
+                                    <input id="obrasocial" type="text" maxlength="15" class="form-control @error('obrasocial') is-invalid @enderror" name="obrasocial" value="{{ old('obrasocial') }}" autocomplete="obrasocial" autofocus>
+    
+                                    @error('obrasocial')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="antecedentes" class="col-md-4 col-form-label text-md-right">{{ __('Antecedentes personales') }}</label>
+    
+                                <div class="col-md-6">
+                                    <input id="antecedentes" type="text" class="form-control @error('antecedentes') is-invalid @enderror" name="antecedentes" value="{{ old('antecedentes') }}" autocomplete="antecedentes" autofocus>
+    
+                                    @error('antecedentes')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="border-top my-4"></div>
                             <h4 class="my-4" align=center>Contacto</h4>
 
                             <div class="form-group row">
