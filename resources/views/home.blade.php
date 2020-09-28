@@ -4,8 +4,8 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
+            <div class="card border-primary">
+                <div class="card-header text-white bg-primary">{{ __('Panel') }}</div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -13,8 +13,12 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
-                    {{ __('You are logged in!') }}
+                    <div class="form-group row"><a href="{{route('register')}}" class="btn btn-primary ml-3">Cargar personal</a></div>
+                    @can('cargarPaciente')
+                    <h2>Cosa de medico</h2>
+                    @endcan
+                    <div class="form-group row"><a href="{{route('cargarpaciente')}}" class="btn btn-primary ml-3">Cargar paciente</a></div>
+                    <div class="form-group row"><a href="{{route('administrarsistema')}}" class="btn btn-primary ml-3">Administrar sistema</a></div>
                 </div>
             </div>
         </div>
