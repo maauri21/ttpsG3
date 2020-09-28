@@ -4,14 +4,15 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">{{ __('Administrar sala') }}</div>
-
-                    Lista de salas para este sistema, pudiendole agregar camas a ellas
-                    <div class="border-top my-4"></div>
-                    <h4 align=center>Nueva sala</h4>
+                <div class="card border-primary">
+                    <div class="card-header text-white bg-primary">{{ __('Nueva sala en ' . $salas[0]->sistema->nombre) }}</div>
+                   <div class="my-2"></div>
+                    @if ( session('mensaje') )
+                        <div class="alert alert-success mb-2">{{ session('mensaje') }}</div>
+                    @endif
+                    
                     <div class="card-body">
-                        <form method="GET" action="{{ route('crearsala',$idSistema) }}">
+                        <form method="GET" action="{{ route('crearsala',$salas[0]->sistema->id) }}">
                             @csrf
                             <div class="form-group row">
                                 <label for="nombre" class="col-md-4 col-form-label text-md-right">{{ __('Nombre') }}</label>
@@ -49,6 +50,44 @@
                                 </div>
                             </div>
                         </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="my-4"></div>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card border-primary">
+                    <div class="card-header text-white bg-primary">{{ __('Administrar salas de ' . $salas[0]->sistema->nombre) }}</div>
+
+                    <table class="table table-hover" style="text-align: center">
+                        <thead>
+                            <tr>
+                                <th scope="col" style="width:15%">id</th>
+                                <th scope="col" style="width:35%">Nombre</th>
+                                <th scope="col" style="width:40%">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($salas as $item)
+                            <tr>
+                                <td scope="row">{{$item->id}}</td>
+                                <td>{{$item->nombre}}</td>
+                                <td><a href="" class="btn btn-success btn-sm">Agregar camas</a>
+                                    <a href="" class="btn btn-warning btn-sm">Editar</a>
+                                    <form action="" method="POST" class="d-inline">
+                                        @method('DELETE')
+                                        @csrf
+                                        <button class="btn btn-danger btn-sm" type="submit">Eliminar</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
                     </div>
                 </div>
             </div>

@@ -4,8 +4,8 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">{{ __('Cargar paciente') }}</div>
+                <div class="card border-primary">
+                    <div class="card-header text-white bg-primary">{{ __('Cargar paciente') }}</div>
     
                     <div class="card-body">
                         <form method="GET" action="{{ route('cargarpaciente3') }}">

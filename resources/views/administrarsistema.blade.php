@@ -4,8 +4,8 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">{{ __('Administrar sistema') }}</div>
+                <div class="card border-primary">
+                    <div class="card-header text-white bg-primary">{{ __('Administrar sistema') }}</div>
     
                     <div class="card-body">
                         <form method="GET" action="{{ route('administrarsala') }}">
@@ -15,7 +15,6 @@
     
                                 <div class="col-md-6">
                                     <select id="sistema" name="sistema" class="form-control">
-                                        <option disabled selected value></option>
                                         <option value="1" {{ old('sistema') == 'guardia' ? 'selected="selected"' : '' }}>Guardia</option>
                                         <option value="2" {{ old('sistema') == 'pisocovid' ? 'selected="selected"' : '' }}>Piso Covid</option>
                                         <option value="3" {{ old('sistema') == 'uti' ? 'selected="selected"' : '' }}>Unidad Terapia Intensiva</option>

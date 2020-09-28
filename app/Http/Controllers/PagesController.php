@@ -73,8 +73,8 @@ class PagesController extends Controller
     }
 
     public function administrarsala(Request $request) {
-        $idSistema=$request->sistema;
-        return view('administrarsala',compact('idSistema'));
+        $salas=App\Models\Sala::where('sistema_id', '=', $request->sistema)->get();
+        return view('administrarsala',compact('salas'));
     }
 
     public function crearsala(Request $request, $idSistema) {
@@ -88,6 +88,9 @@ class PagesController extends Controller
         $salaNueva->nombre = $request->nombre;
         $salaNueva->sistema()->associate($sistema);
         $salaNueva->save();
+        return back()->with('mensaje', 'Sala agregada');
+
+        # Agregar cantidad de camas en tabla Cama, associate con $salaNueva
     }
 
 }
