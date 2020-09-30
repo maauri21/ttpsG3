@@ -93,4 +93,76 @@ class PagesController extends Controller
         # Agregar cantidad de camas en tabla Cama, associate con $salaNueva
     }
 
+    #Empieza a tirar el capitani lbm
+
+    public function listarusuarios() {
+        $usuarios= App\Models\User::all();
+        return view('listarusuarios', compact ('usuarios'));
+    }
+
+    public function verdetalle($id){                         # se que no me lo pediste pero creo a futuro capaz lo vamos a poder implementar con los pacientes para ver las historias y esas cosas
+        $usuario= App\Models\User::findOrFail($id);
+        return view ('usuariodetalles',compact ('usuario'));
+    }
+
+    public function editorusuario ($id){
+        $usuario= App\Models\User::findOrFail($id);
+        return view ('modificarusuario',compact ('usuario'));
+
+    }
+
+    public function actualizarusuario (Request $request, $id){
+        $request->validate([
+            'nombre' => ['required', 'string', 'min:2', 'max:15'],
+            'apellido' => ['required','string', 'min:2', 'max:15'],
+                        
+        ]);                                                             #intente validar todos los campos pero solo agarra nombre, dsp por apellido, dni y los demas no entra
+        $usuarioauxiliar= App\Models\User::findOrFail($id);
+        $usuarioauxiliar->nombre= $request->nombre;
+        $usuarioauxiliar->apellido= $request->apellido;
+        $usuarioauxiliar->legajo= $request->legajo;
+        $usuarioauxiliar->email= $request->email;
+        $usuarioauxiliar->nombreUsuario= $request->nombreUsuario;
+        $usuarioauxiliar->password= bcrypt($request->password);
+        $usuarioauxiliar->save();
+        return back()->with('mensaje','Usuario Actualizado!');  #mando 'mensaje' para el manejo de sesiones, chequearlo, pero anda bien el localhost
+    }
+
+
+    public function eliminarusuario($id){
+        $usuarioEliminar=App\Models\User::findOrFail($id);
+        $usuarioEliminar->delete();
+        return back()->with('mensaje','Usuario Eliminado!'); #mando 'mensaje' para el manejo de sesiones, chequearlo, pero anda bien el localhost
+
+    }
+
+    public function eliminarsala($id){
+        $salaEliminar=App\Models\Sala::findOrFail($id);
+        $salaEliminar->delete();
+        return back()->with('mensaje','Sala Eliminada!'); #mando 'mensaje' para el manejo de sesiones, chequearlo, pero anda bien el localhost
+
+    }
+    public function editarsala ($id){
+        $sala= App\Models\Sala::findOrFail($id);
+        return view ('modificarsala',compact ('sala'));
+
+    } 
+    
+    public function actualizarsala(Request $request, $id){
+        $request->validate([
+            'nombre' => ['required', 'string', 'min:2', 'max:15'],          #mismo caso que actualizar usuario, aca solo chequeo nombre, pero si tuviera que chequear idSistema pasaria lo mismo que actualizarUsuario
+           
+         ]);
+                    
+        $usuarioauxiliar= App\Models\Sala::findOrFail($id);
+        $usuarioauxiliar->id= $request->id;
+        $usuarioauxiliar->nombre= $request->nombre;
+        $usuarioauxiliar->sistema_id= $request->sistema_id;
+         $usuarioauxiliar->save();
+        return back()->with('mensaje','Sala Actualizada!');
+    }
 }
+
+#App\Usuario::all();
+
+

@@ -76,9 +76,9 @@
                             <tr>
                                 <td scope="row">{{$item->id}}</td>
                                 <td>{{$item->nombre}}</td>
-                                <td><a href="" class="btn btn-success btn-sm">Agregar camas</a>
-                                    <a href="" class="btn btn-warning btn-sm">Editar</a>
-                                    <form action="" method="POST" class="d-inline">
+                                <td><a href="" class="btn btn-success btn-sm">Agregar camas</a>                                            {{-- class="d-inline" deberia meterle al boton de Editar pero nose donde ponerlo adentro asi queda a nivel con los otros 2 --}}
+                                    <td><a href="{{route ('editarsala', $item)}}" class = "btn btn-warning bt-sm"; >Editar</a>  
+                                    <form action="{{route('eliminarsala', $item) }}" method="POST" class="d-inline">
                                         @method('DELETE')
                                         @csrf
                                         <button class="btn btn-danger btn-sm" type="submit">Eliminar</button>
@@ -95,3 +95,4 @@
     </div>
 
 @endsection
+
