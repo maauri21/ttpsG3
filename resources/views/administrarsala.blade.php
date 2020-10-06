@@ -4,13 +4,12 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
+                @if ( session('mensaje') )
+                    <div class="alert alert-success mb-2">{{ session('mensaje') }}</div>
+                @endif
                 <div class="card border-primary">
                     <div class="card-header text-white bg-primary">{{ __('Nueva sala en ' . $salas[0]->sistema->nombre) }}</div>
-                   <div class="my-2"></div>
-                    @if ( session('mensaje') )
-                        <div class="alert alert-success mb-2">{{ session('mensaje') }}</div>
-                    @endif
-                    
+
                     <div class="card-body">
                         <form method="GET" action="{{ route('crearsala',$salas[0]->sistema->id) }}">
                             @csrf
@@ -62,7 +61,7 @@
             <div class="col-md-8">
                 <div class="card border-primary">
                     <div class="card-header text-white bg-primary">{{ __('Administrar salas de ' . $salas[0]->sistema->nombre) }}</div>
-
+                    <div style="overflow-x:auto;">
                     <table class="table table-hover" style="text-align: center">
                         <thead>
                             <tr>
@@ -76,8 +75,8 @@
                             <tr>
                                 <td scope="row">{{$item->id}}</td>
                                 <td>{{$item->nombre}}</td>
-                                <td><a href="" class="btn btn-success btn-sm">Agregar camas</a>                                            {{-- class="d-inline" deberia meterle al boton de Editar pero nose donde ponerlo adentro asi queda a nivel con los otros 2 --}}
-                                    <td><a href="{{route ('editarsala', $item)}}" class = "btn btn-warning bt-sm"; >Editar</a>  
+                                <td><a href="" class="btn btn-success btn-sm">Agregar camas</a>
+                                    <a href="{{route ('editarsala', $item)}}" class="btn btn-warning btn-sm">Editar</a>  
                                     <form action="{{route('eliminarsala', $item) }}" method="POST" class="d-inline">
                                         @method('DELETE')
                                         @csrf
@@ -88,6 +87,7 @@
                         @endforeach
                         </tbody>
                     </table>
+                    </div>
                     </div>
                 </div>
             </div>

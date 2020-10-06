@@ -1,41 +1,46 @@
 @extends('layouts.app')
 
 @section('content')
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                @if ( session('mensaje') )
+                    <div class="alert alert-success mb-2">{{ session('mensaje') }}</div>
+                @endif
+                <div class="card border-primary">
+                    <div class="card-header text-white bg-primary">{{ __('Modificar ' . $sala->nombre) }}</div>
+    
+                    <div class="card-body">
+                        <form action="{{ route('actualizarsala', $sala->id) }}" method="POST">
+                         @method('PUT')
+                            @csrf
+                            
+                            <div class="form-group row">
+                                <label for="nombre" class="col-md-4 col-form-label text-md-right">{{ __('Nombre') }}</label>
+    
+                                <div class="col-md-6">
+                                    <input id="nombre" type="text" maxlength="15" class="form-control @error('nombre') is-invalid @enderror" name="nombre" value="{{ $sala->nombre }}" spellcheck="false" required autocomplete="nombre" autofocus>
+    
+                                    @error('nombre')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
 
-    <h1>Editar Sala {{$sala->nombre}}</h1>
-
-    @if (session('mensaje'))
-        <div class="alert alert-success">{{ session('mensaje') }}
-
-        </div>
-    @endif
-
-    <form action="{{ route('actualizarsala', $sala->id) }}" method="POST">
-     @method('PUT')
-        @csrf
-
-        @error('nombre')
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            El nombre es requerido
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        @enderror 
-        @if ($errors->has('descripcion'))
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                La descripción es requerida
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                            <div class="form-group row mb-0">
+                                <div class="col-md-6 offset-md-4">
+                                    <button type="submit" class="btn btn-primary">
+                                        {{ __('Editar') }}
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
-        @endif
-
-        
-        <input type="text" name="nombre" placeholder="Nombre de la sala" class="form-control mb-2" value="{{ $sala->nombre }}">
-        <input type="text" name="sistema_id" placeholder="Id en el sistema" class="form-control mb-2" value="{{ $sala->sistema_id }}">
-        
-        <button class="btn btn-warning btn-block" type="submit">Aceptar</button>
-    </form>
+        </div>
+    </div>
 
 @endsection

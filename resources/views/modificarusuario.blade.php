@@ -1,45 +1,99 @@
 @extends('layouts.app')
 
 @section('content')
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card border-primary">
+                    <div class="card-header text-white bg-primary">{{ __('Editar paciente ' . $usuario->nombreUsuario) }}</div>
+    
+                    <div class="card-body">
+                        <form method="POST" spellcheck="false" action="{{ route('actualizarusuario', $usuario->id) }}">
+                            @method('PUT')
+                            @csrf
 
-    <h1>Editar Usuario {{$usuario->nombreUsuario}}</h1>
+                        <div class="form-group row">
+                            <label for="nombre" class="col-md-4 col-form-label text-md-right">{{ __('Nombre') }}</label>
 
-    @if (session('mensaje'))
-        <div class="alert alert-success">{{ session('mensaje') }}
+                            <div class="col-md-6">
+                                <input id="nombre" type="text" maxlength="15" class="form-control @error('nombre') is-invalid @enderror" name="nombre" value="{{ $usuario->nombre }}" required autocomplete="nombre" autofocus>
 
-        </div>
-    @endif
+                                @error('nombre')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
 
-    <form action="{{ route('actualizarusuario', $usuario->id) }}" method="POST">
-     @method('PUT')
-     @csrf
+                        <div class="form-group row">
+                            <label for="apellido" class="col-md-4 col-form-label text-md-right">{{ __('Apellido') }}</label>
 
-        @error('nombre')
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            El nombre es requerido
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        @enderror 
-        @if ($errors->has('descripcion'))
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">      
-                La descripción es requerida
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                            <div class="col-md-6">
+                                <input id="apellido" type="text" maxlength="20" class="form-control @error('apellido') is-invalid @enderror" name="apellido" value="{{ $usuario->apellido }}" required autocomplete="apellido" autofocus>
+
+                                @error('apellido')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="legajo" class="col-md-4 col-form-label text-md-right">{{ __('Legajo') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="legajo" type="text" maxlength="10" class="form-control @error('legajo') is-invalid @enderror" name="legajo" value="{{ $usuario->legajo }}" autocomplete="legajo" autofocus>
+
+                                @error('legajo')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('Mail') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="email" type="email" maxlength="30" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $usuario->email }}" required autocomplete="email">
+
+                                @error('email')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="nombreUsuario" class="col-md-4 col-form-label text-md-right">{{ __('Usuario') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="nombreUsuario" type="text" maxlength="15" class="form-control @error('nombreUsuario') is-invalid @enderror" name="nombreUsuario" value="{{ $usuario->nombreUsuario }}" required autocomplete="nombreUsuario">
+
+                                @error('nombreUsuario')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                            <div class="form-group row mb-0">
+                                <div class="col-md-6 offset-md-4">
+                                    <button type="submit" class="btn btn-primary">
+                                        {{ __('Aceptar') }}
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
-        @endif
-
-                    
-        <input type="text" name="nombre" placeholder="Nombre" class="form-control mb-2" value="{{ $usuario->nombre }}">
-        <input type="text" name="apellido" placeholder="Apellido" class="form-control mb-2" value="{{ $usuario->apellido }}">
-        <input type="text" name="legajo" placeholder="Legajo" class="form-control mb-2" value="{{ $usuario->legajo }}">
-        <input type="text" name="email" placeholder="Email" class="form-control mb-2" value="{{ $usuario->email }}">
-        <input type="text" name="nombreUsuario" placeholder="Nombre de Usuario" class="form-control mb-2" value="{{ $usuario->nombreUsuario }}">
-        <input type="text" name="password" placeholder="Password" class="form-control mb-2" value="{{ $usuario->password }}">
-        <button class="btn btn-warning btn-block" type="submit">Aceptar</button>
-    </form>
+        </div>
+    </div>
 
 @endsection
 

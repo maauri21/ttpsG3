@@ -16,9 +16,10 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 
     <!-- Bootstrap -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link href="{{ asset('bootstrap.css') }}" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>    
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
@@ -30,9 +31,10 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
+<!--                <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name') }}
                 </a>
+-->
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -81,9 +83,74 @@
             </div>
         </nav>
 
+  <!-- Side navbar -->   
+
+        <div class="nav-side-menu">
+            <div class="navtitulo"><a style="color: white;" href="{{ url('/') }}">SECO</a></div>
+            <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
+          
+                <div class="menu-list">
+          
+                    <ul id="menu-content" class="menu-content collapse out">
+                        <li data-toggle="collapse" data-target="#sistema" class="collapsed">
+                            <a href="#"><i class="fa fa-building fa-lg"></i> Sistema<span class="arrow"></span></a>
+                          </li>  
+                          <ul class="sub-menu collapse" id="sistema">
+                            <li><a href="{{ route('administrarsala', ['id' => 1]) }}">Guardia</a></li>
+                            <li><a href="{{ route('administrarsala', ['id' => 2]) }}">Piso Covid</a></li>
+                            <li><a href="{{ route('administrarsala', ['id' => 3]) }}">Unidad Terapia Intensiva</a></li>
+                          </ul>
+
+                        <li data-toggle="collapse" data-target="#personal" class="collapsed">
+                          <a href="#"><i class="fa fa-user fa-lg"></i> Personal<span class="arrow"></span></a>
+                        </li>  
+                        <ul class="sub-menu collapse" id="personal">
+                          <li><a href="{{route('register')}}">Cargar</a></li>
+                          <li><a href="{{route('listarusuarios')}}">Administrar</a></li>
+                        </ul>
+
+                        <li data-toggle="collapse" data-target="#paciente" class="collapsed">
+                            <a href="#"><i class="fa fa-users fa-lg"></i> Paciente<span class="arrow"></span></a>
+                          </li>  
+                          <ul class="sub-menu collapse" id="paciente">
+                            <li><a href="{{route('cargarpaciente')}}">Cargar</a></li>
+                            <li>Listar</li>
+                          </ul>
+        
+        
+                        <li data-toggle="collapse" data-target="#new" class="collapsed">
+                          <a href="#"><i class="fa fa-car fa-lg"></i> New <span class="arrow"></span></a>
+                        </li>
+                        <ul class="sub-menu collapse" id="new">
+                          <li>New New 1</li>
+                          <li>New New 2</li>
+                          <li>New New 3</li>
+                        </ul>
+        
+        
+                         <li>
+                          <a href="#">
+                          <i class="fa fa-user fa-lg"></i> Profile
+                          </a>
+                          </li>
+        
+                         <li>
+                          <a href="#">
+                          <i class="fa fa-globe fa-lg"></i> Users
+                          </a>
+                        </li>
+                    </ul>
+             </div>
+        </div>
+
         <main class="py-4">
             @yield('content')
         </main>
     </div>
+    <footer id="sticky-footer" class="py-2 bg-primary text-white">
+        <div class="container text-center">
+          <small>Copyright &copy; 2020</small>
+        </div>
+    </footer>
 </body>
 </html>

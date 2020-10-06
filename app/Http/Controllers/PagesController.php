@@ -68,12 +68,8 @@ class PagesController extends Controller
         $pacienteNuevo->sistemas()->attach(1, ['inicio' => date('Y-m-d')]);     #Ademas de asignarle guardia, Agrego fecha en la tabla intermedia
     }
 
-    public function administrarsistema() {
-        return view('administrarsistema');
-    }
-
-    public function administrarsala(Request $request) {
-        $salas=App\Models\Sala::where('sistema_id', '=', $request->sistema)->get();
+    public function administrarsala(Request $request, $id) {
+        $salas=App\Models\Sala::where('sistema_id', '=', $id)->get();
         return view('administrarsala',compact('salas'));
     }
 
@@ -100,11 +96,6 @@ class PagesController extends Controller
         return view('listarusuarios', compact ('usuarios'));
     }
 
-    public function verdetalle($id){                         # se que no me lo pediste pero creo a futuro capaz lo vamos a poder implementar con los pacientes para ver las historias y esas cosas
-        $usuario= App\Models\User::findOrFail($id);
-        return view ('usuariodetalles',compact ('usuario'));
-    }
-
     public function editorusuario ($id){
         $usuario= App\Models\User::findOrFail($id);
         return view ('modificarusuario',compact ('usuario'));
@@ -112,57 +103,50 @@ class PagesController extends Controller
     }
 
     public function actualizarusuario (Request $request, $id){
+        $usuarioauxiliar= App\Models\User::findOrFail($id);
         $request->validate([
             'nombre' => ['required', 'string', 'min:2', 'max:15'],
-            'apellido' => ['required','string', 'min:2', 'max:15'],
+            'apellido' => ['required', 'string', 'min:2', 'max:20'],
+            'legajo' => 'nullable|string|max:10|unique:users,legajo,'.$usuarioauxiliar->id.',id',
+            'email' => 'required|email|max:30|unique:users,email,'.$usuarioauxiliar->id.',id',
+            'nombreUsuario' => 'required|string|max:15|unique:users,nombreUsuario,'.$usuarioauxiliar->id.',id',
                         
-        ]);                                                             #intente validar todos los campos pero solo agarra nombre, dsp por apellido, dni y los demas no entra
-        $usuarioauxiliar= App\Models\User::findOrFail($id);
+        ]);
         $usuarioauxiliar->nombre= $request->nombre;
         $usuarioauxiliar->apellido= $request->apellido;
         $usuarioauxiliar->legajo= $request->legajo;
         $usuarioauxiliar->email= $request->email;
         $usuarioauxiliar->nombreUsuario= $request->nombreUsuario;
-        $usuarioauxiliar->password= bcrypt($request->password);
         $usuarioauxiliar->save();
-        return back()->with('mensaje','Usuario Actualizado!');  #mando 'mensaje' para el manejo de sesiones, chequearlo, pero anda bien el localhost
+        return redirect('listarusuarios')->with('mensaje','Usuario editado');
     }
 
 
     public function eliminarusuario($id){
         $usuarioEliminar=App\Models\User::findOrFail($id);
         $usuarioEliminar->delete();
-        return back()->with('mensaje','Usuario Eliminado!'); #mando 'mensaje' para el manejo de sesiones, chequearlo, pero anda bien el localhost
-
+        return back()->with('mensaje','Usuario eliminado');
     }
 
     public function eliminarsala($id){
         $salaEliminar=App\Models\Sala::findOrFail($id);
         $salaEliminar->delete();
-        return back()->with('mensaje','Sala Eliminada!'); #mando 'mensaje' para el manejo de sesiones, chequearlo, pero anda bien el localhost
+        return back()->with('mensaje','Sala eliminada');
 
     }
     public function editarsala ($id){
-        $sala= App\Models\Sala::findOrFail($id);
+        $sala=App\Models\Sala::findOrFail($id);
         return view ('modificarsala',compact ('sala'));
-
     } 
     
     public function actualizarsala(Request $request, $id){
         $request->validate([
-            'nombre' => ['required', 'string', 'min:2', 'max:15'],          #mismo caso que actualizar usuario, aca solo chequeo nombre, pero si tuviera que chequear idSistema pasaria lo mismo que actualizarUsuario
-           
+            'nombre' => ['required', 'string', 'min:2', 'max:15'],
          ]);
-                    
-        $usuarioauxiliar= App\Models\Sala::findOrFail($id);
-        $usuarioauxiliar->id= $request->id;
-        $usuarioauxiliar->nombre= $request->nombre;
-        $usuarioauxiliar->sistema_id= $request->sistema_id;
-         $usuarioauxiliar->save();
-        return back()->with('mensaje','Sala Actualizada!');
+        $salaModificar=App\Models\Sala::findOrFail($id);
+        $salaModificar->nombre = $request->nombre;
+        $salaModificar->save();
+        $url = route('administrarsala', ['id' => $salaModificar->sistema_id]);
+        return redirect($url)->with('mensaje','Sala editada');
     }
 }
-
-#App\Usuario::all();
-
-
