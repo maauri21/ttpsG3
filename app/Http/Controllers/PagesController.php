@@ -84,9 +84,15 @@ class PagesController extends Controller
         $salaNueva->nombre = $request->nombre;
         $salaNueva->sistema()->associate($sistema);
         $salaNueva->save();
-        return back()->with('mensaje', 'Sala agregada');
 
-        # Agregar cantidad de camas en tabla Cama, associate con $salaNueva
+        # Agrego la cantidad de camas que puse en el formulario para esa sala
+        for ($i = 1; $i <= $request->camas; $i++) {
+            $camaNueva = new App\Models\Cama;
+            $camaNueva->sala()->associate($salaNueva);
+            $camaNueva->save();
+        }
+
+        return back()->with('mensaje', 'Sala agregada');
     }
 
     #Empieza a tirar el capitani lbm

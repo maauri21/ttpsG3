@@ -144,13 +144,26 @@
         </div>
 
         <main class="py-4">
-            @yield('content')
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="@yield('tamañoPanel')">
+                        @yield('alerta')
+                        <div class="card border-primary">
+                            <div class="card-header text-white bg-primary">@yield('nombrePanel')</div>
+                            <div class="card-body">
+                                @yield('content')
+                            </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              @yield('content2')
         </main>
     </div>
     <footer id="sticky-footer" class="py-2 bg-primary text-white">
-        <div class="container text-center">
-          <small>Copyright &copy; 2020</small>
-        </div>
+      <div class="container text-center">
+        <small>Copyright &copy; 2020</small>
+      </div>
     </footer>
 </body>
 </html>
