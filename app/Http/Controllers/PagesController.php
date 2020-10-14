@@ -150,7 +150,7 @@ class PagesController extends Controller
     
     public function actualizarsala(Request $request, $id){
         $request->validate([
-            'nombre' => ['required', 'string', 'min:2', 'max:15'],
+            'nombre' => ['required', 'string', 'min:2', 'max:15'], #mismo caso que actualizar usuario, aca solo chequeo nombre, pero si tuviera que chequear idSistema pasaria lo mismo que actualizarUsuario
             'apellido' => ['required', 'string', 'min:2', 'max:20'],
             'legajo' => ['required', 'numeric', 'digits_between:7,9', 'unique:users'],
             'email' => ['required', 'string', 'email', 'max:30', 'unique:users'],
