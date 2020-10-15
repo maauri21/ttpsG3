@@ -15,8 +15,10 @@ class CreateCamasTable extends Migration
     {
         Schema::create('camas', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('sala_id');
-            $table->unsignedInteger('paciente_id')->nullable();
+            $table->unsignedBigInteger('sala_id');
+            $table->unsignedBigInteger('paciente_id')->nullable();
+            $table->foreign('sala_id')->references('id')->on('salas')->onDelete('cascade');
+            $table->foreign('paciente_id')->references('id')->on('pacientes')->onDelete('cascade');
         });
     }
 

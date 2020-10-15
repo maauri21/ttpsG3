@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layout')
 
 @section('nombrePanel')
 Iniciar sesión
@@ -57,12 +57,6 @@ col-md-8
             <button type="submit" class="btn btn-primary">
                 {{ __('Iniciar sesión') }}
             </button>
-
-            @if (Route::has('password.request'))
-                <a class="btn btn-link" href="{{ route('password.request') }}">
-                    {{ __('Olvidó su contraseña?') }}
-                </a>
-            @endif
         </div>
     </div>
 </form>

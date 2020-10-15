@@ -1,27 +1,34 @@
-@extends('layouts.app')
+@extends('layout')
 
 @section('nombrePanel')
-{{ 'Nueva sala en ' . $salas[0]->sistema->nombre }}
+{{ 'Nueva sala en ' . $sistema->nombre }}
 @endsection
 
 @section('tamañoPanel')
-col-md-8
+col-md-9
 @endsection
 
 @section('alerta')
 @if ( session('mensaje') )
     <div class="alert alert-success mb-2">{{ session('mensaje') }}</div>
 @endif
+
+@if ( session('mensaje2') )
+    <div class="alert alert-danger mb-2">{{ session('mensaje2') }}</div>
+@endif
+
 @endsection
 
+
+
 @section('content')
-<form method="GET" action="{{ route('crearsala',$salas[0]->sistema->id) }}">
+<form method="GET" action="{{ route('crearsala',$sistema->id) }}">
     @csrf
     <div class="form-group row">
         <label for="nombre" class="col-md-4 col-form-label text-md-right">{{ __('Nombre') }}</label>
 
         <div class="col-md-6">
-            <input id="nombre" type="text" maxlength="15" class="form-control @error('nombre') is-invalid @enderror" name="nombre" value="{{ old('nombre') }}" required autocomplete="nombre" autofocus>
+            <input id="nombre" type="text" maxlength="25" class="form-control @error('nombre') is-invalid @enderror" name="nombre" value="{{ old('nombre') }}" required autocomplete="nombre" autofocus>
 
             @error('nombre')
                 <span class="invalid-feedback" role="alert">
@@ -59,9 +66,35 @@ col-md-8
 <main class="mt-4">
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-9">
             <div class="card border-primary">
-                <div class="card-header text-white bg-primary">{{ __('Administrar salas de ' . $salas[0]->sistema->nombre) }}</div>
+                <div class="card-header text-white bg-primary">{{ __('Panel Jefe') }}</div>
+                    <div style="overflow-x:auto;">
+                        <table class="table table-hover" style="text-align: center">
+                            <thead>
+                                <tr>
+                                    <th scope="col" style="width:25%">Camas totales: {{$total}}</th>
+                                    <th scope="col" style="width:25%">Camas libres: {{$libres}}</th>
+                                    <th scope="col" style="width:25%">Camas ocupadas: {{$ocupadas}}</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
+
+@section('content3')
+<main class="mb-4">
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-9">
+            <div class="card border-primary">
+                <div class="card-header text-white bg-primary">{{ __('Administrar salas de ' . $sistema->nombre) }}</div>
                 <div style="overflow-x:auto;">
                 <table class="table table-hover" style="text-align: center">
                     <thead>
@@ -76,7 +109,7 @@ col-md-8
                         <tr>
                             <td scope="row">{{$item->id}}</td>
                             <td>{{$item->nombre}}</td>
-                            <td><a href="" class="btn btn-success btn-sm">Agregar camas</a>
+                            <td><a href="" class="btn btn-info btn-sm">Pacientes</a>
                                 <a href="{{route ('editarsala', $item)}}" class="btn btn-warning btn-sm">Editar</a>  
                                 <form action="{{route('eliminarsala', $item) }}" method="POST" class="d-inline">
                                     @method('DELETE')

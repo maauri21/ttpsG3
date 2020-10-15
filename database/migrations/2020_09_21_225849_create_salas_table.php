@@ -16,7 +16,8 @@ class CreateSalasTable extends Migration
         Schema::create('salas', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
-            $table->unsignedInteger('sistema_id');
+            $table->unsignedBigInteger('sistema_id');
+            $table->foreign('sistema_id')->references('id')->on('sistemas')->onDelete('cascade');
         });
     }
 

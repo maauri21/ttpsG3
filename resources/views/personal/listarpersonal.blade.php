@@ -1,7 +1,7 @@
-@extends('layouts.app')
+@extends('layout')
 
 @section('nombrePanel')
-Administrar usuarios
+Administrar personal
 @endsection
 
 @section('tamañoPanel')
@@ -41,7 +41,7 @@ col-md-11
             <td>{{$item->email}}</td>
             <td>{{$item->nombreUsuario}}</td>
             <td>
-                <a href="{{route ('editorusuario', $item)}}" class="btn btn-warning btn-sm">Editar</a>  
+                <a href="{{route ('editarpersonal', $item)}}" class="btn btn-warning btn-sm">Editar</a>  
                 <form action="{{route('eliminarusuario', $item) }}" method="POST" class="d-inline">
                     @method('DELETE')
                     @csrf

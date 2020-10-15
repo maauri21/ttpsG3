@@ -9,7 +9,7 @@ class PagesController extends Controller
 {
 
     public function cargarpaciente() {
-        return view('cargarpaciente');
+        return view('pacientes.cargarpaciente');
     }
 
     public function cargarpaciente2(Request $request) {
@@ -19,7 +19,7 @@ class PagesController extends Controller
         $dni=$request->dni;
         $paciente=App\Models\Paciente::where('dni', '=', $dni)->get();
         if ($paciente == '[]') {
-            return view('cargarpaciente2',compact('dni'));
+            return view('pacientes.cargarpaciente2',compact('dni'));
         }
         else {
             echo "carga3";
@@ -68,14 +68,33 @@ class PagesController extends Controller
         $pacienteNuevo->sistemas()->attach(1, ['inicio' => date('Y-m-d')]);     #Ademas de asignarle guardia, Agrego fecha en la tabla intermedia
     }
 
-    public function administrarsala(Request $request, $id) {
+    public function administrarsistema(Request $request, $id) {
         $salas=App\Models\Sala::where('sistema_id', '=', $id)->get();
-        return view('administrarsala',compact('salas'));
+        $camas=App\Models\Cama::all();
+        $sistema=App\Models\Sistema::findOrFail($id);
+
+        # Cuento las del sistema donde estoy
+        $total=0;
+        $libres=0;
+        $ocupadas=0;
+        foreach ($camas as $cama) {
+            if ($cama->sala->sistema->id == $id) {
+                $total++;
+                if ($cama->paciente_id == NULL) {
+                    $libres++;
+                }
+                else {
+                    $ocupadas++;
+                }
+
+            }
+        }
+        return view('sistemas.administrarsistema',compact('salas','sistema','total','libres','ocupadas'));
     }
 
     public function crearsala(Request $request, $idSistema) {
         $request->validate([
-            'nombre' => ['required', 'string', 'min:2', 'max:15'],
+            'nombre' => ['required', 'string', 'min:2', 'max:25'],
             'camas' => ['required', 'numeric', 'digits_between:1,4'],
         ]);
         $sistema=App\Models\Sistema::findOrFail($idSistema);
@@ -97,14 +116,14 @@ class PagesController extends Controller
 
     #Empieza a tirar el capitani lbm
 
-    public function listarusuarios() {
+    public function listarpersonal() {
         $usuarios= App\Models\User::all();
-        return view('listarusuarios', compact ('usuarios'));
+        return view('personal.listarpersonal', compact ('usuarios'));
     }
 
-    public function editorusuario ($id){
+    public function editarpersonal ($id){
         $usuario= App\Models\User::findOrFail($id);
-        return view ('modificarusuario',compact ('usuario'));
+        return view ('personal.editarpersonal',compact ('usuario'));
 
     }
 
@@ -124,7 +143,7 @@ class PagesController extends Controller
         $usuarioauxiliar->email= $request->email;
         $usuarioauxiliar->nombreUsuario= $request->nombreUsuario;
         $usuarioauxiliar->save();
-        return redirect('listarusuarios')->with('mensaje','Usuario editado');
+        return redirect('listarpersonal')->with('mensaje','Usuario editado');
     }
 
 
@@ -136,23 +155,38 @@ class PagesController extends Controller
 
     public function eliminarsala($id){
         $salaEliminar=App\Models\Sala::findOrFail($id);
+        $camas=App\Models\Cama::where('sala_id', '=', $id)->get();
+        foreach ($camas as $cama) {
+            if ($cama->paciente_id != NULL) {
+                return back()->with('mensaje2','No se puede borrar una sala que tiene camas ocupadas');
+             }
+        }
         $salaEliminar->delete();
         return back()->with('mensaje','Sala eliminada');
-
     }
+
     public function editarsala ($id){
         $sala=App\Models\Sala::findOrFail($id);
-        return view ('modificarsala',compact ('sala'));
+        return view ('sala.editarsala',compact ('sala'));
     } 
     
     public function actualizarsala(Request $request, $id){
         $request->validate([
-            'nombre' => ['required', 'string', 'min:2', 'max:15'],
+            'nombre' => ['required', 'string', 'min:2', 'max:25'],
+            'camas' => ['nullable', 'digits_between:1,2'],
          ]);
-        $salaModificar=App\Models\Sala::findOrFail($id);
-        $salaModificar->nombre = $request->nombre;
-        $salaModificar->save();
-        $url = route('administrarsala', ['id' => $salaModificar->sistema_id]);
+        $salaEditar=App\Models\Sala::findOrFail($id);
+        $salaEditar->nombre = $request->nombre;
+
+        # Agrego la cantidad de camas que puse en el formulario para esa sala
+        for ($i = 1; $i <= $request->camas; $i++) {
+            $camaNueva = new App\Models\Cama;
+            $camaNueva->sala()->associate($salaEditar);
+            $camaNueva->save();
+        }
+
+        $salaEditar->save();
+        $url = route('administrarsistema', ['id' => $salaEditar->sistema_id]);
         return redirect($url)->with('mensaje','Sala editada');
     }
 }

@@ -17,6 +17,23 @@ class CreateSistemasTable extends Migration
             $table->id();
             $table->string('nombre');
         });
+        
+
+        DB::table('sistemas')->insert([
+            'nombre' => 'Guardia'
+        ]);
+        DB::table('sistemas')->insert([
+            'nombre' => 'Piso Covid'
+        ]);
+        DB::table('sistemas')->insert([
+            'nombre' => 'Unidad Terapia Intensiva'
+        ]);
+        DB::table('sistemas')->insert([
+            'nombre' => 'Hotel'
+        ]);
+        DB::table('sistemas')->insert([
+            'nombre' => 'Domicilio'
+        ]);
     }
 
     /**

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layout')
 
 @section('nombrePanel')
 {{ 'Editar paciente ' . $usuario->nombreUsuario }}

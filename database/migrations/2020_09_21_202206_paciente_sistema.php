@@ -15,10 +15,12 @@ class PacienteSistema extends Migration
     {
         Schema::create('paciente_sistema', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('paciente_id');
-            $table->unsignedInteger('sistema_id');
+            $table->unsignedBigInteger('paciente_id');
+            $table->unsignedBigInteger('sistema_id');
             $table->date('inicio');
             $table->date('fin')->nullable();
+            $table->foreign('paciente_id')->references('id')->on('pacientes')->onDelete('cascade');
+            $table->foreign('sistema_id')->references('id')->on('sistemas')->onDelete('cascade');
         });
     }
 

@@ -31,10 +31,9 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-<!--                <a class="navbar-brand" href="{{ url('/') }}">
+                <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name') }}
                 </a>
--->
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -60,11 +59,36 @@
 -->
                             @endif
                         @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->nombreUsuario }}
-                                </a>
 
+                            <li class="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle text-primary" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre><i class="fa fa-building fa-lg"></i> Sistema</a>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('administrarsistema', ['id' => 1]) }}">Guardia</a>
+                                    <a class="dropdown-item" href="{{ route('administrarsistema', ['id' => 2]) }}">Piso Covid</a>
+                                    <a class="dropdown-item" href="{{ route('administrarsistema', ['id' => 3]) }}">UTI</a>
+                                    <a class="dropdown-item" href="{{ route('administrarsistema', ['id' => 4]) }}">Hotel</a>
+                                    <a class="dropdown-item" href="{{ route('administrarsistema', ['id' => 5]) }}">Domicilio</a>
+                                </div>
+                            </li>
+
+                            <li class="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle text-primary" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre><i class="fa fa-male fa-lg"></i> Personal</a>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{route('register')}}">Cargar</a>
+                                    <a class="dropdown-item" href="{{route('listarpersonal')}}">Administrar</a>
+                                </div>
+                            </li>
+
+                            <li class="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle text-primary" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre><i class="fa fa-users fa-lg"></i> Paciente</a>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{route('cargarpaciente')}}">Cargar</a>
+                                    <a class="dropdown-item" href="#">Administrar</a>
+                                </div>
+                            </li>
+
+                            <li class="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle text-primary" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre><i class="fa fa-user fa-lg" aria-hidden="true"></i> {{ Auth::user()->nombreUsuario }}</a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
@@ -83,66 +107,6 @@
             </div>
         </nav>
 
-  <!-- Side navbar -->   
-
-        <div class="nav-side-menu">
-            <div class="navtitulo"><a style="color: white;" href="{{ url('/') }}">SECO</a></div>
-            <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
-          
-                <div class="menu-list">
-          
-                    <ul id="menu-content" class="menu-content collapse out">
-                        <li data-toggle="collapse" data-target="#sistema" class="collapsed">
-                            <a href="#"><i class="fa fa-building fa-lg"></i> Sistema<span class="arrow"></span></a>
-                          </li>  
-                          <ul class="sub-menu collapse" id="sistema">
-                            <li><a href="{{ route('administrarsala', ['id' => 1]) }}">Guardia</a></li>
-                            <li><a href="{{ route('administrarsala', ['id' => 2]) }}">Piso Covid</a></li>
-                            <li><a href="{{ route('administrarsala', ['id' => 3]) }}">Unidad Terapia Intensiva</a></li>
-                          </ul>
-
-                        <li data-toggle="collapse" data-target="#personal" class="collapsed">
-                          <a href="#"><i class="fa fa-user fa-lg"></i> Personal<span class="arrow"></span></a>
-                        </li>  
-                        <ul class="sub-menu collapse" id="personal">
-                          <li><a href="{{route('register')}}">Cargar</a></li>
-                          <li><a href="{{route('listarusuarios')}}">Administrar</a></li>
-                        </ul>
-
-                        <li data-toggle="collapse" data-target="#paciente" class="collapsed">
-                            <a href="#"><i class="fa fa-users fa-lg"></i> Paciente<span class="arrow"></span></a>
-                          </li>  
-                          <ul class="sub-menu collapse" id="paciente">
-                            <li><a href="{{route('cargarpaciente')}}">Cargar</a></li>
-                            <li>Listar</li>
-                          </ul>
-        
-        
-                        <li data-toggle="collapse" data-target="#new" class="collapsed">
-                          <a href="#"><i class="fa fa-car fa-lg"></i> New <span class="arrow"></span></a>
-                        </li>
-                        <ul class="sub-menu collapse" id="new">
-                          <li>New New 1</li>
-                          <li>New New 2</li>
-                          <li>New New 3</li>
-                        </ul>
-        
-        
-                         <li>
-                          <a href="#">
-                          <i class="fa fa-user fa-lg"></i> Profile
-                          </a>
-                          </li>
-        
-                         <li>
-                          <a href="#">
-                          <i class="fa fa-globe fa-lg"></i> Users
-                          </a>
-                        </li>
-                    </ul>
-             </div>
-        </div>
-
         <main class="py-4">
             <div class="container">
                 <div class="row justify-content-center">
@@ -158,6 +122,7 @@
                   </div>
               </div>
               @yield('content2')
+              @yield('content3')
         </main>
     </div>
     <footer id="sticky-footer" class="py-2 bg-primary text-white">
