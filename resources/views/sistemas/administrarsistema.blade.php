@@ -22,7 +22,7 @@ col-md-9
 
 
 @section('content')
-<form method="GET" action="{{ route('crearsala',$sistema->id) }}">
+<form method="POST" action="{{ route('crearsala',$sistema->id) }}">
     @csrf
     <div class="form-group row">
         <label for="nombre" class="col-md-4 col-form-label text-md-right">{{ __('Nombre') }}</label>

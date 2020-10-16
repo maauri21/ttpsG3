@@ -10,4 +10,8 @@ class Internacion extends Model
     use HasFactory;
 
     public $timestamps = false;
+
+    public function paciente(){
+        return $this->belongsTo(Paciente::class);
+    }
 }

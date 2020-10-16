@@ -21,6 +21,8 @@ class CreateInternacionsTable extends Migration
             $table->date('fInternacion');
             $table->date('fObito')->nullable();
             $table->date('fAlta')->nullable();
+            $table->unsignedBigInteger('paciente_id');
+            $table->foreign('paciente_id')->references('id')->on('pacientes')->onDelete('cascade');
         });
     }
 

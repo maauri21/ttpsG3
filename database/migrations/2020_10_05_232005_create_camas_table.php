@@ -18,7 +18,7 @@ class CreateCamasTable extends Migration
             $table->unsignedBigInteger('sala_id');
             $table->unsignedBigInteger('paciente_id')->nullable();
             $table->foreign('sala_id')->references('id')->on('salas')->onDelete('cascade');
-#            $table->foreign('paciente_id')->references('id')->on('pacientes')->onDelete('cascade');
+            $table->foreign('paciente_id')->references('id')->on('pacientes')->onDelete('cascade');
         });
     }
 

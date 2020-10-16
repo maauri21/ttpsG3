@@ -17,12 +17,12 @@ class PagesController extends Controller
             'dni' => 'required | numeric | digits_between:7,9'
         ]);
         $dni=$request->dni;
-        $paciente=App\Models\Paciente::where('dni', '=', $dni)->get();
-        if ($paciente == '[]') {
+        $paciente=App\Models\Paciente::where('dni', '=', $dni)->first();
+        if ($paciente == '') {
             return view('pacientes.cargarpaciente2',compact('dni'));
         }
         else {
-            echo "carga3";
+            return redirect()->route('cargarinternacion', ['id' => $paciente->id]);
         }
     }
 
@@ -66,6 +66,7 @@ class PagesController extends Controller
 
         #$pacienteNuevo->sistemas()->attach(1);     #Le asigno guardia
         $pacienteNuevo->sistemas()->attach(1, ['inicio' => date('Y-m-d')]);     #Ademas de asignarle guardia, Agrego fecha en la tabla intermedia
+        return redirect()->route('cargarinternacion', ['id' => $pacienteNuevo->id]);
     }
 
     public function administrarsistema(Request $request, $id) {
@@ -178,7 +179,7 @@ class PagesController extends Controller
         $request->validate([
             'nombre' => ['required', 'string', 'min:2', 'max:25'],
             'camas' => ['nullable', 'digits_between:1,2'],
-         ]);
+        ]);
         $salaEditar=App\Models\Sala::findOrFail($id);
         $salaEditar->nombre = $request->nombre;
 
@@ -193,4 +194,28 @@ class PagesController extends Controller
         $url = route('administrarsistema', ['id' => $salaEditar->sistema_id]);
         return redirect($url)->with('mensaje','Sala editada');
     }
+
+
+    public function cargarinternacion($id) {
+        return view ('pacientes.cargarinternacion',compact ('id'));
+    }
+
+    public function cargarinternacion2(Request $request, $id) {
+        $request->validate([
+            'fIniciosintomas' => ['required', 'date', 'after_or_equal:01/01/2020', 'before_or_equal:today'],
+            'fDiagnosticocovid' => ['required', 'date', 'after_or_equal:01/01/2020', 'before_or_equal:today'],
+            'descripcion' => ['required', 'string', 'min:2'],
+        ]);
+        $paciente= App\Models\Paciente::findOrFail($id);
+        $internacion = new App\Models\Internacion;
+        $internacion->fIniciosintomas = $request->fIniciosintomas;
+        $internacion->fDiagnosticocovid = $request->fDiagnosticocovid;
+        $internacion->descripcion = $request->descripcion;
+        $internacion->fInternacion = date('Y-m-d');
+        $internacion->paciente()->associate($paciente);
+        $internacion->save();
+        return redirect('/home');
+    }
+
+
 }

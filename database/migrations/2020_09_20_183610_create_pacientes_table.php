@@ -25,7 +25,7 @@ class CreatePacientesTable extends Migration
             $table->string('obrasocial')->nullable();
             $table->text('antecedentes')->nullable();
             $table->unsignedBigInteger('contacto_id')->nullable();
-#            $table->foreign('contacto_id')->references('id')->on('contactos')->onDelete('cascade');
+            $table->foreign('contacto_id')->references('id')->on('contactos')->onDelete('cascade');
             $table->timestamps();
         });
     }
