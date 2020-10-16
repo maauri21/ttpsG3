@@ -16,7 +16,7 @@ class Cama extends Model
     }
 
     public function paciente(){
-        return $this->hasOne(Paciente::class);      // 1 a 1
+        return $this->belongsTo(Paciente::class);      // 1 a 1
     }
 }
 

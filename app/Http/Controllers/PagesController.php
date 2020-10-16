@@ -70,6 +70,7 @@ class PagesController extends Controller
 
     public function administrarsistema(Request $request, $id) {
         $salas=App\Models\Sala::where('sistema_id', '=', $id)->get();
+        $cantSalas=App\Models\Sala::where('sistema_id', '=', $id)->count();
         $camas=App\Models\Cama::all();
         $sistema=App\Models\Sistema::findOrFail($id);
 
@@ -77,9 +78,11 @@ class PagesController extends Controller
         $total=0;
         $libres=0;
         $ocupadas=0;
+        $array = array();
         foreach ($camas as $cama) {
             if ($cama->sala->sistema->id == $id) {
                 $total++;
+                array_push($array, $cama->id);
                 if ($cama->paciente_id == NULL) {
                     $libres++;
                 }
@@ -89,7 +92,8 @@ class PagesController extends Controller
 
             }
         }
-        return view('sistemas.administrarsistema',compact('salas','sistema','total','libres','ocupadas'));
+        $camasSistema = App\Models\Cama::findMany($array);
+        return view('sistemas.administrarsistema',compact('salas','cantSalas','camasSistema','sistema','total','libres','ocupadas'));
     }
 
     public function crearsala(Request $request, $idSistema) {

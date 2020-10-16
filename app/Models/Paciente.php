@@ -16,4 +16,9 @@ class Paciente extends Model
     public function sistemas(){
         return $this->belongsToMany(Sistema::class); // Muchos a muchos
     }
+
+    public function cama()  //1 a1
+    {
+        return $this->hasOne(Cama::class);
+    }
 }

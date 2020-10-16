@@ -19,8 +19,8 @@ class PacienteSistema extends Migration
             $table->unsignedBigInteger('sistema_id');
             $table->date('inicio');
             $table->date('fin')->nullable();
-            $table->foreign('paciente_id')->references('id')->on('pacientes')->onDelete('cascade');
-            $table->foreign('sistema_id')->references('id')->on('sistemas')->onDelete('cascade');
+#            $table->foreign('paciente_id')->references('id')->on('pacientes')->onDelete('cascade');
+#            $table->foreign('sistema_id')->references('id')->on('sistemas')->onDelete('cascade');
         });
     }
 
