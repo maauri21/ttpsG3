@@ -82,10 +82,10 @@ col-md-9
                             <table class="table table-hover" style="text-align: center">
                                 <thead>
                                     <tr>
-                                        <th scope="col" style="width:25%">Salas: {{$cantSalas}}</th>
-                                        <th scope="col" style="width:25%">Camas totales: {{$total}}</th>
-                                        <th scope="col" style="width:25%">Camas libres: {{$libres}}</th>
-                                        <th scope="col" style="width:25%">Camas ocupadas: {{$ocupadas}}</th>
+                                        <th scope="col" style="width:25%" class="text-primary">Salas: {{$cantSalas}}</th>
+                                        <th scope="col" style="width:25%" class="text-primary">Camas totales: {{$total}}</th>
+                                        <th scope="col" style="width:25%" class="text-success">Camas libres: {{$libres}}</th>
+                                        <th scope="col" style="width:25%" class="text-danger">Camas ocupadas: {{$ocupadas}}</th></div>
                                     </tr>
                                 </thead>
                             </table>
@@ -157,7 +157,7 @@ col-md-9
                                         <tr>
                                             <td scope="row">{{$item->id}}</td>
                                             <td>{{$item->nombre}}</td>
-                                            <td><a href="" class="btn btn-info btn-sm">Camas</a>
+                                            <td><a href="{{route ('administrarsala', $item)}}" class="btn btn-info btn-sm">Ver</a>
                                                 <a href="{{route ('editarsala', $item)}}" class="btn btn-warning btn-sm">Editar</a>  
                                                 <form action="{{route('eliminarsala', $item) }}" method="POST" class="d-inline">
                                                     @method('DELETE')

@@ -91,7 +91,7 @@ class PagesController extends Controller
         return redirect()->route('cargarinternacion', ['id' => $pacienteNuevo->id]);
     }
 
-    public function administrarsistema(Request $request, $id) {
+    public function administrarsistema($id) {
         $salas=App\Models\Sala::where('sistema_id', '=', $id)->get();
         $cantSalas=App\Models\Sala::where('sistema_id', '=', $id)->count();
         $camas=App\Models\Cama::all();
@@ -194,7 +194,7 @@ class PagesController extends Controller
 
     public function editarsala ($id){
         $sala=App\Models\Sala::findOrFail($id);
-        return view ('sala.editarsala',compact ('sala'));
+        return view ('salas.editarsala',compact ('sala'));
     } 
     
     public function actualizarsala(Request $request, $id){
@@ -303,4 +303,14 @@ class PagesController extends Controller
         $cama->delete();
         return back()->with('mensaje','Cama eliminada');
     }
+
+    public function administrarsala($id) {
+        $sala=App\Models\Sala::findOrFail($id);
+        $camas=App\Models\Cama::where('sala_id', '=', $id)->get();
+        $total=App\Models\Cama::where('sala_id', '=', $id)->count();
+        $libres=App\Models\Cama::where('sala_id', '=', $id)->where('paciente_id', '=', NULL)->count();
+        $ocupadas=App\Models\Cama::where('sala_id', '=', $id)->where('paciente_id', '!=', NULL)->count();
+        return view('salas.administrarsala',compact('sala','camas','total','libres','ocupadas'));
+    }
+
 }
