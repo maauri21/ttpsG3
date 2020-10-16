@@ -19,6 +19,11 @@ class CreateSalasTable extends Migration
             $table->unsignedBigInteger('sistema_id');
             $table->foreign('sistema_id')->references('id')->on('sistemas')->onDelete('cascade');
         });
+
+        DB::table('salas')->insert([
+            'nombre' => 'Sala Guardia Infinita',
+            'sistema_id' => 1
+        ]);
     }
 
     /**

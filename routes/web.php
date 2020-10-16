@@ -29,5 +29,5 @@ Route::put('/actualizarsala/{id}', 'App\Http\Controllers\PagesController@actuali
 Route::get('paciente/internacion/{id}', 'App\Http\Controllers\PagesController@cargarinternacion')->name('cargarinternacion')->middleware('auth');
 Route::post('paciente/internacion2/{id}', 'App\Http\Controllers\PagesController@cargarinternacion2')->name('cargarinternacion2')->middleware('auth');
 
-
+Route::post('camasinfinitas', 'App\Http\Controllers\PagesController@camasinfinitas')->name('camasinfinitas')->middleware('auth');
 

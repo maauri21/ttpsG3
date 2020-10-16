@@ -16,6 +16,28 @@ class PagesController extends Controller
         $request->validate([
             'dni' => 'required | numeric | digits_between:7,9'
         ]);
+
+        # Antes de cargarlo compruebo las camas, tengo que buscar cama de guardia con paciente null
+        $libres=False;
+        $config= App\Models\Config::findOrFail(1);
+        if ($config->camasinfinitas == False) {
+            $camas=App\Models\Cama::all();
+            foreach ($camas as $cama) {
+                if ($cama->sala->sistema->id == 1) {
+                    if ($cama->paciente_id == NULL) {
+                        $libres=True;
+                        break;
+                    }
+                }
+            }
+        }
+        else {  # Camas infinitas
+            $libres=True;
+        }
+        if (!$libres) {
+            return redirect('home')->with('mensaje2','Todas las camas están ocupadas');
+        }
+
         $dni=$request->dni;
         $paciente=App\Models\Paciente::where('dni', '=', $dni)->first();
         if ($paciente == '') {
@@ -206,6 +228,8 @@ class PagesController extends Controller
             'fDiagnosticocovid' => ['required', 'date', 'after_or_equal:01/01/2020', 'before_or_equal:today'],
             'descripcion' => ['required', 'string', 'min:2'],
         ]);
+
+        
         $paciente= App\Models\Paciente::findOrFail($id);
         $internacion = new App\Models\Internacion;
         $internacion->fIniciosintomas = $request->fIniciosintomas;
@@ -214,8 +238,60 @@ class PagesController extends Controller
         $internacion->fInternacion = date('Y-m-d');
         $internacion->paciente()->associate($paciente);
         $internacion->save();
-        return redirect('/home');
+
+        $config= App\Models\Config::findOrFail(1);
+        if ($config->camasinfinitas == False) {
+            $camas=App\Models\Cama::all();
+            foreach ($camas as $cama) {
+                if ($cama->sala->sistema->id == 1) {
+                    if ($cama->paciente_id == NULL) {
+                        $cama->paciente()->associate($paciente);
+                        $cama->save();
+                        return redirect('home')->with('mensaje','Internación registrada');
+                        break;
+                    }
+                }
+            }
+        }
+        else {  # Camas infinitas activadas, primero me fijo si hay alguna libre
+            $camas=App\Models\Cama::all();
+            foreach ($camas as $cama) {
+                if ($cama->sala->sistema->id == 1) {
+                    if ($cama->paciente_id == NULL) {
+                        $cama->paciente()->associate($paciente);
+                        $cama->save();
+                        return redirect('home')->with('mensaje','Internación registrada');
+                    }
+                    else {  # No hay libres, creo una en la sala Guardia Infinita
+                        $salaNueva=True;
+                    }
+                }
+            }
+        }
+
+        if ($salaNueva) {
+            $camaNueva = new App\Models\Cama;
+            $salaGInfinita= App\Models\Sala::findOrFail(1);
+            $camaNueva->paciente()->associate($paciente);
+            $camaNueva->sala()->associate($salaGInfinita);
+            $camaNueva->save();
+            return redirect('home')->with('mensaje','Internación registrada');
+        }
     }
 
+    public function camasinfinitas(Request $request) {
+
+        $config= App\Models\Config::findOrFail(1);
+
+        if ($request->cinfinitas == 'Si') {
+            $config->camasinfinitas = True;
+            $config->save();
+        }
+        else {
+            $config->camasinfinitas = False;
+            $config->save();
+        }
+        return redirect()->route('home');
+    }
 
 }
