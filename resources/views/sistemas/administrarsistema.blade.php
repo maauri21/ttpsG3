@@ -110,8 +110,7 @@ col-md-9
                                         <td>{{!empty($cs->paciente) ? $cs->paciente->apellido:''}}</td>
                                         <td>{{!empty($cs->paciente) ? $cs->paciente->dni:''}}</td>
                                         <td><a href="" class="btn btn-info btn-sm">Ver</a>
-                                            <a href="#" class="btn btn-warning btn-sm">Editar</a>  
-                                            <form action="#" method="POST" class="d-inline">
+                                            <form action="{{route('eliminarcama',$cs)}}" method="POST" class="d-inline">
                                                 @method('DELETE')
                                                 @csrf
                                                 <button class="btn btn-danger btn-sm" type="submit">Eliminar</button>

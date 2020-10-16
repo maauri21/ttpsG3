@@ -31,3 +31,4 @@ Route::post('paciente/internacion2/{id}', 'App\Http\Controllers\PagesController@
 
 Route::post('camasinfinitas', 'App\Http\Controllers\PagesController@camasinfinitas')->name('camasinfinitas')->middleware('auth');
 
+Route::delete('/eliminarcama/{id}', 'App\Http\Controllers\PagesController@eliminarcama')->name('eliminarcama')->middleware('auth');

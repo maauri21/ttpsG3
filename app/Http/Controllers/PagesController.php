@@ -219,7 +219,8 @@ class PagesController extends Controller
 
 
     public function cargarinternacion($id) {
-        return view ('pacientes.cargarinternacion',compact ('id'));
+        $paciente=App\Models\Paciente::findOrFail($id);
+        return view ('pacientes.cargarinternacion',compact ('id','paciente'));
     }
 
     public function cargarinternacion2(Request $request, $id) {
@@ -294,4 +295,12 @@ class PagesController extends Controller
         return redirect()->route('home');
     }
 
+    public function eliminarcama($id) {
+        $cama=App\Models\Cama::findOrFail($id);
+        if ($cama->paciente_id != NULL) {
+            return back()->with('mensaje2','No se puede borrar una cama ocupada');
+        }
+        $cama->delete();
+        return back()->with('mensaje','Cama eliminada');
+    }
 }
