@@ -63,5 +63,5 @@ col-md-9
         </tbody>
     </table>
     </div>
-
+    {{$camas->links()}}
 @endsection

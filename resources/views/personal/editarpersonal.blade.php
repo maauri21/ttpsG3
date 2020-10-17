@@ -9,7 +9,7 @@ col-md-8
 @endsection
 
 @section('content')
-<form method="POST" spellcheck="false" action="{{ route('actualizarusuario', $usuario->id) }}">
+<form method="POST" spellcheck="false" action="{{ route('actualizarpersonal', $usuario->id) }}">
     @method('PUT')
     @csrf
 

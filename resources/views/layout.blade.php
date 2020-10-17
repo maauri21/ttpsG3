@@ -77,7 +77,7 @@
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle text-primary" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre><i class="fa fa-male fa-lg"></i> Personal</a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{route('register')}}">Cargar</a>
-                                    <a class="dropdown-item" href="{{route('listarpersonal')}}">Administrar</a>
+                                    <a class="dropdown-item" href="{{route('administrarpersonal')}}">Administrar</a>
                                 </div>
                             </li>
 
@@ -85,7 +85,7 @@
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle text-primary" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre><i class="fa fa-users fa-lg"></i> Paciente</a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{route('cargarpaciente')}}">Cargar</a>
-                                    <a class="dropdown-item" href="#">Administrar</a>
+                                    <a class="dropdown-item" href="{{route('administrarpacientes')}}">Administrar</a>
                                 </div>
                             </li>
 

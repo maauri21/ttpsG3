@@ -2,35 +2,41 @@
 
 use Illuminate\Support\Facades\Route;
 
+# Index
 Route::get('/', 'App\Http\Controllers\HomeController@redir')->name('redir');
-
+Route::get('home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+# Sistema
+Route::get('administrarsistema/{id}', 'App\Http\Controllers\SistemaController@administrarsistema')->name('administrarsistema')->middleware('auth');
 
+# Personal
+Route::get('personal', 'App\Http\Controllers\PersonalController@administrarpersonal')->name('administrarpersonal')->middleware('auth');
 Route::get('register', 'App\Http\Controllers\Auth\RegisterController@showRegistrationForm')->name('register');#->middleware('permission:cargarPersonal');
+Route::get('/editarpersonal/{id}', 'App\Http\Controllers\PersonalController@editarpersonal')->name('editarpersonal')->middleware('auth');
+Route::put('/actualizarpersonal/{id}', 'App\Http\Controllers\PersonalController@actualizarpersonal')->name('actualizarpersonal')->middleware('auth');
+Route::delete('/eliminarusuario/{id}', 'App\Http\Controllers\PersonalController@eliminarusuario')->name('eliminarusuario')->middleware('auth');
 
-Route::get('cargarpaciente', 'App\Http\Controllers\PagesController@cargarpaciente')->name('cargarpaciente')->middleware('auth');        #dni
-Route::get('cargarpaciente2', 'App\Http\Controllers\PagesController@cargarpaciente2')->name('cargarpaciente2')->middleware('auth');     #formulario completo
-Route::get('cargarpaciente3', 'App\Http\Controllers\PagesController@cargarpaciente3')->name('cargarpaciente3')->middleware('auth');     # validación
+# Sala
+Route::get('administrarsala/{id}', 'App\Http\Controllers\SalaController@administrarsala')->name('administrarsala')->middleware('auth');
+Route::post('crearsala/{idSistema}', 'App\Http\Controllers\SalaController@crearsala')->name('crearsala')->middleware('auth');
+Route::delete('/eliminarsala/{id}', 'App\Http\Controllers\SalaController@eliminarsala')->name('eliminarsala')->middleware('auth');
+Route::get('/editarsala/{id}', 'App\Http\Controllers\SalaController@editarsala')->name('editarsala')->middleware('auth');
+Route::put('/actualizarsala/{id}', 'App\Http\Controllers\SalaController@actualizarsala')->name('actualizarsala')->middleware('auth');
 
-Route::get('administrarsistema/{id}', 'App\Http\Controllers\PagesController@administrarsistema')->name('administrarsistema')->middleware('auth');
-Route::post('crearsala/{idSistema}', 'App\Http\Controllers\PagesController@crearsala')->name('crearsala')->middleware('auth');
+# Internacion
+Route::get('paciente/internacion/{id}', 'App\Http\Controllers\InternacionController@cargarinternacion')->name('cargarinternacion')->middleware('auth');
+Route::post('paciente/internacion2/{id}', 'App\Http\Controllers\InternacionController@cargarinternacion2')->name('cargarinternacion2')->middleware('auth');
 
-Route::get('listarpersonal', 'App\Http\Controllers\PagesController@listarpersonal')->name('listarpersonal')->middleware('auth');
-Route::get('/editarpersonal/{id}', 'App\Http\Controllers\PagesController@editarpersonal')->name('editarpersonal')->middleware('auth');
-Route::put('/actualizarusuario/{id}', 'App\Http\Controllers\PagesController@actualizarusuario')->name('actualizarusuario')->middleware('auth');
-Route::delete('/eliminarusuario/{id}', 'App\Http\Controllers\PagesController@eliminarusuario')->name('eliminarusuario')->middleware('auth');
+# Cama
+Route::post('camasinfinitas', 'App\Http\Controllers\CamaController@camasinfinitas')->name('camasinfinitas')->middleware('auth');
+Route::delete('/eliminarcama/{id}', 'App\Http\Controllers\CamaController@eliminarcama')->name('eliminarcama')->middleware('auth');
 
-Route::delete('/eliminarsala/{id}', 'App\Http\Controllers\PagesController@eliminarsala')->name('eliminarsala')->middleware('auth');
-Route::get('/editarsala/{id}', 'App\Http\Controllers\PagesController@editarsala')->name('editarsala')->middleware('auth');
-Route::put('/actualizarsala/{id}', 'App\Http\Controllers\PagesController@actualizarsala')->name('actualizarsala')->middleware('auth');
-
-Route::get('paciente/internacion/{id}', 'App\Http\Controllers\PagesController@cargarinternacion')->name('cargarinternacion')->middleware('auth');
-Route::post('paciente/internacion2/{id}', 'App\Http\Controllers\PagesController@cargarinternacion2')->name('cargarinternacion2')->middleware('auth');
-
-Route::post('camasinfinitas', 'App\Http\Controllers\PagesController@camasinfinitas')->name('camasinfinitas')->middleware('auth');
-
-Route::delete('/eliminarcama/{id}', 'App\Http\Controllers\PagesController@eliminarcama')->name('eliminarcama')->middleware('auth');
-
-Route::get('administrarsala/{id}', 'App\Http\Controllers\PagesController@administrarsala')->name('administrarsala')->middleware('auth');
+# Paciente
+Route::get('cargarpaciente', 'App\Http\Controllers\PacienteController@cargarpaciente')->name('cargarpaciente')->middleware('auth');        #dni
+Route::get('cargarpaciente2', 'App\Http\Controllers\PacienteController@cargarpaciente2')->name('cargarpaciente2')->middleware('auth');     #formulario completo
+Route::get('cargarpaciente3', 'App\Http\Controllers\PacienteController@cargarpaciente3')->name('cargarpaciente3')->middleware('auth');     # validación
+Route::get('pacientes', 'App\Http\Controllers\PacienteController@administrarpacientes')->name('administrarpacientes')->middleware('auth');
+Route::delete('eliminarpaciente/{id}', 'App\Http\Controllers\PacienteController@eliminarpaciente')->name('eliminarpaciente')->middleware('auth');
+Route::get('editarpaciente/{id}', 'App\Http\Controllers\PacienteController@editarpaciente')->name('editarpaciente');
+Route::put('actualizarpaciente/{id}', 'App\Http\Controllers\PacienteController@actualizarpaciente')->name('actualizarpaciente')->middleware('auth');
