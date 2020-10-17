@@ -25,6 +25,20 @@ col-md-8
     </div>
 
     <div class="form-group row">
+        <label for="sistema" class="col-md-4 col-form-label text-md-right">{{ __('Sistema') }}</label>
+
+        <div class="col-md-6">
+            <select id="sistema" name="sistema" class="form-control">
+                <option value="1" {{ old('sistema') == '1' ? 'selected="selected"' : '' }}>Guardia</option>
+                <option value="2" {{ old('sistema') == '2' ? 'selected="selected"' : '' }}>Piso Covid</option>
+                <option value="3" {{ old('sistema') == '3' ? 'selected="selected"' : '' }}>UTI</option>
+                <option value="4" {{ old('sistema') == '4' ? 'selected="selected"' : '' }}>Hotel</option>
+                <option value="5" {{ old('sistema') == '5' ? 'selected="selected"' : '' }}>Domicilio</option>
+                </select>
+        </div>
+    </div>
+
+    <div class="form-group row">
         <label for="nombre" class="col-md-4 col-form-label text-md-right">{{ __('Nombre') }}</label>
 
         <div class="col-md-6">

@@ -28,6 +28,7 @@ class InternacionController extends Controller
         $internacion->paciente()->associate($paciente);
         $internacion->save();
 
+        $salaNueva=True;
         $config= App\Models\Config::findOrFail(1);
         if ($config->camasinfinitas == False) {
             $camas=App\Models\Cama::all();
@@ -51,9 +52,7 @@ class InternacionController extends Controller
                         $cama->save();
                         return redirect('home')->with('mensaje','Internación registrada');
                     }
-                    else {  # No hay libres, creo una en la sala Guardia Infinita
-                        $salaNueva=True;
-                    }
+                    # No hay libres, creo una en la sala Guardia Infinita más abajo
                 }
             }
         }

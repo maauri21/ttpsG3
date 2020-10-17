@@ -52,5 +52,6 @@ col-md-11
     @endforeach
     </tbody>
 </table>
+{{$usuarios->links()}}
 </div>
 @endsection

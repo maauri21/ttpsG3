@@ -8,7 +8,7 @@ use App;
 class PersonalController extends Controller
 {
     public function administrarpersonal() {
-        $usuarios= App\Models\User::all();
+        $usuarios= App\Models\User::paginate(10);
         return view('personal.administrarpersonal', compact ('usuarios'));
     }
 
