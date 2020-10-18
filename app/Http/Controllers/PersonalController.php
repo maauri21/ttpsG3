@@ -39,6 +39,13 @@ class PersonalController extends Controller
 
     public function eliminarusuario($id){
         $usuarioEliminar=App\Models\User::findOrFail($id);
+
+        if($usuarioEliminar->hasRole('jefe')) {
+            return back()->with('mensaje2','No se puede eliminar un jefe');
+        }
+        elseif ($usuarioEliminar->hasRole('administrador')) {
+            return back()->with('mensaje2','No se puede eliminar un administrador');
+        }
         $usuarioEliminar->delete();
         return back()->with('mensaje','Usuario eliminado');
     }

@@ -32,6 +32,16 @@ class SistemaController extends Controller
             }
         }
         $camasSistema = App\Models\Cama::findMany($array);
-        return view('sistemas.administrarsistema',compact('salas','cantSalas','camasSistema','sistema','total','libres','ocupadas'));
+
+        $usuarios=App\Models\User::where('sistema_id', '=', $id)->get();
+
+        $jefe='';
+        foreach ($usuarios as $jefe) {
+            if($jefe->hasRole('jefe')) {
+                break;
+            }
+        }
+
+        return view('sistemas.administrarsistema',compact('salas','cantSalas','camasSistema','sistema','total','libres','ocupadas','jefe'));
     }
 }

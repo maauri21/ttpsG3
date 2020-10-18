@@ -9,9 +9,14 @@ col-md-11
 @endsection
 
 @section('alerta')
-    @if ( session('mensaje') )
-        <div class="alert alert-success mb-2">{{ session('mensaje') }}</div>
-    @endif
+@if ( session('mensaje') )
+    <div class="alert alert-success mb-2">{{ session('mensaje') }}</div>
+@endif
+
+@if ( session('mensaje2') )
+    <div class="alert alert-danger mb-2">{{ session('mensaje2') }}</div>
+@endif
+
 @endsection
 
 @section('content')
