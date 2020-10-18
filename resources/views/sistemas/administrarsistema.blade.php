@@ -145,7 +145,7 @@ col-md-9
                                         <td>{{!empty($cs->paciente) ? $cs->paciente->nombre:''}}</td>
                                         <td>{{!empty($cs->paciente) ? $cs->paciente->apellido:''}}</td>
                                         <td>{{!empty($cs->paciente) ? $cs->paciente->dni:''}}</td>
-                                        <td><a href="" class="btn btn-info btn-sm">Ver</a>
+                                        <td><a href="{{route ('verpaciente', $cs)}}" class="btn btn-info btn-sm">Ver</a>
                                             <form action="{{route('eliminarcama',$cs)}}" method="POST" class="d-inline">
                                                 @method('DELETE')
                                                 @csrf

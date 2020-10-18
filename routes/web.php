@@ -40,3 +40,5 @@ Route::get('pacientes', 'App\Http\Controllers\PacienteController@administrarpaci
 Route::delete('eliminarpaciente/{id}', 'App\Http\Controllers\PacienteController@eliminarpaciente')->name('eliminarpaciente')->middleware('auth');
 Route::get('editarpaciente/{id}', 'App\Http\Controllers\PacienteController@editarpaciente')->name('editarpaciente');
 Route::put('actualizarpaciente/{id}', 'App\Http\Controllers\PacienteController@actualizarpaciente')->name('actualizarpaciente')->middleware('auth');
+
+Route::get('verpaciente/{id}', 'App\Http\Controllers\PacienteController@verpaciente')->name('verpaciente')->middleware('auth');

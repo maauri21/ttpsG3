@@ -133,4 +133,10 @@ class PacienteController extends Controller
         return redirect('pacientes')->with('mensaje','Paciente editado');
     }
 
+    public function verpaciente($id) {
+        $cama=App\Models\Cama::findOrFail($id);
+        $paciente=$cama->paciente;
+        return view('pacientes.verpaciente',compact('paciente'));
+    }
+
 }
