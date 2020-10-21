@@ -14,7 +14,7 @@ class Paciente extends Model
     }
 
     public function sistemas(){
-        return $this->belongsToMany(Sistema::class); // Muchos a muchos
+        return $this->belongsToMany(Sistema::class)->withPivot('inicio', 'fin');
     }
 
     public function cama()  //1 a1

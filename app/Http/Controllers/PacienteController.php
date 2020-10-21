@@ -49,7 +49,6 @@ class PacienteController extends Controller
 
     public function cargarpaciente3(Request $request) {
         $request->validate([
-            'dni' => ['required', 'numeric', 'digits_between:7,9', 'unique:pacientes'],
             'nombre' => ['required', 'string', 'min:2', 'max:15'],
             'apellido' => ['required', 'string', 'min:2', 'max:20'],
             'direccion' => ['required', 'string', 'min:2', 'max:20'],
@@ -134,9 +133,18 @@ class PacienteController extends Controller
     }
 
     public function verpaciente($id) {
-        $cama=App\Models\Cama::findOrFail($id);
-        $paciente=$cama->paciente;
-        return view('pacientes.verpaciente',compact('paciente'));
+        $array = array();
+        # try para que tire 404 si entró desde URL a una cama sin paciente
+        try {
+            $paciente=App\Models\Paciente::findOrFail($id);
+            # Recorro los sistemas donde estuvo
+            foreach ($paciente->sistemas as $PC) {
+                $sistema=App\Models\Sistema::findOrFail($PC->pivot->sistema_id);
+                array_push($array, $sistema->nombre);
+            }
+            return view('pacientes.verpaciente',compact('paciente','sistema','array'));
+        } catch(\Exception $error){
+            abort(404);
+        }
     }
-
 }

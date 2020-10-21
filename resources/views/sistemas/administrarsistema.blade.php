@@ -145,13 +145,22 @@ col-md-9
                                         <td>{{!empty($cs->paciente) ? $cs->paciente->nombre:''}}</td>
                                         <td>{{!empty($cs->paciente) ? $cs->paciente->apellido:''}}</td>
                                         <td>{{!empty($cs->paciente) ? $cs->paciente->dni:''}}</td>
-                                        <td><a href="{{route ('verpaciente', $cs)}}" class="btn btn-info btn-sm">Ver</a>
+                                        @if (!empty($cs->paciente))
+                                        <td><a href="{{route ('verpaciente', $cs->paciente_id)}}" class="btn btn-info btn-sm">Ver</a>
                                             <form action="{{route('eliminarcama',$cs)}}" method="POST" class="d-inline">
                                                 @method('DELETE')
                                                 @csrf
                                                 <button class="btn btn-danger btn-sm" type="submit">Eliminar</button>
                                             </form>
                                         </td>
+                                        @else
+                                            <td><form action="{{route('eliminarcama',$cs)}}" method="POST" class="d-inline">
+                                                    @method('DELETE')
+                                                    @csrf
+                                                    <button class="btn btn-danger btn-sm" type="submit">Eliminar</button>
+                                                </form>
+                                            </td>
+                                        @endif
                                     </tr>
                                 @endforeach
                                 </tbody>

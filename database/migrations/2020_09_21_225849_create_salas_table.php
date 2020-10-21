@@ -24,6 +24,16 @@ class CreateSalasTable extends Migration
             'nombre' => 'Sala Guardia Infinita',
             'sistema_id' => 1
         ]);
+
+        DB::table('salas')->insert([
+            'nombre' => 'Sala Hotel',
+            'sistema_id' => 4
+        ]);
+
+        DB::table('salas')->insert([
+            'nombre' => 'Sala Domicilio',
+            'sistema_id' => 5
+        ]);
     }
 
     /**
