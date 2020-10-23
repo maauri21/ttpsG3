@@ -14,4 +14,9 @@ class Sistema extends Model
         return $this->hasOne(User::class);
     }
 
+    public function salas()
+    {
+        return $this->hasMany(Sala::class);
+    }
+
 }

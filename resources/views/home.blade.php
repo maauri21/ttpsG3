@@ -44,3 +44,70 @@ col-md-8
     </form>
 
 @endsection
+
+@section('content2')
+<main class="mt-4">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card border-primary">
+                    <div class="card-header text-white bg-primary">Panel Jefe</div>
+                        <div class="card-body">
+                            <div style="overflow-x:auto;">
+                                <table class="table table-hover" style="text-align: center">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Sistema</th>
+                                            <th scope="col" class="text-primary">Camas totales</th>
+                                            <th scope="col" class="text-success">Camas libres</th>
+                                            <th scope="col" class="text-danger">Camas ocupadas</th>
+                                            <th scope="col">Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>{{'Guardia'}}</td>
+                                            <td>{{$array[0]}}</td>
+                                            <td>{{$array[1]}}</td>
+                                            <td>{{$array[2]}}</td>
+                                            <td><a href="{{ route('administrarsistema', ['id' => 1]) }}" class="btn btn-info btn-sm">Ver</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td>{{'Piso Covid'}}</td>
+                                            <td>{{$array[3]}}</td>
+                                            <td>{{$array[4]}}</td>
+                                            <td>{{$array[5]}}</td>
+                                            <td><a href="{{ route('administrarsistema', ['id' => 2]) }}" class="btn btn-info btn-sm">Ver</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td>{{'UTI'}}</td>
+                                            <td>{{$array[6]}}</td>
+                                            <td>{{$array[7]}}</td>
+                                            <td>{{$array[8]}}</td>
+                                            <td><a href="{{ route('administrarsistema', ['id' => 3]) }}" class="btn btn-info btn-sm">Ver</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td>{{'Hotel'}}</td>
+                                            <td>{{$array[9]}}</td>
+                                            <td>{{$array[10]}}</td>
+                                            <td>{{$array[11]}}</td>
+                                            <td><a href="{{ route('administrarsistema', ['id' => 4]) }}" class="btn btn-info btn-sm">Ver</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td>{{'Domicilio'}}</td>
+                                            <td>{{$array[12]}}</td>
+                                            <td>{{$array[13]}}</td>
+                                            <td>{{$array[14]}}</td>
+                                            <td><a href="{{ route('administrarsistema', ['id' => 5]) }}" class="btn btn-info btn-sm">Ver</a></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+@endsection
