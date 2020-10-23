@@ -10,28 +10,24 @@ class SistemaController extends Controller
     public function administrarsistema($id) {
         $salas=App\Models\Sala::where('sistema_id', '=', $id)->get();
         $cantSalas=App\Models\Sala::where('sistema_id', '=', $id)->count();
-        $camas=App\Models\Cama::all();
         $sistema=App\Models\Sistema::findOrFail($id);
+        $camas=App\Models\Cama::all();
 
         # Cuento las del sistema donde estoy
         $total=0;
         $libres=0;
         $ocupadas=0;
-        $array = array();
         foreach ($camas as $cama) {
             if ($cama->sala->sistema->id == $id) {
                 $total++;
-                array_push($array, $cama->id);
                 if ($cama->paciente_id == NULL) {
                     $libres++;
                 }
                 else {
                     $ocupadas++;
                 }
-
             }
         }
-        $camasSistema = App\Models\Cama::findMany($array);
 
         $usuarios=App\Models\User::where('sistema_id', '=', $id)->get();
 
@@ -42,6 +38,6 @@ class SistemaController extends Controller
             }
         }
 
-        return view('sistemas.administrarsistema',compact('salas','cantSalas','camasSistema','sistema','total','libres','ocupadas','jefe'));
+        return view('sistemas.administrarsistema',compact('salas','cantSalas','sistema','total','libres','ocupadas','jefe'));
     }
 }

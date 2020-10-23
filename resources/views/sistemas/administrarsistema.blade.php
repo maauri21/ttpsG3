@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('nombrePanel')
-Jefe Actual
+{{'Jefe Actual - ' . $sistema->nombre}}
 @endsection
 
 @section('tamañoPanel')
@@ -53,7 +53,7 @@ col-md-9
         <div class="row justify-content-center">
             <div class="col-md-9">
                 <div class="card border-primary">
-                    <div class="card-header text-white bg-primary">{{ 'Nueva sala en ' . $sistema->nombre }}</div>
+                    <div class="card-header text-white bg-primary">{{ 'Nueva sala en ' . $sistema->nombre . '(ROOL ADMIN)' }}</div>
                         <div class="card-body">
                             <form method="POST" action="{{ route('crearsala',$sistema->id) }}">
                                 @csrf
@@ -100,93 +100,59 @@ col-md-9
     </div>
 </main>
 
-<div id="accordion" role="tablist" aria-multiselectable="true">
-<main class="mt-4">
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-9">
-            <div class="card border-primary">
-                <h6 class="card-header bg-primary">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne" id="heading-example" class="collapsed d-block text-white">
-                        <i class="text-white fa fa-chevron-down pull-right"></i>
-                        {{ __('Panel Jefe') }}
-                    </a>
-                </h6>
-                <div id="collapseOne" class="collapse" aria-labelledby="heading-example">
-                    <div class="card-body">
-                        <div style="overflow-x:auto;">
-                            <table class="table table-hover" style="text-align: center">
-                                <thead>
-                                    <tr>
-                                        <th scope="col" style="width:25%" class="text-primary">Salas: {{$cantSalas}}</th>
-                                        <th scope="col" style="width:25%" class="text-primary">Camas totales: {{$total}}</th>
-                                        <th scope="col" style="width:25%" class="text-success">Camas libres: {{$libres}}</th>
-                                        <th scope="col" style="width:25%" class="text-danger">Camas ocupadas: {{$ocupadas}}</th></div>
-                                    </tr>
-                                </thead>
-                            </table>
-                        </div>
-    
-                        <div style="overflow-x:auto;">
-                            <table class="table table-hover" style="text-align: center">
-                                <thead>
-                                    <tr>
-                                        <th scope="col" style="width:15%">Cama</th>
-                                        <th scope="col" style="width:20%">Nombre</th>
-                                        <th scope="col" style="width:20%">Apellido</th>
-                                        <th scope="col" style="width:20%">DNI</th>
-                                        <th scope="col" style="width:40%">Acciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                @foreach($camasSistema as $cs)
-                                    <tr>
-                                        <td scope="row">{{$cs->id}}</td>
-                                        <td>{{!empty($cs->paciente) ? $cs->paciente->nombre:''}}</td>
-                                        <td>{{!empty($cs->paciente) ? $cs->paciente->apellido:''}}</td>
-                                        <td>{{!empty($cs->paciente) ? $cs->paciente->dni:''}}</td>
-                                        @if (!empty($cs->paciente))
-                                        <td><a href="{{route ('verpaciente', $cs->paciente_id)}}" class="btn btn-info btn-sm">Ver</a>
-                                            <form action="{{route('eliminarcama',$cs)}}" method="POST" class="d-inline">
-                                                @method('DELETE')
-                                                @csrf
-                                                <button class="btn btn-danger btn-sm" type="submit">Eliminar</button>
-                                            </form>
-                                        </td>
-                                        @else
-                                            <td><form action="{{route('eliminarcama',$cs)}}" method="POST" class="d-inline">
-                                                    @method('DELETE')
-                                                    @csrf
-                                                    <button class="btn btn-danger btn-sm" type="submit">Eliminar</button>
-                                                </form>
-                                            </td>
-                                        @endif
-                                    </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-</main>
 
-<main class="mb-4">
+<main class="mt-4">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-9">
                 <div class="card border-primary">
-                    <h6 class="card-header bg-primary">
-                        <a data-toggle="collapse" href="#collapse-example" aria-expanded="true" aria-controls="collapse-example" id="heading-example" class="collapsed d-block text-white">
-                            <i class="text-white fa fa-chevron-down pull-right"></i>
-                            {{ __('Administrar salas de ' . $sistema->nombre) }}
-                        </a>
-                    </h6>
-                    <div id="collapse-example" class="collapse" aria-labelledby="heading-example">
+                    <div class="card-header text-white bg-primary">{{'Panel Jefe (ROOL JEFE) - ' . $sistema->nombre}}</div>
+                        <div class="card-body">
+                            <div style="overflow-x:auto;">
+                                <table class="table table-hover" style="text-align: center">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" style="width:25%" class="text-primary">Salas: {{$cantSalas}}</th>
+                                            <th scope="col" style="width:25%" class="text-primary">Camas totales: {{$total}}</th>
+                                            <th scope="col" style="width:25%" class="text-success">Camas libres: {{$libres}}</th>
+                                            <th scope="col" style="width:25%" class="text-danger">Camas ocupadas: {{$ocupadas}}</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                            <div style="overflow-x:auto;">
+                                <table class="table table-hover" style="text-align: center">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" style="width:15%">Sala</th>
+                                            <th scope="col" style="width:35%">Nombre</th>
+                                            <th scope="col" style="width:40%">Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($salas as $item)
+                                        <tr>
+                                            <td scope="row">{{$item->id}}</td>
+                                            <td>{{$item->nombre}}</td>
+                                            <td><a href="{{route ('administrarsala', $item)}}" class="btn btn-info btn-sm">Ver</a></td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<main class="mt-4">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-9">
+                <div class="card border-primary">
+                    <div class="card-header text-white bg-primary">{{ __('Administrar salas de ' . $sistema->nombre . '(ROOL ADMIN)') }}</div>
                         <div class="card-body">
                             <div style="overflow-x:auto;">
                                 <table class="table table-hover" style="text-align: center">
@@ -202,8 +168,7 @@ col-md-9
                                         <tr>
                                             <td scope="row">{{$item->id}}</td>
                                             <td>{{$item->nombre}}</td>
-                                            <td><a href="{{route ('administrarsala', $item)}}" class="btn btn-info btn-sm">Ver</a>
-                                                <a href="{{route ('editarsala', $item)}}" class="btn btn-warning btn-sm">Editar</a>  
+                                            <td><a href="{{route ('editarsala', $item)}}" class="btn btn-warning btn-sm">Editar</a>  
                                                 <form action="{{route('eliminarsala', $item) }}" method="POST" class="d-inline">
                                                     @method('DELETE')
                                                     @csrf
@@ -214,14 +179,50 @@ col-md-9
                                     @endforeach
                                     </tbody>
                                 </table>
-                                </div>
                             </div>
                         </div>
-                    </div>
                 </div>
             </div>
         </div>
     </div>
 </main>
-</div>
+
+<main class="mt-4">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-9">
+                <div class="card border-primary">
+                    <div class="card-header text-white bg-primary">{{'Panel Médico (ROOL MEDICO) - ' . $sistema->nombre}}</div>
+                        <div class="card-body">
+                            <div style="overflow-x:auto;">
+                                <table class="table table-hover" style="text-align: center">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" style="width:15%">Sala</th>
+                                            <th scope="col" style="width:35%">Nombre</th>
+                                            <th scope="col" style="width:40%">Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($salas as $item)
+                                        <tr>
+                                            <td scope="row">{{$item->id}}</td>
+                                            <td>{{$item->nombre}}</td>
+                                            <td><a href="{{route ('administrarsala', $item)}}" class="btn btn-info btn-sm">Ver</a></td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+
+
+
+
 @endsection

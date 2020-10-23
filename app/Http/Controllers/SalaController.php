@@ -10,7 +10,7 @@ class SalaController extends Controller
 
     public function administrarsala($id) {
         $sala=App\Models\Sala::findOrFail($id);
-        $camas=App\Models\Cama::where('sala_id', '=', $id)->paginate(10);
+        $camas=App\Models\Cama::where('sala_id', '=', $id)->paginate(8);
         $total=App\Models\Cama::where('sala_id', '=', $id)->count();
         $libres=App\Models\Cama::where('sala_id', '=', $id)->where('paciente_id', '=', NULL)->count();
         $ocupadas=App\Models\Cama::where('sala_id', '=', $id)->where('paciente_id', '!=', NULL)->count();
