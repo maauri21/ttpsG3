@@ -66,4 +66,21 @@ class InternacionController extends Controller
             return redirect('home')->with('mensaje','Internación registrada');
         }
     }
+
+    public function verinternacion($id) {
+        $array = array();
+        # try para que tire 404 si entró desde URL a una cama sin paciente
+        try {
+            $paciente=App\Models\Paciente::findOrFail($id);
+            # Recorro los sistemas donde estuvo
+            foreach ($paciente->sistemas as $PC) {
+                $sistema=App\Models\Sistema::findOrFail($PC->pivot->sistema_id);
+                array_push($array, $sistema->nombre);
+            }
+            return view('internaciones.verinternacion',compact('paciente','sistema','array'));
+        } catch(\Exception $error){
+            abort(404);
+        }
+    }
+
 }

@@ -34,7 +34,7 @@ class PacienteController extends Controller
             $libres=True;
         }
         if (!$libres) {
-            return redirect('home')->with('mensaje2','Todas las camas están ocupadas');
+            return redirect('home')->with('mensaje2','No hay camas disponibles');
         }
 
         $dni=$request->dni;
@@ -132,19 +132,4 @@ class PacienteController extends Controller
         return redirect('pacientes')->with('mensaje','Paciente editado');
     }
 
-    public function verpaciente($id) {
-        $array = array();
-        # try para que tire 404 si entró desde URL a una cama sin paciente
-        try {
-            $paciente=App\Models\Paciente::findOrFail($id);
-            # Recorro los sistemas donde estuvo
-            foreach ($paciente->sistemas as $PC) {
-                $sistema=App\Models\Sistema::findOrFail($PC->pivot->sistema_id);
-                array_push($array, $sistema->nombre);
-            }
-            return view('pacientes.verpaciente',compact('paciente','sistema','array'));
-        } catch(\Exception $error){
-            abort(404);
-        }
-    }
 }

@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('nombrePanel')
-Panel
+Panel - (rool admin)
 @endsection
 
 @section('tamañoPanel')
@@ -51,7 +51,7 @@ col-md-8
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card border-primary">
-                    <div class="card-header text-white bg-primary">Panel Jefe</div>
+                    <div class="card-header text-white bg-primary">Panel Jefe - (ROOL JEFE)</div>
                         <div class="card-body">
                             <div style="overflow-x:auto;">
                                 <table class="table table-hover" style="text-align: center">

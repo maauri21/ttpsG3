@@ -52,7 +52,7 @@ col-md-9
                 <td>{{!empty($cama->paciente) ? $cama->paciente->apellido:''}}</td>
                 <td>{{!empty($cama->paciente) ? $cama->paciente->dni:''}}</td>
                 @if (!empty($cama->paciente))
-                    <td><a href="{{route ('verpaciente', $cama->paciente_id)}}" class="btn btn-info btn-sm">Ver</a>
+                    <td><a href="{{route ('verinternacion', $cama->paciente_id)}}" class="btn btn-info btn-sm">Ver</a>
                         <form action="{{route('eliminarcama',$cama)}}" method="POST" class="d-inline">
                             @method('DELETE')
                             @csrf

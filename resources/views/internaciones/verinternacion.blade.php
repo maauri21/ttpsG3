@@ -121,7 +121,7 @@ col-md-12
                                             <td>
                                                 <a href="#" class="btn btn-danger btn">UTI</a>
                                                 <a href="#" class="btn btn-success btn">Piso Covid</a>
-                                                <a href="#" class="btn btn-dark btn">Óbito</a>
+                                                <a href="{{route('cambio_obito',$paciente)}}" class="btn btn-dark btn">Óbito</a>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -140,7 +140,43 @@ col-md-12
                                                 <a href="#" class="btn btn-danger btn">UTI</a>
                                                 <a href="#" class="btn btn-success btn">Hotel</a>
                                                 <a href="#" class="btn btn-success btn">Domicilio</a>
-                                                <a href="#" class="btn btn-dark btn">Óbito</a>
+                                                <a href="{{route('cambio_obito',$paciente)}}" class="btn btn-dark btn">Óbito</a>
+                                                <a href="#" class="btn btn-success btn">Egreso</a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            @elseif ($sistema->nombre == 'Unidad Terapia Intensiva')
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Cambio de sistema</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <a href="#" class="btn btn-success btn">Piso Covid</a>
+                                                <a href="{{route('cambio_obito',$paciente)}}" class="btn btn-dark btn">Óbito</a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            @else
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Cambio de sistema</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <a href="#" class="btn btn-danger btn">Piso Covid</a>
+                                                <a href="{{route('cambio_obito',$paciente)}}" class="btn btn-dark btn">Óbito</a>
+                                                <a href="#" class="btn btn-success btn">Egreso</a>
                                             </td>
                                         </tr>
                                     </tbody>

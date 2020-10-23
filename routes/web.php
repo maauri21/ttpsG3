@@ -9,6 +9,7 @@ Auth::routes();
 
 # Sistema
 Route::get('administrarsistema/{id}', 'App\Http\Controllers\SistemaController@administrarsistema')->name('administrarsistema')->middleware('auth');
+Route::get('cambio_obito/{id}', 'App\Http\Controllers\SistemaController@cambio_obito')->name('cambio_obito')->middleware('auth');
 
 # Personal
 Route::get('personal', 'App\Http\Controllers\PersonalController@administrarpersonal')->name('administrarpersonal')->middleware('auth');
@@ -27,6 +28,7 @@ Route::put('/actualizarsala/{id}', 'App\Http\Controllers\SalaController@actualiz
 # Internacion
 Route::get('paciente/internacion/{id}', 'App\Http\Controllers\InternacionController@cargarinternacion')->name('cargarinternacion')->middleware('auth');
 Route::post('paciente/internacion2/{id}', 'App\Http\Controllers\InternacionController@cargarinternacion2')->name('cargarinternacion2')->middleware('auth');
+Route::get('verinternacion/{id}', 'App\Http\Controllers\InternacionController@verinternacion')->name('verinternacion')->middleware('auth');
 
 # Cama
 Route::post('camasinfinitas', 'App\Http\Controllers\CamaController@camasinfinitas')->name('camasinfinitas')->middleware('auth');
@@ -40,5 +42,3 @@ Route::get('pacientes', 'App\Http\Controllers\PacienteController@administrarpaci
 Route::delete('eliminarpaciente/{id}', 'App\Http\Controllers\PacienteController@eliminarpaciente')->name('eliminarpaciente')->middleware('auth');
 Route::get('editarpaciente/{id}', 'App\Http\Controllers\PacienteController@editarpaciente')->name('editarpaciente');
 Route::put('actualizarpaciente/{id}', 'App\Http\Controllers\PacienteController@actualizarpaciente')->name('actualizarpaciente')->middleware('auth');
-
-Route::get('verpaciente/{id}', 'App\Http\Controllers\PacienteController@verpaciente')->name('verpaciente')->middleware('auth');
