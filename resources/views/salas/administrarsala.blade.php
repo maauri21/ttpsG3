@@ -72,5 +72,5 @@ col-md-9
         </tbody>
     </table>
     </div>
-    {{$camas->links()}}
+    {{$camas->links()}} <a href="{{ route('administrarsistema', ['id' => $sala->sistema->id]) }}" class="btn btn-primary">Volver</a>
 @endsection

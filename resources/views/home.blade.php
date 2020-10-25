@@ -110,4 +110,19 @@ col-md-8
     </div>
 </main>
 
+<main class="mt-4">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card border-primary">
+                    <div class="card-header text-white bg-primary">ROOL MEDICO/JEFE</div>
+                        <div class="card-body">
+                            <a href="{{ route('administrarsistema', ['id' => auth()->user()->sistema->id]) }}" class="btn btn-info">Ir a mi sistema</a>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
 @endsection

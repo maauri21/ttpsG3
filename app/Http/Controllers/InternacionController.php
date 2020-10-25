@@ -27,6 +27,9 @@ class InternacionController extends Controller
         $internacion->fInternacion = date('Y-m-d');
         $internacion->paciente()->associate($paciente);
         $internacion->save();
+        
+        #$pacienteNuevo->sistemas()->attach(1);     #Le asigno guardia
+        $paciente->sistemas()->attach(1, ['inicio' => date('Y-m-d')]);     #Ademas de asignarle guardia, Agrego fecha en la tabla intermedia
 
         $salaNueva=True;
         $config= App\Models\Config::findOrFail(1);

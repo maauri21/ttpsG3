@@ -8,8 +8,10 @@ Route::get('home', [App\Http\Controllers\HomeController::class, 'index'])->name(
 Auth::routes();
 
 # Sistema
-Route::get('administrarsistema/{id}', 'App\Http\Controllers\SistemaController@administrarsistema')->name('administrarsistema')->middleware('auth');
+Route::get('sistema/{id}', 'App\Http\Controllers\SistemaController@administrarsistema')->name('administrarsistema')->middleware('auth');
 Route::get('cambio_obito/{id}', 'App\Http\Controllers\SistemaController@cambio_obito')->name('cambio_obito')->middleware('auth');
+Route::get('cambio_egreso/{id}/{tipo}', 'App\Http\Controllers\SistemaController@cambio_egreso')->name('cambio_egreso')->middleware('auth');
+Route::get('cambio_uti/{id}', 'App\Http\Controllers\SistemaController@cambio_uti')->name('cambio_uti')->middleware('auth');
 
 # Personal
 Route::get('personal', 'App\Http\Controllers\PersonalController@administrarpersonal')->name('administrarpersonal')->middleware('auth');

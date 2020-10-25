@@ -140,6 +140,7 @@ col-md-9
                                     </tbody>
                                 </table>
                             </div>
+                            {{$salas->links()}}
                         </div>
                 </div>
             </div>
@@ -180,6 +181,7 @@ col-md-9
                                     </tbody>
                                 </table>
                             </div>
+                            {{$salas->links()}}
                         </div>
                 </div>
             </div>
@@ -214,6 +216,7 @@ col-md-9
                                     </tbody>
                                 </table>
                             </div>
+                            {{$salas->links()}}
                         </div>
                 </div>
             </div>

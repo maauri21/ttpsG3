@@ -19,8 +19,15 @@ class PacienteController extends Controller
         # Antes de cargarlo compruebo las camas, tengo que buscar cama de guardia con paciente null
         $libres=False;
         $config= App\Models\Config::findOrFail(1);
+        $camas=App\Models\Cama::all();
+
+        foreach ($camas as $cama) {
+            if ($cama->paciente->dni == $request->dni) {
+                return redirect('home')->with('mensaje2','Este paciente ya está internado');
+            }
+        }
+
         if ($config->camasinfinitas == False) {
-            $camas=App\Models\Cama::all();
             foreach ($camas as $cama) {
                 if ($cama->sala->sistema->id == 1) {
                     if ($cama->paciente_id == NULL) {
@@ -83,10 +90,6 @@ class PacienteController extends Controller
         $pacienteNuevo->antecedentes = $request->antecedentes;
         $pacienteNuevo->contacto()->associate($contactoNuevo);
         $pacienteNuevo->save();
-
-        #$pacienteNuevo->sistemas()->attach(1);     #Le asigno guardia
-        $pacienteNuevo->sistemas()->attach(1, ['inicio' => date('Y-m-d')]);     #Ademas de asignarle guardia, Agrego fecha en la tabla intermedia
-        return redirect()->route('cargarinternacion', ['id' => $pacienteNuevo->id]);
     }
 
     public function administrarpacientes() {
