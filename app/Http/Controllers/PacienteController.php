@@ -21,9 +21,11 @@ class PacienteController extends Controller
         $config= App\Models\Config::findOrFail(1);
         $camas=App\Models\Cama::all();
 
-        foreach ($camas as $cama) {
-            if ($cama->paciente->dni == $request->dni) {
-                return redirect('home')->with('mensaje2','Este paciente ya está internado');
+        if (!empty($camas)) {
+            foreach ($camas as $cama) {
+                if (($cama->paciente != NULL) && ($cama->paciente->dni == $request->dni)) {
+                    return redirect('home')->with('mensaje2','Este paciente ya está internado');
+                }
             }
         }
 
@@ -90,6 +92,8 @@ class PacienteController extends Controller
         $pacienteNuevo->antecedentes = $request->antecedentes;
         $pacienteNuevo->contacto()->associate($contactoNuevo);
         $pacienteNuevo->save();
+
+        return redirect()->route('cargarinternacion', ['id' => $pacienteNuevo->id]);
     }
 
     public function administrarpacientes() {

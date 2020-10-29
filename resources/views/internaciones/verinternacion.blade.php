@@ -120,7 +120,7 @@ col-md-12
                                         <tr>
                                             <td>
                                                 <a href="{{route('cambio_uti',$paciente)}}" class="btn btn-danger btn">UTI</a>
-                                                <a href="#" class="btn btn-success btn">Piso Covid</a>
+                                                <a href="{{route('cambio_pc',$paciente)}}" class="btn btn-success btn">Piso Covid</a>
                                                 <a href="{{route('cambio_obito',$paciente)}}" class="btn btn-dark btn">Óbito</a>
                                             </td>
                                         </tr>
@@ -138,8 +138,8 @@ col-md-12
                                         <tr>
                                             <td>
                                                 <a href="{{route('cambio_uti',$paciente)}}" class="btn btn-danger btn">UTI</a>
-                                                <a href="#" class="btn btn-success btn">Hotel</a>
-                                                <a href="#" class="btn btn-success btn">Domicilio</a>
+                                                <a href="{{route('cambio_hotel',$paciente)}}" class="btn btn-success btn">Hotel</a>
+                                                <a href="{{route('cambio_domicilio',$paciente)}}" class="btn btn-success btn">Domicilio</a>
                                                 <a href="{{route('cambio_obito',$paciente)}}" class="btn btn-dark btn">Óbito</a>
                                                 <a href="{{route('cambio_egreso',['id'=>$paciente, 'tipo'=>'C'])}}" class="btn btn-success btn">Curado</a>
                                                 <a href="{{route('cambio_egreso',['id'=>$paciente, 'tipo'=>'A'])}}" class="btn btn-success btn">Alta Epidemiológica</a>
@@ -158,7 +158,7 @@ col-md-12
                                     <tbody>
                                         <tr>
                                             <td>
-                                                <a href="#" class="btn btn-success btn">Piso Covid</a>
+                                                <a href="{{route('cambio_pc',$paciente)}}" class="btn btn-success btn">Piso Covid</a>
                                                 <a href="{{route('cambio_obito',$paciente)}}" class="btn btn-dark btn">Óbito</a>
                                             </td>
                                         </tr>
@@ -175,7 +175,7 @@ col-md-12
                                     <tbody>
                                         <tr>
                                             <td>
-                                                <a href="#" class="btn btn-danger btn">Piso Covid</a>
+                                                <a href="{{route('cambio_pc',$paciente)}}" class="btn btn-danger btn">Piso Covid</a>
                                                 <a href="{{route('cambio_obito',$paciente)}}" class="btn btn-dark btn">Óbito</a>
                                                 <a href="{{route('cambio_egreso',['id'=>$paciente, 'tipo'=>'C'])}}" class="btn btn-success btn">Curado</a>
                                                 <a href="{{route('cambio_egreso',['id'=>$paciente, 'tipo'=>'A'])}}" class="btn btn-success btn">Alta Epidemiológica</a>

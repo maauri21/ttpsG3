@@ -110,6 +110,7 @@ col-md-8
     </div>
 </main>
 
+@can('panelJefe', 'panelMedico')
 <main class="mt-4">
     <div class="container">
         <div class="row justify-content-center">
@@ -124,5 +125,6 @@ col-md-8
         </div>
     </div>
 </main>
+@endcan
 
 @endsection
