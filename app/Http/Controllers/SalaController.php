@@ -43,11 +43,11 @@ class SalaController extends Controller
         $salaEliminar=App\Models\Sala::findOrFail($id);
         $camas=App\Models\Cama::where('sala_id', '=', $id)->get();
         if (($salaEliminar->id == 1) || ($salaEliminar->id == 2) ||($salaEliminar->id == 3)) {
-            return back()->with('mensaje2','No se puede borrar esta sala');
+            return back()->with('mensaje2','No se puede eliminar esta sala');
         }
         foreach ($camas as $cama) {
             if ($cama->paciente_id != NULL) {
-                return back()->with('mensaje2','No se puede borrar una sala que tiene camas ocupadas');
+                return back()->with('mensaje2','No se puede eliminar una sala que tiene camas ocupadas');
             }
         }
         $salaEliminar->delete();
@@ -75,7 +75,6 @@ class SalaController extends Controller
         }
 
         $salaEditar->save();
-        $url = route('administrarsistema', ['id' => $salaEditar->sistema_id]);
-        return redirect($url)->with('mensaje','Sala editada');
+        return redirect(route('administrarsistema', ['id' => $salaEditar->sistema_id]))->with('mensaje','Sala editada');
     }
 }

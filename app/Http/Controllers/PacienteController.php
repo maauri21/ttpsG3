@@ -104,7 +104,7 @@ class PacienteController extends Controller
     public function eliminarpaciente($id) {
         $paciente=App\Models\Paciente::findOrFail($id);
         if ($paciente->cama != NULL) {
-            return back()->with('mensaje2','No se puede borrar un paciente en cama');
+            return back()->with('mensaje2','No se puede eliminar un paciente en cama');
         }
         $paciente->delete();
         return back()->with('mensaje','Paciente eliminado');

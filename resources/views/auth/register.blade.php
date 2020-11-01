@@ -17,14 +17,15 @@ col-md-8
 
         <div class="col-md-6">
             <select id="tipo" name="tipo" class="form-control">
-                <option value="administrador" {{ old('tipo') == 'administrador' ? 'selected="selected"' : '' }}>Administrador</option>
                 <option value="medico" {{ old('tipo') == 'medico' ? 'selected="selected"' : '' }}>Médico</option>
                 <option value="jefe" {{ old('tipo') == 'jefe' ? 'selected="selected"' : '' }}>Jefe</option>
+                <option value="administrador" {{ old('tipo') == 'administrador' ? 'selected="selected"' : '' }}>Administrador</option>
                 </select>
         </div>
     </div>
+    <script src="{{ asset('cargarpersonal.js') }}"></script>
 
-    <div class="form-group row">
+    <div id="sistema" class="form-group row">
         <label for="sistema" class="col-md-4 col-form-label text-md-right">{{ __('Sistema') }}</label>
 
         <div class="col-md-6">
@@ -37,6 +38,7 @@ col-md-8
                 </select>
         </div>
     </div>
+    
 
     <div class="form-group row">
         <label for="nombre" class="col-md-4 col-form-label text-md-right">{{ __('Nombre') }}</label>
@@ -51,6 +53,7 @@ col-md-8
             @enderror
         </div>
     </div>
+    
 
     <div class="form-group row">
         <label for="apellido" class="col-md-4 col-form-label text-md-right">{{ __('Apellido') }}</label>
@@ -66,7 +69,7 @@ col-md-8
         </div>
     </div>
 
-    <div class="form-group row">
+    <div id="legajo" class="form-group row">
         <label for="legajo" class="col-md-4 col-form-label text-md-right">{{ __('Legajo') }}</label>
 
         <div class="col-md-6">
@@ -138,4 +141,6 @@ col-md-8
         </div>
     </div>
 </form>
+
+
 @endsection

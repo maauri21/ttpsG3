@@ -64,8 +64,7 @@ class SistemaController extends Controller
         $internacion->fObito = date('Y-m-d');
         $internacion->save();
 
-        $url = route('administrarsistema', ['id' => $sistema->id]);
-        return redirect($url)->with('mensaje','Óbito registrado');
+        return redirect(route('administrarsistema', ['id' => $sistema->id]))->with('mensaje','Óbito registrado');
 
     }
 
@@ -99,8 +98,7 @@ class SistemaController extends Controller
         }
         $internacion->save();
 
-        $url = route('administrarsistema', ['id' => $sistema->id]);
-        return redirect($url)->with('mensaje','Egreso registrado');
+        return redirect(route('administrarsistema', ['id' => $sistema->id]))->with('mensaje','Egreso registrado');
 
     }
 
@@ -127,8 +125,7 @@ class SistemaController extends Controller
                     $cama->paciente()->associate($paciente);
                     $cama->save();
                     $libre=True;
-                    $url = route('administrarsistema', ['id' => $sistema->id]);
-                    return redirect($url)->with('mensaje','Cambio a UTI registrado');
+                    return redirect(route('administrarsistema', ['id' => $sistema->id]))->with('mensaje','Cambio a UTI registrado');
                 }
             }
         }
@@ -153,8 +150,7 @@ class SistemaController extends Controller
                             $cama->paciente()->associate($paciente);
                             $cama->save();
                             $guardiaLibre = True;
-                            $url = route('administrarsistema', ['id' => $sistema->id]);
-                            return redirect($url)->with('mensaje2','No hay camas en UTI, el paciente fue llevado a Guardia');
+                            return redirect(route('administrarsistema', ['id' => $sistema->id]))->with('mensaje2','No hay camas en UTI, el paciente fue llevado a Guardia');
                             break;
                         }
                     }
@@ -176,9 +172,8 @@ class SistemaController extends Controller
                             # Ocupo nueva
                             $cama->paciente()->associate($paciente);
                             $cama->save();
-                            $guardiaLibre = True; 
-                            $url = route('administrarsistema', ['id' => $sistema->id]);
-                            return redirect($url)->with('mensaje2','No hay camas en UTI, el paciente fue llevado a Guardia');
+                            $guardiaLibre = True;
+                            return redirect(route('administrarsistema', ['id' => $sistema->id]))->with('mensaje2','No hay camas en UTI, el paciente fue llevado a Guardia');
                         }
                         # No hay libres, creo una en la sala Guardia Infinita más abajo
                     }
@@ -201,17 +196,14 @@ class SistemaController extends Controller
                 $camaNueva->sala()->associate($salaGInfinita);
                 $camaNueva->save();
                 $guardiaLibre = True;
-                $url = route('administrarsistema', ['id' => $sistema->id]);
-                return redirect($url)->with('mensaje2','No hay camas en UTI, el paciente fue llevado a Guardia');
+                return redirect(route('administrarsistema', ['id' => $sistema->id]))->with('mensaje2','No hay camas en UTI, el paciente fue llevado a Guardia');
             }
             if ($guardiaLibre == False) {
-                $url = route('administrarsistema', ['id' => $sistema->id]);
-                return redirect($url)->with('mensaje2','No hay camas en UTI ni en Guardia');
+                return redirect(route('administrarsistema', ['id' => $sistema->id]))->with('mensaje2','No hay camas en UTI ni en Guardia');
             }
 
         }
-        $url = route('administrarsistema', ['id' => $sistema->id]);
-        return redirect($url)->with('mensaje2','No hay camas en UTI');
+        return redirect(route('administrarsistema', ['id' => $sistema->id]))->with('mensaje2','No hay camas en UTI');
 
     }
 
@@ -220,6 +212,7 @@ class SistemaController extends Controller
         $paciente=App\Models\Paciente::findOrFail($id);
         $sistemaActual = $paciente->sistemas()->orderBy('id', 'desc')->first();
         $sistema=App\Models\Sistema::findOrFail($sistemaActual->id);
+        $camaActual=App\Models\Cama::where('paciente_id', '=', $paciente->id)->first();
 
         $camas=App\Models\Cama::all();
         $libre=False;
@@ -230,22 +223,24 @@ class SistemaController extends Controller
                     $paciente->sistemas()->wherePivot('fin', NULL)->updateExistingPivot($sistema, ['fin' => date('Y-m-d')]);
                     # Va a estar en PC
                     $paciente->sistemas()->attach(2, ['inicio' => date('Y-m-d')]);
-                    # Dejo NULL la cama que ocupaba
-                    $camaActual=App\Models\Cama::where('paciente_id', '=', $paciente->id)->first();
-                    $camaActual->paciente_id = NULL;
-                    $camaActual->save();
+                    if (($sistema->nombre != 'Hotel') && ($sistema->nombre != 'Domicilio')) {
+                        # Dejo NULL la cama que ocupaba
+                        $camaActual->paciente_id = NULL;
+                        $camaActual->save();
+                    }
+                    else {
+                        $camaActual->delete();
+                    }
                     # Agarro cama en PC
                     $cama->paciente()->associate($paciente);
                     $cama->save();
                     $libre=True;
-                    $url = route('administrarsistema', ['id' => $sistema->id]);
-                    return redirect($url)->with('mensaje','Cambio a Piso Covid registrado');
+                    return redirect(route('administrarsistema', ['id' => $sistema->id]))->with('mensaje','Cambio a Piso Covid registrado');
                 }
             }
         }
         if ($libre == False) {
-            $url = route('administrarsistema', ['id' => $sistema->id]);
-            return redirect($url)->with('mensaje2','No hay camas en Piso Covid');
+            return redirect(route('administrarsistema', ['id' => $sistema->id]))->with('mensaje2','No hay camas en Piso Covid');
         }
     }
 
@@ -267,8 +262,7 @@ class SistemaController extends Controller
         $camaNueva->paciente()->associate($paciente);
         $camaNueva->sala()->associate($salaHotel);
         $camaNueva->save();
-        $url = route('administrarsistema', ['id' => $sistema->id]);
-        return redirect($url)->with('mensaje','Cambio a Hotel registrado');
+        return redirect(route('administrarsistema', ['id' => $sistema->id]))->with('mensaje','Cambio a Hotel registrado');
     }
 
     public function cambio_domicilio($id) {
@@ -289,7 +283,6 @@ class SistemaController extends Controller
         $camaNueva->paciente()->associate($paciente);
         $camaNueva->sala()->associate($salaDomicilio);
         $camaNueva->save();
-        $url = route('administrarsistema', ['id' => $sistema->id]);
-        return redirect($url)->with('mensaje','Cambio a Domicilio registrado');
+        return redirect(route('administrarsistema', ['id' => $sistema->id]))->with('mensaje','Cambio a Domicilio registrado');
     }
 }

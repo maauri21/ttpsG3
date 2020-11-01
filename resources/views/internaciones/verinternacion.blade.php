@@ -222,7 +222,7 @@ col-md-12
                 <div class="card border-primary">
                     <div class="card-header text-white bg-primary">Evoluciones</div>
                         <div class="card-body">
-                            <a href="#" class="btn btn-success btn">Cargar evolución</a>
+                            <a href="{{route('cargar_evolucion',$paciente)}}" class="btn btn-success btn">Cargar evolución</a>
                         </div>
                 </div>
             </div>

@@ -30,7 +30,7 @@ col-md-8
             <label for="cinfinitas" class="col-md-4 col-form-label text-md-right">{{ __('Camas Infinitas') }}</label>
     
             <div class="col-md-6">
-                <input id="cinfinitas" type="checkbox" data-toggle="toggle" @if(!empty($config->camasinfinitas)) checked @endif data-onstyle="success" data-offstyle="danger" data-on="Si" data-off="No" name="cinfinitas" value=Si>
+                <input id="cinfinitas" type="checkbox" data-toggle="toggle" @if(!empty($config->camasinfinitas)) checked @endif data-onstyle="success" data-offstyle="danger" data-on=" " data-off=" " name="cinfinitas" value=Si>
     
             </div>
         </div>
@@ -39,6 +39,7 @@ col-md-8
                 <button type="submit" class="btn btn-primary">
                     {{ __('Aceptar') }}
                 </button>
+                <a href="{{url()->previous()}}" class="btn btn-secondary">Cancelar</a>
             </div>
         </div>
     </form>

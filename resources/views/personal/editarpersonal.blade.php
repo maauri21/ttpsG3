@@ -87,6 +87,7 @@ col-md-8
             <button type="submit" class="btn btn-primary">
                 {{ __('Aceptar') }}
             </button>
+            <a href="{{url()->previous()}}" class="btn btn-secondary">Cancelar</a>
         </div>
     </div>
 </form>

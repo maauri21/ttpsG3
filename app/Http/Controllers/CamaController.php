@@ -25,7 +25,7 @@ class CamaController extends Controller
     public function eliminarcama($id) {
         $cama=App\Models\Cama::findOrFail($id);
         if ($cama->paciente_id != NULL) {
-            return back()->with('mensaje2','No se puede borrar una cama ocupada');
+            return back()->with('mensaje2','No se puede eliminar una cama ocupada');
         }
         $cama->delete();
         return back()->with('mensaje','Cama eliminada');

@@ -173,7 +173,7 @@ col-md-9
                                                 <form action="{{route('eliminarsala', $item) }}" method="POST" class="d-inline">
                                                     @method('DELETE')
                                                     @csrf
-                                                    <button class="btn btn-danger btn-sm" type="submit">Eliminar</button>
+                                                    <button class="btn btn-danger btn-sm" type="submit" onclick="return confirm ('¿Está seguro?')">Eliminar</button>
                                                 </form>
                                             </td>
                                         </tr>
