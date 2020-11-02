@@ -47,6 +47,9 @@ Route::get('pacientes', 'App\Http\Controllers\PacienteController@administrarpaci
 Route::delete('eliminarpaciente/{id}', 'App\Http\Controllers\PacienteController@eliminarpaciente')->name('eliminarpaciente')->middleware('auth');
 Route::get('editarpaciente/{id}', 'App\Http\Controllers\PacienteController@editarpaciente')->name('editarpaciente');
 Route::put('actualizarpaciente/{id}', 'App\Http\Controllers\PacienteController@actualizarpaciente')->name('actualizarpaciente')->middleware('auth');
+Route::get('asignarmedico/{id}', 'App\Http\Controllers\PacienteController@asignarmedico')->name('asignarmedico');
+Route::get('asignarmedico2/{idP}/{idM}', 'App\Http\Controllers\PacienteController@asignarmedico2')->name('asignarmedico2');
+Route::get('desasignarmedico/{idP}/{idM}', 'App\Http\Controllers\PacienteController@desasignarmedico')->name('desasignarmedico');
 
 # Evolucion
 Route::get('cargar_evolucion/{id}', 'App\Http\Controllers\EvolucionController@cargar_evolucion')->name('cargar_evolucion')->middleware('auth');

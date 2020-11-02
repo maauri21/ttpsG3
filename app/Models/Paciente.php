@@ -21,4 +21,8 @@ class Paciente extends Model
     {
         return $this->hasOne(Cama::class);
     }
+
+    public function users(){
+        return $this->belongsToMany(User::class); // Muchos a muchos
+    }
 }

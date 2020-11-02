@@ -45,4 +45,8 @@ class User extends Authenticatable
         return $this->belongsTo(Sistema::class);      // 1 a 1
     }
 
+    public function pacientes(){
+        return $this->belongsToMany(Paciente::class); // Muchos a muchos
+    }
+
 }

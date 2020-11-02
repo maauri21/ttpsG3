@@ -139,4 +139,52 @@ class PacienteController extends Controller
         return redirect('pacientes')->with('mensaje','Paciente editado');
     }
 
+    public function asignarmedico ($id){
+        $paciente=App\Models\Paciente::findOrFail($id);
+        $sistemaActual = $paciente->sistemas()->wherePivot('fin', NULL)->first();
+        $usuarios=App\Models\User::where('sistema_id', '=', $sistemaActual->id)->get();
+
+        $array = array();
+        foreach ($usuarios as $usuario) {
+            if($usuario->hasRole('medico')) {
+                array_push($array, $usuario->id);
+            }
+        }
+
+
+        $medicos = App\Models\User::findMany($array);
+
+
+        
+        return view('pacientes.asignarmedico', compact ('medicos', 'id'));
+    } 
+
+    public function asignarmedico2 ($idP, $idM){
+        $paciente=App\Models\Paciente::findOrFail($idP);
+        $medico=App\Models\User::findOrFail($idM);
+
+        $asignado = false;
+        foreach ($paciente->users as $pu) {
+            $usuario=App\Models\User::findOrFail($pu->id);
+            if($usuario->hasRole('jefe')) {
+                $paciente->users()->detach();
+            }
+            if ($pu->id == $idM) {
+                $asignado = true;
+            }
+        }
+        if ($asignado) {
+            return back()->with('mensaje2','Medico ya asignado a este paciente');
+        }
+        $paciente->users()->attach($medico);
+        $paciente->save();
+        return back()->with('mensaje','Medico asignado');
+    } 
+
+    public function desasignarmedico ($idP, $idM){
+        $paciente=App\Models\Paciente::findOrFail($idP);
+        $paciente->users()->detach($idM);
+        return back()->with('mensaje','Medico desasignado');
+    } 
+
 }

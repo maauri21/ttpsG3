@@ -32,8 +32,9 @@ class SistemaController extends Controller
         $usuarios=App\Models\User::where('sistema_id', '=', $id)->get();
 
         $jefe='';
-        foreach ($usuarios as $jefe) {
-            if($jefe->hasRole('jefe')) {
+        foreach ($usuarios as $jf) {
+            if($jf->hasRole('jefe')) {
+                $jefe = $jf;
                 break;
             }
         }
@@ -49,6 +50,7 @@ class SistemaController extends Controller
         $cama=App\Models\Cama::where('paciente_id', '=', $paciente->id)->first();
 
         $paciente->sistemas()->detach();
+        $paciente->users()->detach();
 
         if (($sistema->nombre != 'Hotel') && ($sistema->nombre != 'Domicilio')) {
             # Dejo NULL la cama que ocupaba
@@ -76,6 +78,7 @@ class SistemaController extends Controller
         $cama=App\Models\Cama::where('paciente_id', '=', $paciente->id)->first();
 
         $paciente->sistemas()->detach();
+        $paciente->users()->detach();
 
         if (($sistema->nombre != 'Hotel') && ($sistema->nombre != 'Domicilio')) {
             # Dejo NULL la cama que ocupaba
@@ -117,6 +120,19 @@ class SistemaController extends Controller
                     $paciente->sistemas()->wherePivot('fin', NULL)->updateExistingPivot($sistema, ['fin' => date('Y-m-d')]);
                     # Va a estar en UTI
                     $paciente->sistemas()->attach(3, ['inicio' => date('Y-m-d')]);
+
+                    # Borro medicos actuales y le asigno al jefe
+                    $paciente->users()->detach();
+                    $usuarios=App\Models\User::where('sistema_id', '=', 3)->get();
+                    foreach ($usuarios as $jf) {
+                        if($jf->hasRole('jefe')) {
+                            $jefe = $jf;
+                            break;
+                        }
+                    }
+                    $paciente->users()->attach($jefe);
+                    $paciente->save();
+
                     # Dejo NULL la cama que ocupaba
                     $camaActual=App\Models\Cama::where('paciente_id', '=', $paciente->id)->first();
                     $camaActual->paciente_id = NULL;
@@ -142,6 +158,19 @@ class SistemaController extends Controller
                             $paciente->sistemas()->wherePivot('fin', NULL)->updateExistingPivot($sistema, ['fin' => date('Y-m-d')]);
                             # Va a estar en Guardia
                             $paciente->sistemas()->attach(1, ['inicio' => date('Y-m-d')]);
+
+                            # Borro medicos actuales y le asigno al jefe
+                            $paciente->users()->detach();
+                            $usuarios=App\Models\User::where('sistema_id', '=', 1)->get();
+                            foreach ($usuarios as $jf) {
+                                if($jf->hasRole('jefe')) {
+                                    $jefe = $jf;
+                                    break;
+                                }
+                            }
+                            $paciente->users()->attach($jefe);
+                            $paciente->save();
+
                             # Dejo NULL la cama que ocupaba
                             $camaActual=App\Models\Cama::where('paciente_id', '=', $paciente->id)->first();
                             $camaActual->paciente_id = NULL;
@@ -165,6 +194,19 @@ class SistemaController extends Controller
                             $paciente->sistemas()->wherePivot('fin', NULL)->updateExistingPivot($sistema, ['fin' => date('Y-m-d')]);
                             # Va a estar en Guardia
                             $paciente->sistemas()->attach(1, ['inicio' => date('Y-m-d')]);
+
+                            # Borro medicos actuales y le asigno al jefe
+                            $paciente->users()->detach();
+                            $usuarios=App\Models\User::where('sistema_id', '=', 1)->get();
+                            foreach ($usuarios as $jf) {
+                                if($jf->hasRole('jefe')) {
+                                    $jefe = $jf;
+                                    break;
+                                }
+                            }
+                            $paciente->users()->attach($jefe);
+                            $paciente->save();
+
                             # Dejo NULL la cama que ocupaba
                             $camaActual=App\Models\Cama::where('paciente_id', '=', $paciente->id)->first();
                             $camaActual->paciente_id = NULL;
@@ -186,6 +228,19 @@ class SistemaController extends Controller
                 $paciente->sistemas()->wherePivot('fin', NULL)->updateExistingPivot($sistema, ['fin' => date('Y-m-d')]);
                 # Va a estar en Guardia
                 $paciente->sistemas()->attach(1, ['inicio' => date('Y-m-d')]);
+
+                # Borro medicos actuales y le asigno al jefe
+                $paciente->users()->detach();
+                $usuarios=App\Models\User::where('sistema_id', '=', 1)->get();
+                foreach ($usuarios as $jf) {
+                    if($jf->hasRole('jefe')) {
+                        $jefe = $jf;
+                        break;
+                    }
+                }
+                $paciente->users()->attach($jefe);
+                $paciente->save();
+
                 # Dejo NULL la cama que ocupaba
                 $camaActual=App\Models\Cama::where('paciente_id', '=', $paciente->id)->first();
                 $camaActual->paciente_id = NULL;
@@ -223,6 +278,19 @@ class SistemaController extends Controller
                     $paciente->sistemas()->wherePivot('fin', NULL)->updateExistingPivot($sistema, ['fin' => date('Y-m-d')]);
                     # Va a estar en PC
                     $paciente->sistemas()->attach(2, ['inicio' => date('Y-m-d')]);
+
+                    # Borro medicos actuales y le asigno al jefe
+                    $paciente->users()->detach();
+                    $usuarios=App\Models\User::where('sistema_id', '=', 2)->get();
+                    foreach ($usuarios as $jf) {
+                        if($jf->hasRole('jefe')) {
+                            $jefe = $jf;
+                            break;
+                        }
+                    }
+                    $paciente->users()->attach($jefe);
+                    $paciente->save();
+
                     if (($sistema->nombre != 'Hotel') && ($sistema->nombre != 'Domicilio')) {
                         # Dejo NULL la cama que ocupaba
                         $camaActual->paciente_id = NULL;
@@ -253,6 +321,19 @@ class SistemaController extends Controller
         $paciente->sistemas()->wherePivot('fin', NULL)->updateExistingPivot($sistema, ['fin' => date('Y-m-d')]);
         # Va a estar en Hotel
         $paciente->sistemas()->attach(4, ['inicio' => date('Y-m-d')]);
+
+        # Borro medicos actuales y le asigno al jefe
+        $paciente->users()->detach();
+        $usuarios=App\Models\User::where('sistema_id', '=', 4)->get();
+        foreach ($usuarios as $jf) {
+            if($jf->hasRole('jefe')) {
+                $jefe = $jf;
+                break;
+            }
+        }
+        $paciente->users()->attach($jefe);
+        $paciente->save();
+
         # Dejo NULL la cama que ocupaba
         $camaActual=App\Models\Cama::where('paciente_id', '=', $paciente->id)->first();
         $camaActual->paciente_id = NULL;
@@ -274,6 +355,19 @@ class SistemaController extends Controller
         $paciente->sistemas()->wherePivot('fin', NULL)->updateExistingPivot($sistema, ['fin' => date('Y-m-d')]);
         # Va a estar en Domicilio
         $paciente->sistemas()->attach(5, ['inicio' => date('Y-m-d')]);
+
+        # Borro medicos actuales y le asigno al jefe
+        $paciente->users()->detach();
+        $usuarios=App\Models\User::where('sistema_id', '=', 5)->get();
+        foreach ($usuarios as $jf) {
+            if($jf->hasRole('jefe')) {
+                $jefe = $jf;
+                break;
+            }
+        }
+        $paciente->users()->attach($jefe);
+        $paciente->save();
+
         # Dejo NULL la cama que ocupaba
         $camaActual=App\Models\Cama::where('paciente_id', '=', $paciente->id)->first();
         $camaActual->paciente_id = NULL;

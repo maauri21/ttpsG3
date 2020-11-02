@@ -8,6 +8,16 @@ Paciente
 col-md-12
 @endsection
 
+@section('alerta')
+@if ( session('mensaje') )
+    <div class="alert alert-success mb-2">{{ session('mensaje') }}</div>
+@endif
+
+@if ( session('mensaje2') )
+    <div class="alert alert-danger mb-2">{{ session('mensaje2') }}</div>
+@endif
+@endsection
+
 @section('content')
 
 <div style="overflow-x:auto;">
@@ -91,7 +101,34 @@ col-md-12
                 <div class="card border-primary">
                     <div class="card-header text-white bg-primary">Médicos asignados</div>
                         <div class="card-body">
-                            <a href="#" class="btn btn-success btn">Asignar médico</a>
+                            <a href="{{route('asignarmedico',$paciente)}}" class="btn btn-success btn">Asignar médico</a>
+                            
+                            <main class="mt-4">
+                            <div style="overflow-x:auto;">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Nombre</th>
+                                            <th scope="col">Apellido</th>
+                                            <th scope="col">Legajo</th>
+                                            <th scope="col">Usuario</th>
+                                            <th scope="col">Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($paciente->users as $pu)
+                                        <tr>
+                                            <td>{{$pu->nombre}}</td>
+                                            <td>{{$pu->apellido}}</td>
+                                            <td>{{$pu->legajo}}</td>
+                                            <td>{{$pu->nombreUsuario}}</td>
+                                            <td><a href="{{route('desasignarmedico',['idP'=>$paciente->id, 'idM'=>$pu->id])}}" class="btn btn-danger btn-sm">Desasignar</a></td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+
                         </div>
                 </div>
             </div>
