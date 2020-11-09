@@ -24,6 +24,8 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+            $table->unsignedBigInteger('sistema_id')->nullable();
+            $table->foreign('sistema_id')->references('id')->on('sistemas')->onDelete('cascade');
         });
     }
 

@@ -16,8 +16,24 @@ class CreateSalasTable extends Migration
         Schema::create('salas', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
-            $table->unsignedInteger('sistema_id');
+            $table->unsignedBigInteger('sistema_id');
+            $table->foreign('sistema_id')->references('id')->on('sistemas')->onDelete('cascade');
         });
+
+        DB::table('salas')->insert([
+            'nombre' => 'Sala Guardia Infinita',
+            'sistema_id' => 1
+        ]);
+
+        DB::table('salas')->insert([
+            'nombre' => 'Sala Hotel',
+            'sistema_id' => 4
+        ]);
+
+        DB::table('salas')->insert([
+            'nombre' => 'Sala Domicilio',
+            'sistema_id' => 5
+        ]);
     }
 
     /**

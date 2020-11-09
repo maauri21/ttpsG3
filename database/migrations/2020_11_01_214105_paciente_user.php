@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class PacienteSistema extends Migration
+class PacienteUser extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,12 @@ class PacienteSistema extends Migration
      */
     public function up()
     {
-        Schema::create('paciente_sistema', function (Blueprint $table) {
+        Schema::create('paciente_user', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('paciente_id');
-            $table->unsignedBigInteger('sistema_id');
-            $table->date('inicio');
-            $table->date('fin')->nullable();
+            $table->unsignedBigInteger('user_id');
             $table->foreign('paciente_id')->references('id')->on('pacientes')->onDelete('cascade');
-            $table->foreign('sistema_id')->references('id')->on('sistemas')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
@@ -31,6 +29,6 @@ class PacienteSistema extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('paciente_sistema');
+        //
     }
 }

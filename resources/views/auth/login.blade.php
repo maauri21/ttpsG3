@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layout')
 
 @section('content')
 <div class="container">
@@ -51,6 +51,7 @@
                             </div>
                         </div>
 
+<<<<<<< Updated upstream
                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
@@ -67,6 +68,13 @@
                     </form>
                 </div>
             </div>
+=======
+    <div class="form-group row mb-0">
+        <div class="col-md-8 offset-md-4">
+            <button type="submit" class="btn btn-primary">
+                {{ __('Iniciar sesión') }}
+            </button>
+>>>>>>> Stashed changes
         </div>
     </div>
 </div>

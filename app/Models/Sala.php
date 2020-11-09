@@ -14,4 +14,9 @@ class Sala extends Model
     public function sistema(){
         return $this->belongsTo(Sistema::class);
     }
+
+    public function camas()
+    {
+        return $this->hasMany(Cama::class);
+    }
 }
