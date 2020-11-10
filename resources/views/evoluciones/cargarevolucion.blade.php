@@ -126,7 +126,7 @@ col-md-8
                             <div id="canulanasal" style="display: none" class="form-group row">
                                 <label for="canulanasal" class="col-md-4 col-form-label text-md-right">{{ __('Cánula nasal') }}</label>
                                 <div class="col-md-6">
-                                    <input id="canulanasal" type="text" maxlength="3" class="form-control @error('canulanasal') is-invalid @enderror" name="canulanasal" value="{{ old('canulanasal') }}" required autocomplete="canulanasal" autofocus>
+                                    <input id="canulanasal" type="text" maxlength="3" class="form-control @error('canulanasal') is-invalid @enderror" name="canulanasal" value="{{ old('canulanasal') }}" autocomplete="canulanasal" autofocus>
                                     @error('canulanasal')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -138,7 +138,7 @@ col-md-8
                             <div id="mascarares" style="display: none" class="form-group row">
                                 <label for="mascarares" class="col-md-4 col-form-label text-md-right">{{ __('Máscara con reservorio') }}</label>
                                 <div class="col-md-6">
-                                    <input id="mascarares" type="text" maxlength="4" class="form-control @error('mascarares') is-invalid @enderror" name="mascarares" value="{{ old('mascarares') }}" required autocomplete="mascarares" autofocus>
+                                    <input id="mascarares" type="text" maxlength="4" class="form-control @error('mascarares') is-invalid @enderror" name="mascarares" value="{{ old('mascarares') }}" autocomplete="mascarares" autofocus>
                                     @error('mascarares')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -169,7 +169,7 @@ col-md-8
                             <div id="valorpafi" style="display: none" class="form-group row">
                                 <label for="valorpafi" class="col-md-4 col-form-label text-md-right">{{ __('Valor PaFi') }}</label>
                                 <div class="col-md-6">
-                                    <input id="valorpafi" type="text" maxlength="4" class="form-control @error('valorpafi') is-invalid @enderror" name="valorpafi" value="{{ old('valorpafi') }}" required autocomplete="valorpafi" autofocus>
+                                    <input id="valorpafi" type="text" maxlength="4" class="form-control @error('valorpafi') is-invalid @enderror" name="valorpafi" value="{{ old('valorpafi') }}" autocomplete="valorpafi" autofocus>
                                     @error('valorpafi')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -294,7 +294,7 @@ col-md-8
                             <div id="descripcionrx" style="display: none" class="form-group row">
                                 <label for="descripcionrx" class="col-md-4 col-form-label text-md-right">{{ __('Descripción') }}</label>
                                 <div class="col-md-6">
-                                    <input id="descripcionrx" type="text" maxlength="100" class="form-control @error('descripcionrx') is-invalid @enderror" name="descripcionrx" value="{{ old('descripcionrx') }}" required autocomplete="descripcionrx" autofocus>
+                                    <input id="descripcionrx" type="text" maxlength="100" class="form-control @error('descripcionrx') is-invalid @enderror" name="descripcionrx" value="{{ old('descripcionrx') }}" autocomplete="descripcionrx" autofocus>
                                     @error('descripcionrx')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -324,7 +324,7 @@ col-md-8
                             <div id="descripciontactorax" style="display: none" class="form-group row">
                                 <label for="descripciontactorax" class="col-md-4 col-form-label text-md-right">{{ __('Descripción') }}</label>
                                 <div class="col-md-6">
-                                    <input id="descripciontactorax" type="text" maxlength="100" class="form-control @error('descripciontactorax') is-invalid @enderror" name="descripciontactorax" value="{{ old('descripciontactorax') }}" required autocomplete="descripciontactorax" autofocus>
+                                    <input id="descripciontactorax" type="text" maxlength="100" class="form-control @error('descripciontactorax') is-invalid @enderror" name="descripciontactorax" value="{{ old('descripciontactorax') }}" autocomplete="descripciontactorax" autofocus>
                                     @error('descripciontactorax')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -354,7 +354,7 @@ col-md-8
                             <div id="descripcionecg" style="display: none" class="form-group row">
                                 <label for="descripcionecg" class="col-md-4 col-form-label text-md-right">{{ __('Descripción') }}</label>
                                 <div class="col-md-6">
-                                    <input id="descripcionecg" type="text" maxlength="100" class="form-control @error('descripcionecg') is-invalid @enderror" name="descripcionecg" value="{{ old('descripcionecg') }}" required autocomplete="descripcionecg" autofocus>
+                                    <input id="descripcionecg" type="text" maxlength="100" class="form-control @error('descripcionecg') is-invalid @enderror" name="descripcionecg" value="{{ old('descripcionecg') }}" autocomplete="descripcionecg" autofocus>
                                     @error('descripcionecg')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -384,7 +384,7 @@ col-md-8
                             <div id="descripcionpcr" style="display: none" class="form-group row">
                                 <label for="descripcionpcr" class="col-md-4 col-form-label text-md-right">{{ __('Descripción') }}</label>
                                 <div class="col-md-6">
-                                    <input id="descripcionpcr" type="text" maxlength="100" class="form-control @error('descripcionpcr') is-invalid @enderror" name="descripcionpcr" value="{{ old('descripcionpcr') }}" required autocomplete="descripcionpcr" autofocus>
+                                    <input id="descripcionpcr" type="text" maxlength="100" class="form-control @error('descripcionpcr') is-invalid @enderror" name="descripcionpcr" value="{{ old('descripcionpcr') }}" autocomplete="descripcionpcr" autofocus>
                                     @error('descripcionpcr')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -393,71 +393,8 @@ col-md-8
                                 </div>
                             </div>
 
-                            <div class="form-group row">
-                                <label for="laboratorio" class="col-md-4 col-form-label text-md-right">{{ __('Laboratorio') }}</label>
-                                <div class="col-md-6">
-                                    <input id="laboratorio" type="checkbox" data-toggle="toggle" @if(old('laboratorio')) checked @endif data-onstyle="success" data-offstyle="danger" data-on=" " data-off=" " name="laboratorio">
-                                </div>
-                            </div>
-
-                            <div id="hto" style="display: none" class="form-group row">
-                                <label for="hto" class="col-md-4 col-form-label text-md-right">{{ __('Hto') }}</label>
-                                <div class="col-md-6">
-                                    <input id="hto" type="text" maxlength="5" class="form-control @error('hto') is-invalid @enderror" name="hto" value="{{ old('hto') }}" required autocomplete="hto" autofocus>
-                                    @error('hto')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div>
                             
                             
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</main>
-
-<main class="mt-2">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-12">
-                <div class="card border-secondary">
-                    <h6 class="card-header bg-secondary">
-                        <a data-toggle="collapse" href="#collapse-example5" aria-expanded="true" aria-controls="collapse-example5" id="heading-example" class="collapsed d-block text-white">
-                            <i class="text-white fa fa-chevron-down pull-right"></i>
-                            {{ __('Tratamientos actuales') }}
-                        </a>
-                    </h6>
-                    <div id="collapse-example5" class="collapse" aria-labelledby="heading-example">
-                        <div class="card-body">
-                            <div id="alimentacion" class="form-group row">
-                                <label for="alimentacion" class="col-md-4 col-form-label text-md-right">{{ __('Alimentación') }}</label>
-                            
-                                <div class="col-md-6">
-                                    <select id="alimentacion" name="alimentacion" class="form-control">
-                                        <option value="oral" {{ old('alimentacion') == 'oral' ? 'selected="selected"' : '' }}>Oral</option>
-                                        <option value="enteral" {{ old('alimentacion') == 'enteral' ? 'selected="selected"' : '' }}>Enteral</option>
-                                        <option value="parental" {{ old('alimentacion') == 'parental' ? 'selected="selected"' : '' }}>Parental</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div id="descripcionalim" class="form-group row">
-                                <label for="descripcionalim" class="col-md-4 col-form-label text-md-right">{{ __('Alimentación, Descripción') }}</label>
-                                <div class="col-md-6">
-                                    <input id="descripcionalim" type="text" maxlength="100" class="form-control @error('descripcionalim') is-invalid @enderror" name="descripcionalim" value="{{ old('descripcionalim') }}" required autocomplete="descripcionalim" autofocus>
-                                    @error('descripcionalim')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div>
 
                         </div>
                     </div>
@@ -479,23 +416,28 @@ col-md-8
                         </a>
                     </h6>
                     <div id="collapse-example6" class="collapse" aria-labelledby="heading-example">
-                        <div id="Observación" class="form-group row">
-                            <label for="Observación" class="col-md-4 col-form-label text-md-right">{{ __('Observación, Descripción') }}</label>
-                            <div class="col-md-6">
-                                <input id="Observación" type="text" maxlength="100" class="form-control @error('Observación') is-invalid @enderror" name="Observación" value="{{ old('Observación') }}" required autocomplete="Observación" autofocus>
-                                @error('Observación')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                        <div class="card-body">
+                            <div id="descripcionobs" class="form-group row">
+                                <label for="descripcionobs" class="col-md-4 col-form-label text-md-right">{{ __('Descripción') }}</label>
+                                <div class="col-md-6">
+                                    <input id="descripcionobs" type="text" maxlength="100" class="form-control @error('descripcionobs') is-invalid @enderror" name="descripcionobs" value="{{ old('descripcionobs') }}" required autocomplete="descripcionobs" autofocus>
+                                    @error('descripcionobs')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
                             </div>
+
                         </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </main>
 
+@if($sistemaActual->nombre == 'Unidad Terapia Intensiva')
 <main class="mt-2">
     <div class="container">
         <div class="row justify-content-center">
@@ -510,17 +452,17 @@ col-md-8
                     <div id="collapse-example7" class="collapse" aria-labelledby="heading-example">
                         <div class="card-body"> 
                             <div class="form-group row">
-                                <label for="Arm" class="col-md-4 col-form-label text-md-right">{{ __('Arm') }}</label>
+                                <label for="arm" class="col-md-4 col-form-label text-md-right">{{ __('ARM') }}</label>
                                 <div class="col-md-6">
-                                    <input id="Arm" type="checkbox" data-toggle="toggle" @if(old('Arm')) checked @endif data-onstyle="success" data-offstyle="danger" data-on=" " data-off=" " name="Arm">
+                                    <input id="arm" type="checkbox" data-toggle="toggle" @if(old('arm')) checked @endif data-onstyle="success" data-offstyle="danger" data-on=" " data-off=" " name="arm">
                                 </div>
                             </div>
 
-                            <div id="DescripcionArm" style="display: none" class="form-group row">
-                                <label for="DescripcionArm" class="col-md-4 col-form-label text-md-right">{{ __('Descripcion Arm') }}</label>
+                            <div id="descripcionArm" style="display: none" class="form-group row">
+                                <label for="descripcionArm" class="col-md-4 col-form-label text-md-right">{{ __('Descripción') }}</label>
                                 <div class="col-md-6">
-                                    <input id="DescripcionArm" type="text" maxlength="5" class="form-control @error('DescripcionArm') is-invalid @enderror" name="DescripcionArm" value="{{ old('DescripcionArm') }}" required autocomplete="DescripcionArm" autofocus>
-                                    @error('DescripcionArm')
+                                    <input id="descripcionArm" type="text" maxlength="5" class="form-control @error('descripcionArm') is-invalid @enderror" name="descripcionArm" value="{{ old('descripcionArm') }}" autocomplete="descripcionArm" autofocus>
+                                    @error('descripcionArm')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -528,23 +470,23 @@ col-md-8
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="Traqueostomia" class="col-md-4 col-form-label text-md-right">{{ __('Traqueostomia') }}</label>
+                                <label for="traqueostomia" class="col-md-4 col-form-label text-md-right">{{ __('Traqueostomia') }}</label>
                                 <div class="col-md-6">
-                                    <input id="Traqueostomia" type="checkbox" data-toggle="toggle" @if(old('Traqueostomia')) checked @endif data-onstyle="success" data-offstyle="danger" data-on=" " data-off=" " name="Traqueostomia">
+                                    <input id="traqueostomia" type="checkbox" data-toggle="toggle" @if(old('traqueostomia')) checked @endif data-onstyle="success" data-offstyle="danger" data-on=" " data-off=" " name="traqueostomia">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="Vasopresores" class="col-md-4 col-form-label text-md-right">{{ __('Vasopresores') }}</label>
+                                <label for="vasopresores" class="col-md-4 col-form-label text-md-right">{{ __('Vasopresores') }}</label>
                                 <div class="col-md-6">
-                                    <input id="Vasopresores" type="checkbox" data-toggle="toggle" @if(old('Vasopresores')) checked @endif data-onstyle="success" data-offstyle="danger" data-on=" " data-off=" " name="Vasopresores">
+                                    <input id="vasopresores" type="checkbox" data-toggle="toggle" @if(old('vasopresores')) checked @endif data-onstyle="success" data-offstyle="danger" data-on=" " data-off=" " name="vasopresores">
                                 </div>
                             </div>
 
-                            <div id="DescripcionVasopresores" style="display: none" class="form-group row">
-                                <label for="DescripcionVasopresores" class="col-md-4 col-form-label text-md-right">{{ __('Descripcion Vasopresores') }}</label>
+                            <div id="descripcionVasop" style="display: none" class="form-group row">
+                                <label for="descripcionVasop" class="col-md-4 col-form-label text-md-right">{{ __('Descripción') }}</label>
                                 <div class="col-md-6">
-                                    <input id="DescripcionVasopresores" type="text" maxlength="5" class="form-control @error('DescripcionVasopresores') is-invalid @enderror" name="DescripcionVasopresores" value="{{ old('DescripcionVasopresores') }}" required autocomplete="DescripcionVasopresores" autofocus>
-                                    @error('DescripcionVasopresores')
+                                    <input id="descripcionVasop" type="text" maxlength="5" class="form-control @error('descripcionVasop') is-invalid @enderror" name="descripcionVasop" value="{{ old('descripcionVasop') }}" autocomplete="descripcionVasop" autofocus>
+                                    @error('descripcionVasop')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -558,6 +500,7 @@ col-md-8
         </div>
     </div>
 </main>
+@endif
 
 <div class="form-group row mt-3 mb-0">
     <div class="col-md-6 offset-md-4">
@@ -568,6 +511,6 @@ col-md-8
 </div>
 </form>
 
-<script src="{{ asset('cargarevolucionnn.js') }}"></script>
+<script src="{{ asset('cargarevolucionn.js') }}"></script>
 
 @endsection

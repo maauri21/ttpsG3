@@ -24,6 +24,7 @@ $('#rxtx').change(function(){
         $('#tiporxtx').show();
     } else {
         $('#tiporxtx').hide();
+        $('#descripcionrx').hide();
     }
 }); 
 
@@ -41,6 +42,7 @@ $('#tactorax').change(function(){
         $('#tipotactorax').show();
     } else {
         $('#tipotactorax').hide();
+        $('#descripciontactorax').hide();
     }
 }); 
 
@@ -58,6 +60,7 @@ $('#ecg').change(function(){
         $('#tipoecg').show();
     } else {
         $('#tipoecg').hide();
+        $('#descripcionecg').hide();
     }
 }); 
 
@@ -75,6 +78,7 @@ $('#pcr').change(function(){
         $('#tipopcr').show();
     } else {
         $('#tipopcr').hide();
+        $('#descripcionpcr').hide();
     }
 }); 
 
@@ -86,30 +90,21 @@ $('#tipopcr').change(function(){
     }
 }); 
 
-$('#laboratorio').change(function(){
-    var x=$("#laboratorio").is(":checked");
+$('#arm').change(function(){
+    var x=$("#arm").is(":checked");
     if(x) {
-        $('#hto').show();
+        $('#descripcionArm').show();
     } else {
-        $('#hto').hide();
+        $('#descripcionArm').hide();
     }
 }); 
 
-$('#Arm').change(function(){
-    var x=$("#Arm").is(":checked");
+$('#vasopresores').change(function(){
+    var x=$("#vasopresores").is(":checked");
     if(x) {
-        $('#DescripcionArm').show();
+        $('#descripcionVasop').show();
     } else {
-        $('#DescripcionArm').hide();
-    }
-}); 
-
-$('#Vasopresores').change(function(){
-    var x=$("#Vasopresores").is(":checked");
-    if(x) {
-        $('#DescripcionVasopresores').show();
-    } else {
-        $('#DescripcionVasopresores').hide();
+        $('#descripcionVasop').hide();
     }
 });
 
