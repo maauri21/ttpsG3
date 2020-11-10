@@ -94,3 +94,26 @@ $('#laboratorio').change(function(){
         $('#hto').hide();
     }
 }); 
+
+$('#Arm').change(function(){
+    var x=$("#Arm").is(":checked");
+    if(x) {
+        $('#DescripcionArm').show();
+    } else {
+        $('#DescripcionArm').hide();
+    }
+}); 
+
+$('#Vasopresores').change(function(){
+    var x=$("#Vasopresores").is(":checked");
+    if(x) {
+        $('#DescripcionVasopresores').show();
+    } else {
+        $('#DescripcionVasopresores').hide();
+    }
+});
+
+
+
+
+
