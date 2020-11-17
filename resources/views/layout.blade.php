@@ -26,6 +26,9 @@
     <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
     
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
@@ -103,6 +106,52 @@
                                     </form>
                                 </div>
                             </li>
+                            <!-- Right navbar links -->
+                             <ul class="navbar-nav ml-auto">
+                            <!-- Notifications Dropdown Menu -->
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link" data-toggle="dropdown" href="#">
+                                    <i class="fas fa-bell"> Notificaciones</i>
+                                        @if (count(auth()->user()->unreadNotifications))
+                                        <span class="badge badge-warning">{{ count(auth()->user()->unreadNotifications) }}</span>
+                                        
+                                        @endif
+                                    </span>    
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                                        <span class="dropdown-header" >Notificaciones sin leer</span>
+                                          @forelse (auth()->user()->unreadNotifications as $notification)
+                                          <a href="#" class="dropdown-item">
+                                            <i class="fas fa-envelope mr-2"></i> {{ $notification->data['evolucion'] }}
+                                            <span class="ml-3 pull-right text-muted text-sm">{{ $notification->created_at->diffForHumans() }}</span>
+                                            <div class="dropdown-divider">
+
+                                            </div>
+                                        </a>
+                                          @empty
+                                            
+                                            <span class="ml-3 pull-right text-muted text-sm">Sin notificaciones por leer</span>  
+                                          @endforelse
+                                          <div class="dropdown-divider"></div>
+                                             
+                                            <span class="dropdown-header">Notificaciones Leidas</span>  
+                                            @forelse (auth()->user()->readNotifications as $notification)
+                                            <a href="#" class="dropdown-item">
+                                                <i class="fas fa-users mr-2"></i> {{ $notification->data['evolucion'] }}
+                                                <span class="ml-3 pull-right text-muted text-sm">{{ $notification->created_at->diffForHumans() }}</span>
+                                                   
+                                            </a>
+                                            @empty
+                                                <div class="dropdown-divider">
+                                                <span class="ml-3 pull-right text-muted text-sm">Sin notificaciones leidas</span></div>
+                                            @endforelse
+                                
+                                            <div class="dropdown-divider"></div>
+                                                <a href="{{ route('markAsRead') }}" class="dropdown-item dropdown-footer">Marcar Todo Leido</a>
+                                              </div>
+                                 </li>
+                            </ul>    
+
                         @endguest
                     </ul>
                 </div>

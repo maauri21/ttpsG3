@@ -3,6 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Notifications\EvolucionNotification;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Evolucion;
+use App\Models\User;
+use App\Events\EvolucionEvent;
+
 use App;
 
 class EvolucionController extends Controller
@@ -28,12 +34,42 @@ class EvolucionController extends Controller
 
         # HORA Y FECHA AUTOMÁTICO!
 
-        #$evolucion = new App\Models\Evolucion;
+        $evolucion = new App\Models\Evolucion;
         #$pacienteNuevo->dni = $request->dni;
         #$pacienteNuevo->contacto()->associate($contactoNuevo);
         #$pacienteNuevo->save();
-
+        $evolucion->id = 69;
+        $evolucion->temperatura = $request->temperatura;
+        $evolucion->tasistolica = $request->tasistolica;
+        $evolucion->tadiastolica = $request->tadiastolica;
+        $evolucion->fc = $request->fc;
+        $evolucion->fr = $request->fr;
+        $evolucion->canulanasal = $request->canulanasal;
+        $evolucion->mascarares = $request->mascarares;
+        $evolucion->sato2 = $request->sato2;
+        $evolucion->valorpafi = $request->valorpafi;
+        
+       # $aux = $evolucion->save();
+        #$data = $request->all();
+        #$aux = Evolucion::create($data);
+        #auth()->user()->notify(new EvolucionNotification($evolucion));
+        #User::all()
+        #    ->except()
+        event (new EvolucionEvent($evolucion));
+        return ("Evolucion cargada");
         #return redirect()->route('verinternacion', ['id' => $pacienteNuevo->id]);
 
     }
+
+    public function mostrarevolucion(){
+        $evolucionNotifications = auth()->user->unreadNotifications;
+        return view('evoluciones.verevolucion',compact('evolucionNotifications')); 
+    }
+
+
+    public function MarkAsRead(){
+        auth()->user()->unreadNotifications->markAsRead();
+        return redirect()->back();
+        }
+
 }
