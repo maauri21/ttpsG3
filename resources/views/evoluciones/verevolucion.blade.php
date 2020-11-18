@@ -9,14 +9,14 @@
             <div class="card-body">
 
               @if (auth()->user())
-              @forelse ($EvolucionNotifications as $notification)
+              @forelse ($evolucionNotifications as $notification)
               <div class="alert alert-default-warning">
-                Post title: {{ $notification->data['id'] }}
+                Alerta: {{ $notification->data['textoAlerta'] }}
                 <p>{{ $notification->created_at->diffForHumans() }}</p>
-                <button type="submit" class="mark-as-read btn btn-sm btn-dark" data-id="{{ $notification->id }}">Mark as read</button>
+                <button type="submit" class="mark-as-read btn btn-sm btn-dark" data-id="{{ $notification->id }}">Marcar como leida</button>
               </div>
               @if ($loop->last)
-                <a href="#" id="mark-all">Mark all as read</a>
+                <a href="#" id="mark-all">Marcar todas como leidas</a>
                   
               @endif
               

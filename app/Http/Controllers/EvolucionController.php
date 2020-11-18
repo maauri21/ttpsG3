@@ -39,6 +39,7 @@ class EvolucionController extends Controller
         #$pacienteNuevo->contacto()->associate($contactoNuevo);
         #$pacienteNuevo->save();
         $evolucion->id = 69;
+        $evolucion->textoAlerta = "Texto con info";
         $evolucion->temperatura = $request->temperatura;
         $evolucion->tasistolica = $request->tasistolica;
         $evolucion->tadiastolica = $request->tadiastolica;
@@ -49,7 +50,7 @@ class EvolucionController extends Controller
         $evolucion->sato2 = $request->sato2;
         $evolucion->valorpafi = $request->valorpafi;
         
-       # $aux = $evolucion->save();
+        #$evolucion->save();
         #$data = $request->all();
         #$aux = Evolucion::create($data);
         #auth()->user()->notify(new EvolucionNotification($evolucion));
@@ -62,8 +63,8 @@ class EvolucionController extends Controller
     }
 
     public function mostrarevolucion(){
-        $evolucionNotifications = auth()->user->unreadNotifications;
-        return view('evoluciones.verevolucion',compact('evolucionNotifications')); 
+        $evolucionNotifications = auth()->user()->unreadNotifications;
+        return view('evoluciones.verevolucion', compact('evolucionNotifications')); 
     }
 
 

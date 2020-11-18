@@ -37,3 +37,5 @@ class EvolucionListener
             });
     } 
 }
+
+# En este archivo pongo la logica para que se disparen las alertas, aca de alguna forma debo hacere que le mande al doctor que tiene asociado ese paciente

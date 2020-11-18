@@ -65,6 +65,7 @@ class EvolucionNotification extends Notification
             'mascarares' => $this->evolucion->mascarares,
             'sato2' => $this->evolucion->sato2,
             'valorpafi' => $this->evolucion->valorpafi,
+            'textoAlerta' => $this->evolucion->textoAlerta,
         ];
     }
 }

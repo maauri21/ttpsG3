@@ -106,12 +106,20 @@
                                     </form>
                                 </div>
                             </li>
+                            <ul class="navbar-nav ml-auto">
+                            <li class="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle text-primary" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre><i class="fa fa-inbox fa-lg"></i> Notificaciones</a>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('mostrarevolucion') }}">Ver</a>
+                                    
+                                </div>
+                            </li>
                             <!-- Right navbar links -->
                              <ul class="navbar-nav ml-auto">
                             <!-- Notifications Dropdown Menu -->
                                 <li class="nav-item dropdown">
                                     <a class="nav-link" data-toggle="dropdown" href="#">
-                                    <i class="fas fa-bell"> Notificaciones</i>
+                                    <i class="fas fa-bell"></i>
                                         @if (count(auth()->user()->unreadNotifications))
                                         <span class="badge badge-warning">{{ count(auth()->user()->unreadNotifications) }}</span>
                                         
@@ -122,7 +130,7 @@
                                         <span class="dropdown-header" >Notificaciones sin leer</span>
                                           @forelse (auth()->user()->unreadNotifications as $notification)
                                           <a href="#" class="dropdown-item">
-                                            <i class="fas fa-envelope mr-2"></i> {{ $notification->data['evolucion'] }}
+                                            <i class="fas fa-envelope mr-2"></i> {{ $notification->data['textoAlerta'] }}      <!-- Aca listo lo que quiero que muestre la notificacion -->
                                             <span class="ml-3 pull-right text-muted text-sm">{{ $notification->created_at->diffForHumans() }}</span>
                                             <div class="dropdown-divider">
 
@@ -137,7 +145,7 @@
                                             <span class="dropdown-header">Notificaciones Leidas</span>  
                                             @forelse (auth()->user()->readNotifications as $notification)
                                             <a href="#" class="dropdown-item">
-                                                <i class="fas fa-users mr-2"></i> {{ $notification->data['evolucion'] }}
+                                                <i class="fas fa-users mr-2"></i> {{ $notification->data['textoAlerta'] }} <!-- Aca listo lo que quiero que muestre la notificacion -->
                                                 <span class="ml-3 pull-right text-muted text-sm">{{ $notification->created_at->diffForHumans() }}</span>
                                                    
                                             </a>
