@@ -31,6 +31,15 @@ class InternacionController extends Controller
         #$pacienteNuevo->sistemas()->attach(1);     #Le asigno guardia
         $paciente->sistemas()->attach(1, ['inicio' => date('Y-m-d')]);     #Ademas de asignarle guardia, Agrego fecha en la tabla intermedia
 
+        $usuarios=App\Models\User::where('sistema_id', '=', 1)->get();      # Para buscar al jefe de guardia
+        foreach ($usuarios as $jf) {
+            if($jf->hasRole('jefe')) {
+                $jefe = $jf;
+                break;
+            }
+        }
+        $paciente->users()->attach($jefe);
+
         $salaNueva=True;
         $config= App\Models\Config::findOrFail(1);
         if ($config->camasinfinitas == False) {

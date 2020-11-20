@@ -1,17 +1,19 @@
 @extends('layout')
 
+@section('nombrePanel')
+Notificaciones sin leer
+@endsection
+
+@section('tamañoPanel')
+col-md-8
+@endsection
+
 @section('content')
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-md-12">
-          <div class="card">
-            <div class="card-header">Notificaciones  No Leidas</div>
-            <div class="card-body">
 
               @if (auth()->user())
               @forelse ($evolucionNotifications as $notification)
               <div class="alert alert-default-warning">
-                Alerta: {{ $notification->data['textoAlerta'] }}
+                {{ $notification->data['textoAlerta'] }}
                 <p>{{ $notification->created_at->diffForHumans() }}</p>
                 <button type="submit" class="mark-as-read btn btn-sm btn-dark" data-id="{{ $notification->id }}">Marcar como leida</button>
               </div>
@@ -21,14 +23,9 @@
               @endif
               
               @empty
-                There are no notifications                  
+                Sin notificaciones
               @endforelse
                           
               @endif
-                            
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+
 @endsection

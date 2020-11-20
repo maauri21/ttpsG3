@@ -38,8 +38,6 @@ class EvolucionController extends Controller
         #$pacienteNuevo->dni = $request->dni;
         #$pacienteNuevo->contacto()->associate($contactoNuevo);
         #$pacienteNuevo->save();
-        $evolucion->id = 69;
-        $evolucion->textoAlerta = "Texto con info";
         $evolucion->temperatura = $request->temperatura;
         $evolucion->tasistolica = $request->tasistolica;
         $evolucion->tadiastolica = $request->tadiastolica;
@@ -49,7 +47,11 @@ class EvolucionController extends Controller
         $evolucion->mascarares = $request->mascarares;
         $evolucion->sato2 = $request->sato2;
         $evolucion->valorpafi = $request->valorpafi;
-        
+
+        if ($request->somnolencia) {
+            $evolucion->textoAlerta = "Somnolencia: evaluar pase a UTI";
+        }
+
         #$evolucion->save();
         #$data = $request->all();
         #$aux = Evolucion::create($data);

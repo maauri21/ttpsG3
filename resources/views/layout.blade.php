@@ -92,20 +92,7 @@
                                 </div>
                             </li>
 
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle text-primary" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre><i class="fa fa-user fa-lg" aria-hidden="true"></i> {{ Auth::user()->nombreUsuario }}</a>
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Cerrar sesión') }}
-                                    </a>
 
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
                             <ul class="navbar-nav ml-auto">
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle text-primary" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre><i class="fa fa-inbox fa-lg"></i> Notificaciones</a>
@@ -119,7 +106,7 @@
                             <!-- Notifications Dropdown Menu -->
                                 <li class="nav-item dropdown">
                                     <a class="nav-link" data-toggle="dropdown" href="#">
-                                    <i class="fas fa-bell"></i>
+                                    <i class="fas fa-bell text-primary"></i>
                                         @if (count(auth()->user()->unreadNotifications))
                                         <span class="badge badge-warning">{{ count(auth()->user()->unreadNotifications) }}</span>
                                         
@@ -159,6 +146,20 @@
                                               </div>
                                  </li>
                             </ul>    
+                            <li class="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle text-primary" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre><i class="fa fa-user fa-lg" aria-hidden="true"></i> {{ Auth::user()->nombreUsuario }}</a>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        {{ __('Cerrar sesión') }}
+                                    </a>
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
+                                </div>
+                            </li>
 
                         @endguest
                     </ul>

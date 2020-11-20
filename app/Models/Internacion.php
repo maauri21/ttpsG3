@@ -14,4 +14,9 @@ class Internacion extends Model
     public function paciente(){
         return $this->belongsTo(Paciente::class);
     }
+
+    public function evoluciones()
+    {
+        return $this->hasMany(Evolucion::class);
+    }
 }

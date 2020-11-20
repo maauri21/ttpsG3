@@ -128,4 +128,41 @@ col-md-8
 </main>
 @endcan
 
+<main class="mt-4">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card border-primary">
+                    <div class="card-header text-white bg-primary">Mis pacientes - ROOL MEDICO/JEFE</div>
+                        <div class="card-body">
+                            <div style="overflow-x:auto;">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">DNI</th>
+                                            <th scope="col">Nombre</th>
+                                            <th scope="col">Apellido</th>
+                                            <th scope="col">Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($usuario->pacientes as $up)
+                                        <tr>
+                                            <td>{{$up->dni}}</td>
+                                            <td>{{$up->nombre}}</td>
+                                            <td>{{$up->apellido}}</td>
+                                            <td><a href="{{route ('verinternacion', $up->id)}}" class="btn btn-info btn-sm">Ver</a></td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
 @endsection

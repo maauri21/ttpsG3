@@ -30,7 +30,10 @@ class EvolucionListener
     {
         User::all()
             ->each (function(User $user) use($event){
-                Notification::send($user, new EvolucionNotification($event->evolucion));
+                foreach ($user->pacientes as $up) {
+                    Notification::send($user, new EvolucionNotification($event->evolucion));
+                    break;
+                }
                 #$user->notify(new Evolucion)
             #Notification::send($users, new InvoicePaid($invoice));
    

@@ -99,7 +99,7 @@ col-md-12
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card border-primary">
-                    <div class="card-header text-white bg-primary">Médicos asignados</div>
+                    <div class="card-header text-white bg-primary">Médicos asignados - ROOL JEFE</div>
                         <div class="card-body">
                             <a href="{{route('asignarmedico',$paciente)}}" class="btn btn-success btn">Asignar médico</a>
                             

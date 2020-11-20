@@ -87,7 +87,11 @@ class HomeController extends Controller
         array_push($array, $totalD);array_push($array, $libresD);array_push($array, $ocupadasD);
         array_push($array, $totalH);array_push($array, $libresH);array_push($array, $ocupadasH);
 
-        return view('home',compact ('config','array'));
+        # Mis pacientes
+        $usuario=App\Models\User::findOrFail(auth()->user()->id);
+
+
+        return view('home',compact ('config','array', 'usuario'));
     }
 
     public function redir()
