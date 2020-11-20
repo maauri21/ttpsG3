@@ -30,9 +30,11 @@ class EvolucionListener
     {
         User::all()
             ->each (function(User $user) use($event){
-                foreach ($user->pacientes as $up) {
-                    Notification::send($user, new EvolucionNotification($event->evolucion));
-                    break;
+                foreach ($user->pacientes as $up) {                    
+                    if ($up->id == $event->evolucion->pacientee) {      # Si mi paciente coincide con el que estoy cargando, mando alerta
+                        Notification::send($user, new EvolucionNotification($event->evolucion));
+                        break;
+                    }
                 }
                 #$user->notify(new Evolucion)
             #Notification::send($users, new InvoicePaid($invoice));

@@ -47,6 +47,7 @@ class EvolucionController extends Controller
         $evolucion->mascarares = $request->mascarares;
         $evolucion->sato2 = $request->sato2;
         $evolucion->valorpafi = $request->valorpafi;
+        $evolucion->pacientee = 1;
 
         if ($request->somnolencia) {
             $evolucion->textoAlerta = "Somnolencia: evaluar pase a UTI";
