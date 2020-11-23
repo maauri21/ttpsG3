@@ -24,42 +24,45 @@ class CreateEvolucionsTable extends Migration
             $table->integer('fc');
             $table->integer('fr');
 
-            $table->string('mecanicaventilatoria');
-            $table->boolean('o2suplementario');
+            $table->string('mecanicaventilatoria')->nullable();
+            $table->string('o2suplementario')->nullable();
             $table->float('canulanasal')->nullable();
             $table->float('mascarares')->nullable();
-            $table->integer('sato2');
-            $table->boolean('pafi');
+            $table->integer('sato2')->nullable();
+            $table->string('pafi')->nullable();
             $table->integer('valorpafi')->nullable();
-            $table->boolean('pronovigil');
-            $table->boolean('tos');
-            $table->string('disnea');
-            $table->boolean('desaresp');
+            $table->string('pronovigil')->nullable();
+            $table->string('tos')->nullable();
+            $table->string('disnea')->nullable();
+            $table->string('desaresp')->nullable();
 
-            $table->boolean('somnolencia');
-            $table->boolean('anosmia');
-            $table->boolean('disgeusia');
+            $table->string('somnolencia')->nullable();
+            $table->string('anosmia')->nullable();
+            $table->string('disgeusia')->nullable();
 
-            $table->boolean('rxtx');
+            $table->string('rxtx')->nullable();
             $table->string('tiporxtx')->nullable();
             $table->string('descripcionrx')->nullable();
-            $table->boolean('tactorax');
+            $table->string('tactorax')->nullable();
             $table->string('tipotactorax')->nullable();
             $table->string('descripciontactorax')->nullable();
-            $table->boolean('ecg');
+            $table->string('ecg')->nullable();
             $table->string('tipoecg')->nullable();
             $table->string('descripcionecg')->nullable();
-            $table->boolean('pcr');
+            $table->string('pcr')->nullable();
             $table->string('tipopcr')->nullable();
             $table->string('descripcionpcr')->nullable();
 
             $table->string('descripcionobs');
 
-            $table->boolean('arm')->nullable();
+            $table->string('arm')->nullable();
             $table->string('descripcionArm')->nullable();
-            $table->boolean('traqueostomia')->nullable();
-            $table->boolean('vasopresores')->nullable();
+            $table->string('traqueostomia')->nullable();
+            $table->string('vasopresores')->nullable();
             $table->string('descripcionVasop')->nullable();
+
+            $table->string('textoAlerta')->nullable();
+            $table->integer('paciente_alerta')->nullable();
 
             $table->unsignedBigInteger('internacion_id');
             $table->foreign('internacion_id')->references('id')->on('internacions')->onDelete('cascade');

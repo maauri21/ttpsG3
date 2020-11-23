@@ -16,6 +16,7 @@ class CreateConfigsTable extends Migration
         Schema::create('configs', function (Blueprint $table) {
             $table->id();
             $table->boolean('camasinfinitas');
+            $table->integer('sat_o2');
         });
 
         DB::table('configs')->insert([

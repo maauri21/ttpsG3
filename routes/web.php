@@ -57,3 +57,5 @@ Route::post('cargar_evolucion2', 'App\Http\Controllers\EvolucionController@carga
 Route::get('mostrarevolucion', 'App\Http\Controllers\EvolucionController@mostrarevolucion')->name('mostrarevolucion')->middleware('auth'); # formulario para ver una notificacion en particular
 Route::get('markAsRead', 'App\Http\Controllers\EvolucionController@markAsRead')->name('markAsRead')->middleware('auth'); # ruta donde marca a todas las noti leidas
 
+# Reglas
+Route::put('/actualizarreglas', 'App\Http\Controllers\ReglasController@actualizar_reglas')->name('actualizar_reglas')->middleware('auth');

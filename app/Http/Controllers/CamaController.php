@@ -19,7 +19,7 @@ class CamaController extends Controller
             $config->camasinfinitas = False;
             $config->save();
         }
-        return redirect()->route('home');
+        return redirect()->route('home')->with('mensaje', 'Camas infinitas modificado');
     }
 
     public function eliminarcama($id) {

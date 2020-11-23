@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('nombrePanel')
-Notificaciones sin leer
+Notificaciones
 @endsection
 
 @section('tamañoPanel')
@@ -25,6 +25,8 @@ col-md-8
               @empty
                 Sin notificaciones
               @endforelse
+
+              <br/><button type="submit" class="btn btn-primary mt-3">Notificaciones anteriores</button>Que el boton me mande a una vista como esta pero con las notificaciones leidas como tiene la campanita
                           
               @endif
 

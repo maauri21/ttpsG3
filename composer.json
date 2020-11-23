@@ -15,6 +15,7 @@
         "laravel/framework": "^8.0",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^3.0",
+        "nesbot/carbon": "^2.41",
         "spatie/laravel-permission": "^3.17",
         "timgws/query-builder-parser": "^1.6",
         "uuf6429/rune": "~2.0"

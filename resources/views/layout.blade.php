@@ -92,15 +92,15 @@
                                 </div>
                             </li>
 
-
-                            <ul class="navbar-nav ml-auto">
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle text-primary" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre><i class="fa fa-inbox fa-lg"></i> Notificaciones</a>
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('mostrarevolucion') }}">Ver</a>
-                                    
-                                </div>
+                            <li class="nav-item">
+                                <a class="nav-link text-primary" href="{{ route('mostrarevolucion') }}" role="button" aria-haspopup="true" aria-expanded="false" v-pre><i class="fa fa-inbox fa-lg">
+                                    </i> Notificaciones 
+                                    @if (count(auth()->user()->unreadNotifications))
+                                        <span class="badge badge-warning">{{ count(auth()->user()->unreadNotifications) }}</span>
+                                    @endif
+                                </a> 
                             </li>
+
                             <!-- Right navbar links -->
                              <ul class="navbar-nav ml-auto">
                             <!-- Notifications Dropdown Menu -->
@@ -109,7 +109,6 @@
                                     <i class="fas fa-bell text-primary"></i>
                                         @if (count(auth()->user()->unreadNotifications))
                                         <span class="badge badge-warning">{{ count(auth()->user()->unreadNotifications) }}</span>
-                                        
                                         @endif
                                     </span>    
                                     </a>

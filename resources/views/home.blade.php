@@ -39,7 +39,7 @@ col-md-8
                 <button type="submit" class="btn btn-primary">
                     {{ __('Aceptar') }}
                 </button>
-                <a href="{{url()->previous()}}" class="btn btn-secondary">Cancelar</a>
+                <a href="{{ route('home') }}" class="btn btn-secondary">Cancelar</a>
             </div>
         </div>
     </form>
@@ -47,6 +47,46 @@ col-md-8
 @endsection
 
 @section('content2')
+<main class="mt-4">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card border-primary">
+                    <div class="card-header text-white bg-primary">Panel Reglas - ROOL OPERADOR</div>
+                        <div class="card-body">
+                            <form action="{{ route('actualizar_reglas') }}" method="POST">
+                                @method('PUT')
+                                @csrf
+                                
+                                <div class="form-group row">
+                                    <label for="sato2" class="col-md-4 col-form-label text-md-right">{{ __('Saturación O2') }}</label>
+                                    <div class="col-md-6">
+                                        <input id="sato2" type="text" maxlength="25" class="form-control @error('sato2') is-invalid @enderror" name="sato2" value="{{ $config->sat_o2 }}" spellcheck="false" required autocomplete="sato2">
+                            
+                                        @error('sato2')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="form-group row mb-0">
+                                    <div class="col-md-6 offset-md-4">
+                                        <button type="submit" class="btn btn-primary">
+                                            {{ __('Aceptar') }}
+                                        </button>
+                                        <a href="{{ route('home') }}" class="btn btn-secondary">Cancelar</a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
 <main class="mt-4">
     <div class="container">
         <div class="row justify-content-center">
