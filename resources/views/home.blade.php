@@ -29,7 +29,7 @@ col-md-8
         <div class="form-group row">
             <label for="cinfinitas" class="col-md-4 col-form-label text-md-right">{{ __('Camas Infinitas') }}</label>
             <div class="col-md-6">
-                <input id="cinfinitas" type="checkbox" data-toggle="toggle" @if(!empty($config->camasinfinitas)) checked @endif data-onstyle="success" data-offstyle="danger" data-on=" " data-off=" " name="cinfinitas" value=Si>
+                <input id="cinfinitas" type="checkbox" data-toggle="toggle" @if(!empty($config->camasinfinitas)) checked @endif data-onstyle="success" data-offstyle="danger" data-on=" " data-off=" " name="cinfinitas">
             </div>
         </div>
         <div class="form-group row mb-0">
@@ -59,28 +59,28 @@ col-md-8
                                 <div class="form-group row">
                                     <label for="somnolencia" class="col-md-4 col-form-label text-md-right">{{ __('Somnolencia') }}</label>
                                     <div class="col-md-6">
-                                        <input id="somnolencia" type="checkbox" data-toggle="toggle" @if(!empty($config->camasinfinitas)) checked @endif data-onstyle="success" data-offstyle="danger" data-on=" " data-off=" " name="somnolencia">
+                                        <input id="somnolencia" type="checkbox" data-toggle="toggle" @if(!empty($config->somnolencia)) checked @endif data-onstyle="success" data-offstyle="danger" data-on=" " data-off=" " name="somnolencia">
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
                                     <label for="mecven" class="col-md-4 col-form-label text-md-right">{{ __('Mecánica ventilatoria') }}</label>
                                     <div class="col-md-6">
-                                        <input id="mecven" type="checkbox" data-toggle="toggle" @if(!empty($config->camasinfinitas)) checked @endif data-onstyle="success" data-offstyle="danger" data-on=" " data-off=" " name="mecven">
+                                        <input id="mecven" type="checkbox" data-toggle="toggle" @if(!empty($config->mecven)) checked @endif data-onstyle="success" data-offstyle="danger" data-on=" " data-off=" " name="mecven">
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
                                     <label for="iniciosint" class="col-md-4 col-form-label text-md-right">{{ __('Inicio de síntomas') }}</label>
                                     <div class="col-md-6">
-                                        <input id="iniciosint" type="checkbox" data-toggle="toggle" @if(!empty($config->camasinfinitas)) checked @endif data-onstyle="success" data-offstyle="danger" data-on=" " data-off=" " name="iniciosint">
+                                        <input id="iniciosint" type="checkbox" data-toggle="toggle" @if(!empty($config->iniciosint)) checked @endif data-onstyle="success" data-offstyle="danger" data-on=" " data-off=" " name="iniciosint">
                                     </div>
                                 </div>
                                 
                                 <div class="form-group row">
                                     <label for="sato2" class="col-md-4 col-form-label text-md-right">{{ __('Saturación O2') }}</label>
                                     <div class="col-xs-2">
-                                        <input id="sato2" type="text" maxlength="3" class="form-control @error('sato2') is-invalid @enderror" name="sato2" value="{{ $config->sat_o2 }}" spellcheck="false" required autocomplete="sato2">
+                                        <input id="sato2" type="text" maxlength="3" class="form-control @error('sato2') is-invalid @enderror" name="sato2" value="{{ $config->valor_sato2 }}" spellcheck="false" required autocomplete="sato2">
                             
                                         @error('sato2')
                                             <span class="invalid-feedback" role="alert">
@@ -90,7 +90,7 @@ col-md-8
                                     </div>
                                     <div class="form-group row ml-1">
                                         <div class="col-md-6">
-                                            <input id="satuo2" type="checkbox" data-toggle="toggle" @if(!empty($config->camasinfinitas)) checked @endif data-onstyle="success" data-offstyle="danger" data-on=" " data-off=" " name="satuo2">
+                                            <input id="satuo2" type="checkbox" data-toggle="toggle" @if(!empty($config->satuo2)) checked @endif data-onstyle="success" data-offstyle="danger" data-on=" " data-off=" " name="satuo2">
                                         </div>
                                     </div>
                                 </div>

@@ -22,7 +22,7 @@ class EvolucionController extends Controller
 
     public function cargar_evolucion2(Request $request) {
         $request->validate([
-            'temperatura' => 'required | numeric | between:0,9.9',
+            'temperatura' => 'required | numeric | between:0,99.9',
             'tasistolica' => 'required | numeric | digits_between:1,3',
             'tadiastolica' => 'required | numeric | digits_between:1,3',
             'fc' => 'required | numeric | digits_between:1,3',
@@ -47,29 +47,29 @@ class EvolucionController extends Controller
         $evolucion->fc = $request->fc;
         $evolucion->fr = $request->fr;
         $evolucion->mecanicaventilatoria = $request->mecanicaventilatoria;
-        $evolucion->o2suplementario = $request->o2suplementario;
+        $evolucion->o2suplementario = ($request->o2suplementario) ? 1 : 0;
         $evolucion->canulanasal = $request->canulanasal;
         $evolucion->mascarares = $request->mascarares;
         $evolucion->sato2 = $request->sato2;
-        $evolucion->pafi = $request->pafi;
+        $evolucion->pafi = ($request->pafi) ? 1 : 0;
         $evolucion->valorpafi = $request->valorpafi;
-        $evolucion->pronovigil = $request->pronovigil;
-        $evolucion->tos = $request->tos;
+        $evolucion->pronovigil = ($request->pronovigil) ? 1 : 0;
+        $evolucion->tos = ($request->tos) ? 1 : 0;
         $evolucion->disnea = $request->disnea;
-        $evolucion->desaresp = $request->desaresp;
-        $evolucion->somnolencia = $request->somnolencia;
-        $evolucion->anosmia = $request->anosmia;
-        $evolucion->disgeusia = $request->disgeusia;
-        $evolucion->rxtx = $request->rxtx;
+        $evolucion->desaresp = ($request->desaresp) ? 1 : 0;
+        $evolucion->somnolencia = ($request->somnolencia) ? 1 : 0;
+        $evolucion->anosmia = ($request->anosmia) ? 1 : 0;
+        $evolucion->disgeusia = ($request->disgeusia) ? 1 : 0;
+        $evolucion->rxtx = ($request->rxtx) ? 1 : 0;
         $evolucion->tiporxtx = $request->tiporxtx;
         $evolucion->descripcionrx = $request->descripcionrx;
-        $evolucion->tactorax = $request->tactorax;
+        $evolucion->tactorax = ($request->tactorax) ? 1 : 0;
         $evolucion->tipotactorax = $request->tipotactorax;
         $evolucion->descripciontactorax = $request->descripciontactorax;
-        $evolucion->ecg = $request->ecg;
+        $evolucion->ecg = ($request->ecg) ? 1 : 0;
         $evolucion->tipoecg = $request->tipoecg;
         $evolucion->descripcionecg = $request->descripcionecg;
-        $evolucion->pcr = $request->pcr;
+        $evolucion->pcr = ($request->pcr) ? 1 : 0;
         $evolucion->tipopcr = $request->tipopcr;
         $evolucion->descripcionpcr = $request->descripcionpcr;
         $evolucion->descripcionobs = $request->descripcionobs;
@@ -81,16 +81,15 @@ class EvolucionController extends Controller
         $evolucion->paciente_alerta = $request->paciente;
 
         $evolucion->internacion()->associate($internacion);
-        $evolucion->save();
 
         # regla 1
-        if ($request->somnolencia) {
+        if ($request->somnolencia and $config->somnolencia) {
             $evolucion->textoAlerta = "$paciente->apellido, $paciente->nombre - Somnolencia: evaluar pase a UTI";
             event (new EvolucionEvent($evolucion));
         }
 
         # regla 2
-        if ($request->mecanicaventilatoria != 'buena') {
+        if ($request->mecanicaventilatoria != 'buena' and $config->mecven) {
             $evolucion->textoAlerta = "$paciente->apellido, $paciente->nombre - Mecánica ventilatoria $request->mecanicaventilatoria: evaluar pase a UTI";
             event (new EvolucionEvent($evolucion));
         }
@@ -99,17 +98,18 @@ class EvolucionController extends Controller
         $dia_sintomas = Carbon::createFromFormat('Y-m-d', $internacion->fIniciosintomas)->addDays(10);
         $dia_sintomas = $dia_sintomas->format('Y-m-d');
         $hoy = Carbon::now()->format('Y-m-d');
-        if ($dia_sintomas == $hoy) {
+        if ($dia_sintomas == $hoy and $config->iniciosint) {
             $evolucion->textoAlerta = "$paciente->apellido, $paciente->nombre - Pasaron 10 dias de inicio de sintomas: evaluar alta";
             event (new EvolucionEvent($evolucion));
         }
 
         # regla 5
-        if ($request->sato2 < $config->sat_o2) {
-            $evolucion->textoAlerta = "$paciente->apellido, $paciente->nombre - Saturación de oxígeno menor a $config->sat_o2: evaluar oxígeno, terapia y prono";
+        if ($request->sato2 < $config->valor_sato2 and $config->satuo2) {
+            $evolucion->textoAlerta = "$paciente->apellido, $paciente->nombre - Saturación de oxígeno menor a $config->valor_sato2: evaluar oxígeno, terapia y prono";
             event (new EvolucionEvent($evolucion));
         }
 
+        $evolucion->save();
         return redirect()->route('verinternacion', ['id' => $request->paciente])->with('mensaje','Evolución cargada');
     }
 

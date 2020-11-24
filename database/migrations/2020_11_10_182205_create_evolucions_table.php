@@ -25,31 +25,31 @@ class CreateEvolucionsTable extends Migration
             $table->integer('fr');
 
             $table->string('mecanicaventilatoria')->nullable();
-            $table->string('o2suplementario')->nullable();
+            $table->boolean('o2suplementario');
             $table->float('canulanasal')->nullable();
             $table->float('mascarares')->nullable();
             $table->integer('sato2')->nullable();
-            $table->string('pafi')->nullable();
+            $table->boolean('pafi');
             $table->integer('valorpafi')->nullable();
-            $table->string('pronovigil')->nullable();
-            $table->string('tos')->nullable();
+            $table->boolean('pronovigil');
+            $table->boolean('tos');
             $table->string('disnea')->nullable();
-            $table->string('desaresp')->nullable();
+            $table->boolean('desaresp');
 
-            $table->string('somnolencia')->nullable();
-            $table->string('anosmia')->nullable();
-            $table->string('disgeusia')->nullable();
+            $table->boolean('somnolencia');
+            $table->boolean('anosmia');
+            $table->boolean('disgeusia');
 
-            $table->string('rxtx')->nullable();
+            $table->boolean('rxtx');
             $table->string('tiporxtx')->nullable();
             $table->string('descripcionrx')->nullable();
-            $table->string('tactorax')->nullable();
+            $table->boolean('tactorax');
             $table->string('tipotactorax')->nullable();
             $table->string('descripciontactorax')->nullable();
-            $table->string('ecg')->nullable();
+            $table->boolean('ecg');
             $table->string('tipoecg')->nullable();
             $table->string('descripcionecg')->nullable();
-            $table->string('pcr')->nullable();
+            $table->boolean('pcr');
             $table->string('tipopcr')->nullable();
             $table->string('descripcionpcr')->nullable();
 

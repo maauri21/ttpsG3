@@ -16,11 +16,20 @@ class CreateConfigsTable extends Migration
         Schema::create('configs', function (Blueprint $table) {
             $table->id();
             $table->boolean('camasinfinitas');
-            $table->integer('sat_o2');
+            $table->boolean('somnolencia');
+            $table->boolean('mecven');
+            $table->boolean('iniciosint');
+            $table->boolean('satuo2');
+            $table->integer('valor_sato2');
         });
 
         DB::table('configs')->insert([
-            'camasinfinitas' => True
+            'camasinfinitas' => True,
+            'somnolencia' => True,
+            'mecven' => True,
+            'iniciosint' => True,
+            'satuo2' => True,
+            'valor_sato2' => 92,
         ]);
     }
 

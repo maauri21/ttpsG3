@@ -8,17 +8,9 @@ use App;
 class CamaController extends Controller
 {
     public function camasinfinitas(Request $request) {
-
         $config= App\Models\Config::findOrFail(1);
-
-        if ($request->cinfinitas == 'Si') {
-            $config->camasinfinitas = True;
-            $config->save();
-        }
-        else {
-            $config->camasinfinitas = False;
-            $config->save();
-        }
+        $config->camasinfinitas = ($request->cinfinitas) ? 1 : 0;
+        $config->save();
         return redirect()->route('home')->with('mensaje', 'Camas infinitas modificado');
     }
 

@@ -36,9 +36,6 @@ class EvolucionListener
                         break;
                     }
                 }
-                #$user->notify(new Evolucion)
-            #Notification::send($users, new InvoicePaid($invoice));
-   
             });
     } 
 }

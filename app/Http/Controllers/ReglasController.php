@@ -12,7 +12,12 @@ class ReglasController extends Controller
             'sato2' => ['required', 'numeric', 'between:0,100'],
         ]);
         $config= App\Models\Config::findOrFail(1);
-        $config->sat_o2 = $request->sato2;
+        $config->valor_sato2 = $request->sato2;
+        $config->somnolencia = ($request->somnolencia) ? 1 : 0;
+        $config->mecven = ($request->mecven) ? 1 : 0;
+        $config->iniciosint = ($request->iniciosint) ? 1 : 0;
+        $config->satuo2 = ($request->satuo2) ? 1 : 0;
+
         $config->save();
         return redirect()->route('home')->with('mensaje', 'Reglas modificadas');
     }
