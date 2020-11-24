@@ -113,16 +113,4 @@ class EvolucionController extends Controller
         return redirect()->route('verinternacion', ['id' => $request->paciente])->with('mensaje','Evolución cargada');
     }
 
-    
-    public function mostrarevolucion(){
-        $evolucionNotifications = auth()->user()->unreadNotifications;
-        return view('evoluciones.verevolucion', compact('evolucionNotifications')); 
-    }
-
-
-    public function MarkAsRead(){
-        auth()->user()->unreadNotifications->markAsRead();
-        return redirect()->back();
-        }
-
 }

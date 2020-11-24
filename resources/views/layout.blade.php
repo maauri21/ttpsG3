@@ -93,7 +93,7 @@
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link text-primary" href="{{ route('mostrarevolucion') }}" role="button" aria-haspopup="true" aria-expanded="false" v-pre><i class="fa fa-inbox fa-lg">
+                                <a class="nav-link text-primary" href="{{ route('mostrar_alertas') }}" role="button" aria-haspopup="true" aria-expanded="false" v-pre><i class="fa fa-inbox fa-lg">
                                     </i> Notificaciones 
                                     @if (count(auth()->user()->unreadNotifications))
                                         <span class="badge badge-warning">{{ count(auth()->user()->unreadNotifications) }}</span>
@@ -101,50 +101,6 @@
                                 </a> 
                             </li>
 
-                            <!-- Right navbar links -->
-                             <ul class="navbar-nav ml-auto">
-                            <!-- Notifications Dropdown Menu -->
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link" data-toggle="dropdown" href="#">
-                                    <i class="fas fa-bell text-primary"></i>
-                                        @if (count(auth()->user()->unreadNotifications))
-                                        <span class="badge badge-warning">{{ count(auth()->user()->unreadNotifications) }}</span>
-                                        @endif
-                                    </span>    
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                                        <span class="dropdown-header" >Notificaciones sin leer</span>
-                                          @forelse (auth()->user()->unreadNotifications as $notification)
-                                          <a href="#" class="dropdown-item">
-                                            <i class="fas fa-envelope mr-2"></i> {{ $notification->data['textoAlerta'] }}      <!-- Aca listo lo que quiero que muestre la notificacion -->
-                                            <span class="ml-3 pull-right text-muted text-sm">{{ $notification->created_at->diffForHumans() }}</span>
-                                            <div class="dropdown-divider">
-
-                                            </div>
-                                        </a>
-                                          @empty
-                                            
-                                            <span class="ml-3 pull-right text-muted text-sm">Sin notificaciones por leer</span>  
-                                          @endforelse
-                                          <div class="dropdown-divider"></div>
-                                             
-                                            <span class="dropdown-header">Notificaciones Leidas</span>  
-                                            @forelse (auth()->user()->readNotifications as $notification)
-                                            <a href="#" class="dropdown-item">
-                                                <i class="fas fa-users mr-2"></i> {{ $notification->data['textoAlerta'] }} <!-- Aca listo lo que quiero que muestre la notificacion -->
-                                                <span class="ml-3 pull-right text-muted text-sm">{{ $notification->created_at->diffForHumans() }}</span>
-                                                   
-                                            </a>
-                                            @empty
-                                                <div class="dropdown-divider">
-                                                <span class="ml-3 pull-right text-muted text-sm">Sin notificaciones leidas</span></div>
-                                            @endforelse
-                                
-                                            <div class="dropdown-divider"></div>
-                                                <a href="{{ route('markAsRead') }}" class="dropdown-item dropdown-footer">Marcar Todo Leido</a>
-                                              </div>
-                                 </li>
-                            </ul>    
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle text-primary" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre><i class="fa fa-user fa-lg" aria-hidden="true"></i> {{ Auth::user()->nombreUsuario }}</a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">

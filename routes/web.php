@@ -54,8 +54,12 @@ Route::get('desasignarmedico/{idP}/{idM}', 'App\Http\Controllers\PacienteControl
 # Evolucion
 Route::get('cargar_evolucion/{id}', 'App\Http\Controllers\EvolucionController@cargar_evolucion')->name('cargar_evolucion')->middleware('auth');
 Route::post('cargar_evolucion2', 'App\Http\Controllers\EvolucionController@cargar_evolucion2')->name('cargar_evolucion2')->middleware('auth');
-Route::get('mostrarevolucion', 'App\Http\Controllers\EvolucionController@mostrarevolucion')->name('mostrarevolucion')->middleware('auth'); # formulario para ver una notificacion en particular
-Route::get('markAsRead', 'App\Http\Controllers\EvolucionController@markAsRead')->name('markAsRead')->middleware('auth'); # ruta donde marca a todas las noti leidas
 
 # Reglas
 Route::put('/actualizarreglas', 'App\Http\Controllers\ReglasController@actualizar_reglas')->name('actualizar_reglas')->middleware('auth');
+
+# Alertas
+Route::get('mostraralertas', 'App\Http\Controllers\AlertasController@mostrar_alertas')->name('mostrar_alertas')->middleware('auth');
+Route::get('mostrarleidas', 'App\Http\Controllers\AlertasController@mostrar_leidas')->name('mostrar_leidas')->middleware('auth');
+Route::get('markAsRead', 'App\Http\Controllers\AlertasController@markAsRead')->name('markAsRead')->middleware('auth'); # ruta donde marca a todas las noti leidas
+Route::get('markOne/{id}', 'App\Http\Controllers\AlertasController@markOne')->name('markOne')->middleware('auth'); # ruta donde marca 1 notificacion

@@ -12,13 +12,13 @@ col-md-8
 
               @if (auth()->user())
               @forelse ($evolucionNotifications as $notification)
-              <div class="alert alert-default-warning">
+              <div class="alert alert-warning">
                 {{ $notification->data['textoAlerta'] }}
                 <p>{{ $notification->created_at->diffForHumans() }}</p>
-                <button type="submit" class="mark-as-read btn btn-sm btn-dark" data-id="{{ $notification->id }}">Marcar como leida</button>
+                  <a href="{{ route('markOne', $notification->id) }}" class="btn btn-sm btn-dark">Marcar como leida</a>
               </div>
               @if ($loop->last)
-                <a href="#" id="mark-all">Marcar todas como leidas</a>
+                
                   
               @endif
               
@@ -26,8 +26,12 @@ col-md-8
                 Sin notificaciones
               @endforelse
 
-              <br/><button type="submit" class="btn btn-primary mt-3">Notificaciones anteriores</button>Que el boton me mande a una vista como esta pero con las notificaciones leidas como tiene la campanita
-                          
+              <br/><a href="{{route ('markAsRead')}}" class="btn btn-success mt-3">Marcar todas como leídas</a>
+              <br/><a href="{{route ('mostrar_leidas')}}" class="btn btn-primary mt-3">Notificaciones anteriores</a>
+       
               @endif
+
+              
+              
 
 @endsection
