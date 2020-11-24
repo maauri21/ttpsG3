@@ -19,6 +19,7 @@ col-md-8
               </div>
               @if ($loop->last)
                 
+              <br/><a href="{{route ('markAsRead')}}" class="btn btn-success">Marcar todas como leídas</a>
                   
               @endif
               
@@ -26,7 +27,7 @@ col-md-8
                 Sin notificaciones
               @endforelse
 
-              <br/><a href="{{route ('markAsRead')}}" class="btn btn-success mt-3">Marcar todas como leídas</a>
+              
               <br/><a href="{{route ('mostrar_leidas')}}" class="btn btn-primary mt-3">Notificaciones anteriores</a>
        
               @endif
