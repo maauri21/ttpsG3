@@ -81,6 +81,8 @@ class InternacionController extends Controller
 
     public function verinternacion($id) {
         $array = array();
+        $internacion=App\Models\Internacion::where('paciente_id', '=', $id)->orderBy('fInternacion', 'desc')->first();
+        $evoluciones=App\Models\Evolucion::where('internacion_id', '=', $internacion->id)->get();
         # try para que tire 404 si entró desde URL a una cama sin paciente
         try {
             $paciente=App\Models\Paciente::findOrFail($id);
@@ -89,7 +91,7 @@ class InternacionController extends Controller
                 $sistema=App\Models\Sistema::findOrFail($PC->pivot->sistema_id);
                 array_push($array, $sistema->nombre);
             }
-            return view('internaciones.verinternacion',compact('paciente','sistema','array'));
+            return view('internaciones.verinternacion',compact('paciente','sistema','array', 'evoluciones'));
         } catch(\Exception $error){
             abort(404);
         }

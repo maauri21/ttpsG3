@@ -260,7 +260,30 @@ col-md-12
                     <div class="card-header text-white bg-primary">Evoluciones</div>
                         <div class="card-body">
                             <a href="{{route('cargar_evolucion',$paciente)}}" class="btn btn-success btn">Cargar evolución</a>
+                            <main class="mt-4">
+                                <div style="overflow-x:auto;">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Fecha</th>
+                                                <th scope="col">Hora</th>
+                                                <th scope="col">Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach($evoluciones as $evolucion)
+                                            <tr>
+                                                <td>{{date("d/m/Y",strtotime($evolucion->fecha))}}</td>
+                                                <td>{{substr($evolucion->hora, 0, -3)}}</td>
+                                                <td><a href="{{route('ver_evolucion',$evolucion->id)}}" class="btn btn-info btn-sm">Ver</a></td>
+                                            </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+
                         </div>
+                        
                 </div>
             </div>
         </div>

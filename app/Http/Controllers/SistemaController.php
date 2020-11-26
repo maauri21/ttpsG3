@@ -28,6 +28,11 @@ class SistemaController extends Controller
                 }
             }
         }
+        if ($total == 0) {
+            $total=1;
+        }
+        $porcentaje = (($total-$libres)/$total)*100;
+        $porcentaje = round($porcentaje, 2);
 
         $usuarios=App\Models\User::where('sistema_id', '=', $id)->get();
 
@@ -39,7 +44,7 @@ class SistemaController extends Controller
             }
         }
 
-        return view('sistemas.administrarsistema',compact('salas','cantSalas','sistema','total','libres','ocupadas','jefe'));
+        return view('sistemas.administrarsistema',compact('salas','cantSalas','sistema','total','libres','ocupadas','porcentaje','jefe', 'usuarios'));
     }
 
     public function cambio_obito($id) {

@@ -54,6 +54,7 @@ Route::get('desasignarmedico/{idP}/{idM}', 'App\Http\Controllers\PacienteControl
 # Evolucion
 Route::get('cargar_evolucion/{id}', 'App\Http\Controllers\EvolucionController@cargar_evolucion')->name('cargar_evolucion')->middleware('auth');
 Route::post('cargar_evolucion2', 'App\Http\Controllers\EvolucionController@cargar_evolucion2')->name('cargar_evolucion2')->middleware('auth');
+Route::get('verevolucion/{id}', 'App\Http\Controllers\EvolucionController@ver_evolucion')->name('ver_evolucion')->middleware('auth');
 
 # Reglas
 Route::put('/actualizarreglas', 'App\Http\Controllers\ReglasController@actualizar_reglas')->name('actualizar_reglas')->middleware('auth');

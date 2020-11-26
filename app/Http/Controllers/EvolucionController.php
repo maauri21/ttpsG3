@@ -26,7 +26,7 @@ class EvolucionController extends Controller
             'tasistolica' => 'required | numeric | digits_between:1,3',
             'tadiastolica' => 'required | numeric | digits_between:1,3',
             'fc' => 'required | numeric | digits_between:1,3',
-            'fr' => 'required | numeric | digits_between:1,3',
+            'fr' => 'required | numeric | between:0,100',
             'canulanasal' => 'nullable | numeric | between:1,6',
             'mascarares' => 'nullable | numeric | between:1,100',
             'sato2' => 'numeric | between:0,100',
@@ -93,6 +93,12 @@ class EvolucionController extends Controller
             $evolucion->textoAlerta = "$paciente->apellido, $paciente->nombre - Mecánica ventilatoria $request->mecanicaventilatoria: evaluar pase a UTI";
             event (new EvolucionEvent($evolucion));
         }
+
+        # regla 3
+        if ($request->fr > $config->valor_frecres and $config->frec_res) {
+            $evolucion->textoAlerta = "$paciente->apellido, $paciente->nombre - Frecuencia respiratoria mayor a $config->valor_frecres por minuto: evaluar pase a UTI";
+            event (new EvolucionEvent($evolucion));
+        }
         
         # regla 4
         $dia_sintomas = Carbon::createFromFormat('Y-m-d', $internacion->fIniciosintomas)->addDays(10);
@@ -111,6 +117,11 @@ class EvolucionController extends Controller
 
         $evolucion->save();
         return redirect()->route('verinternacion', ['id' => $request->paciente])->with('mensaje','Evolución cargada');
+    }
+
+    public function ver_evolucion($id) {
+        $evolucion=App\Models\Evolucion::findOrFail($id);
+        return view('evoluciones.evolucion',compact('evolucion'));
     }
 
 }

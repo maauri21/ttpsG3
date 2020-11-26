@@ -71,6 +71,23 @@ col-md-8
                                 </div>
 
                                 <div class="form-group row">
+                                    <label for="valor_frecres" class="col-md-4 col-form-label text-md-right">{{ __('Frecuencia respiratoria') }}</label>
+                                    <div class="col-xs-2">
+                                        <input id="valor_frecres" type="text" maxlength="3" class="form-control @error('valor_frecres') is-invalid @enderror" name="valor_frecres" value="{{ $config->valor_frecres }}" spellcheck="false" required autocomplete="valor_frecres">
+                                        @error('valor_frecres')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group row ml-1">
+                                        <div class="col-md-6">
+                                            <input id="frec_res" type="checkbox" data-toggle="toggle" @if(!empty($config->frec_res)) checked @endif data-onstyle="success" data-offstyle="danger" data-on=" " data-off=" " name="frec_res">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
                                     <label for="iniciosint" class="col-md-4 col-form-label text-md-right">{{ __('Inicio de síntomas') }}</label>
                                     <div class="col-md-6">
                                         <input id="iniciosint" type="checkbox" data-toggle="toggle" @if(!empty($config->iniciosint)) checked @endif data-onstyle="success" data-offstyle="danger" data-on=" " data-off=" " name="iniciosint">
@@ -81,7 +98,6 @@ col-md-8
                                     <label for="sato2" class="col-md-4 col-form-label text-md-right">{{ __('Saturación O2') }}</label>
                                     <div class="col-xs-2">
                                         <input id="sato2" type="text" maxlength="3" class="form-control @error('sato2') is-invalid @enderror" name="sato2" value="{{ $config->valor_sato2 }}" spellcheck="false" required autocomplete="sato2">
-                            
                                         @error('sato2')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>

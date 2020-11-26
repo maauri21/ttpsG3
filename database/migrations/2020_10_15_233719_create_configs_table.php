@@ -20,7 +20,9 @@ class CreateConfigsTable extends Migration
             $table->boolean('mecven');
             $table->boolean('iniciosint');
             $table->boolean('satuo2');
+            $table->boolean('frec_res');
             $table->integer('valor_sato2');
+            $table->integer('valor_frecres');
         });
 
         DB::table('configs')->insert([
@@ -29,7 +31,9 @@ class CreateConfigsTable extends Migration
             'mecven' => True,
             'iniciosint' => True,
             'satuo2' => True,
+            'frec_res' => True,
             'valor_sato2' => 92,
+            'valor_frecres' => 30,
         ]);
     }
 

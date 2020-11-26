@@ -14,7 +14,14 @@ class SalaController extends Controller
         $total=App\Models\Cama::where('sala_id', '=', $id)->count();
         $libres=App\Models\Cama::where('sala_id', '=', $id)->where('paciente_id', '=', NULL)->count();
         $ocupadas=App\Models\Cama::where('sala_id', '=', $id)->where('paciente_id', '!=', NULL)->count();
-        return view('salas.administrarsala',compact('sala','camas','total','libres','ocupadas'));
+
+        if ($total == 0) {
+            $total=1;
+        }
+        $porcentaje = (($total-$libres)/$total)*100;
+        $porcentaje = round($porcentaje, 2);
+
+        return view('salas.administrarsala',compact('sala','camas','total','libres','ocupadas','porcentaje'));
     }
 
     public function crearsala(Request $request, $idSistema) {

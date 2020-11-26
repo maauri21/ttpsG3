@@ -53,6 +53,47 @@ col-md-9
         <div class="row justify-content-center">
             <div class="col-md-9">
                 <div class="card border-primary">
+                    <div class="card-header text-white bg-primary">{{ __('Médicos de ' . $sistema->nombre . '(ROOL ADMIN O JEFE DE ESTE SISTEMA?)') }}</div>
+                        <div class="card-body">
+                            <div style="overflow-x:auto;">
+                                <table class="table table-hover" style="text-align: center">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" style="width:15%">Sala</th>
+                                            <th scope="col" style="width:35%">Nombre</th>
+                                            <th scope="col" style="width:40%">Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($usuarios as $item)
+                                        <tr>
+                                            <td scope="row">{{$item->id}}</td>
+                                            <td>{{$item->nombre}}</td>
+                                            <td><a href="{{route ('editarsala', $item)}}" class="btn btn-warning btn-sm">Editar</a>  
+                                                <form action="{{route('eliminarsala', $item) }}" method="POST" class="d-inline">
+                                                    @method('DELETE')
+                                                    @csrf
+                                                    <button class="btn btn-danger btn-sm" type="submit" onclick="return confirm ('¿Está seguro?')">Eliminar</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                            {{$salas->links()}}
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<main class="mt-4">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-9">
+                <div class="card border-primary">
                     <div class="card-header text-white bg-primary">{{ 'Nueva sala en ' . $sistema->nombre . '(ROOL ADMIN)' }}</div>
                         <div class="card-body">
                             <form method="POST" action="{{ route('crearsala',$sistema->id) }}">
@@ -112,10 +153,11 @@ col-md-9
                                 <table class="table table-hover" style="text-align: center">
                                     <thead>
                                         <tr>
-                                            <th scope="col" style="width:25%" class="text-primary">Salas: {{$cantSalas}}</th>
-                                            <th scope="col" style="width:25%" class="text-primary">Camas totales: {{$total}}</th>
-                                            <th scope="col" style="width:25%" class="text-success">Camas libres: {{$libres}}</th>
+                                            <th scope="col" style="width:15%" class="text-primary">Salas: {{$cantSalas}}</th>
+                                            <th scope="col" style="width:22%" class="text-primary">Camas totales: {{$total}}</th>
+                                            <th scope="col" style="width:22%" class="text-success">Camas libres: {{$libres}}</th>
                                             <th scope="col" style="width:25%" class="text-danger">Camas ocupadas: {{$ocupadas}}</th>
+                                            <th scope="col" style="width:25%">Uso: {{$porcentaje}}%</th>
                                         </tr>
                                     </thead>
                                 </table>

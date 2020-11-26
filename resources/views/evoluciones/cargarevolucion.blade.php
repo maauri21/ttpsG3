@@ -62,7 +62,7 @@ col-md-8
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="fc" class="col-md-4 col-form-label text-md-right">{{ __('FC') }}</label>
+                                <label for="fc" class="col-md-4 col-form-label text-md-right">{{ __('Frecuencia cardíaca') }}</label>
                                 <div class="col-md-6">
                                     <input id="fc" type="text" maxlength="3" class="form-control @error('fc') is-invalid @enderror" name="fc" value="{{ old('fc') }}" required autocomplete="fc" autofocus>
                                     @error('fc')
@@ -73,7 +73,7 @@ col-md-8
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="fr" class="col-md-4 col-form-label text-md-right">{{ __('FR') }}</label>
+                                <label for="fr" class="col-md-4 col-form-label text-md-right">{{ __('Frecuencia respiratoria') }}</label>
                                 <div class="col-md-6">
                                     <input id="fr" type="text" maxlength="3" class="form-control @error('fr') is-invalid @enderror" name="fr" value="{{ old('fr') }}" required autocomplete="fr" autofocus>
                                     @error('fr')
