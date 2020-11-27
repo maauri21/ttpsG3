@@ -32,7 +32,6 @@ col-md-13
             <th scope="col">Direccion</th>
             <th scope="col">Teléfono</th>
             <th scope="col">Fecha de nacimiento</th>
-            <th scope="col">Email</th>
             <th scope="col">Obra Social</th>
             <th scope="col">Acciones</th>
         </tr>
@@ -47,9 +46,9 @@ col-md-13
             <td>{{$item->direccion}}</td>
             <td>{{$item->telefono}}</td>
             <td>{{date("d/m/Y",strtotime($item->fnac))}}</td>
-            <td>{{$item->email}}</td>
             <td>{{$item->obrasocial}}</td>
             <td>
+                <a href="#" class="btn btn-info btn-sm">Internaciones</a>  
                 <a href="{{route('editarpaciente',$item)}}" class="btn btn-warning btn-sm">Editar</a>  
                 <form action="{{route('eliminarpaciente',$item)}}" method="POST" class="d-inline">
                     @method('DELETE')

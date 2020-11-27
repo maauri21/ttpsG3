@@ -1,5 +1,5 @@
 $('#tipo').change(function(){
-    if($(this).val() == "administrador") {
+    if(($(this).val() == "administrador") || ($(this).val() == "configurador")) {
         $('#legajo').hide();
         $('#sistema').hide();
     } else {

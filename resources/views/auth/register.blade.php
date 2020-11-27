@@ -20,6 +20,7 @@ col-md-8
                 <option value="medico" {{ old('tipo') == 'medico' ? 'selected="selected"' : '' }}>Médico</option>
                 <option value="jefe" {{ old('tipo') == 'jefe' ? 'selected="selected"' : '' }}>Jefe</option>
                 <option value="administrador" {{ old('tipo') == 'administrador' ? 'selected="selected"' : '' }}>Administrador</option>
+                <option value="configurador" {{ old('tipo') == 'configurador' ? 'selected="selected"' : '' }}>Configurador de Reglas</option>
                 </select>
         </div>
     </div>

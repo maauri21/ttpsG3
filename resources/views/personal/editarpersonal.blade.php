@@ -92,7 +92,3 @@ col-md-8
     </div>
 </form>
 @endsection
-
-
-
-

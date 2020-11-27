@@ -48,6 +48,11 @@ class CreatePermissionTables extends Migration
             'guard_name' => 'web'
         ]);
 
+        DB::table('roles')->insert([
+            'name' => 'configurador',
+            'guard_name' => 'web'
+        ]);
+
         Schema::create($tableNames['model_has_permissions'], function (Blueprint $table) use ($tableNames, $columnNames) {
             $table->unsignedBigInteger('permission_id');
 

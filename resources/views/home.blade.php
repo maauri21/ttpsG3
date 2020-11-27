@@ -50,7 +50,7 @@ col-md-8
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card border-primary">
-                    <div class="card-header text-white bg-primary">Panel Reglas - ROOL OPERADOR</div>
+                    <div class="card-header text-white bg-primary">Panel Reglas - ROOL CONFIGURADOR DE REGLAS</div>
                         <div class="card-body">
                             <form action="{{ route('actualizar_reglas') }}" method="POST">
                                 @method('PUT')

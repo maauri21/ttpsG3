@@ -49,4 +49,20 @@ class PersonalController extends Controller
         $usuarioEliminar->delete();
         return back()->with('mensaje','Usuario eliminado');
     }
+
+    public function cambiar_sistema($id) {
+        $usuario= App\Models\User::findOrFail($id);
+        return view('personal.cambiarsistema', compact ('usuario'));
+    }
+
+    public function cambiar_sistema2(Request $request, $id) {
+        $usuario= App\Models\User::findOrFail($id);
+        # Marco como leidas las notificaciones del sistema anterior
+        $usuario->unreadNotifications->markAsRead();
+        # Borro los pacientes asignados
+        $usuario->pacientes()->detach();
+        $usuario->sistema_id= $request->sistema;
+        $usuario->save();
+        return redirect('personal')->with('mensaje','Cambio de sistema registrado');
+    }
 }
