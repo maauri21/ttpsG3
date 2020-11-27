@@ -222,7 +222,7 @@ col-md-8
                                             <th scope="col">DNI</th>
                                             <th scope="col">Nombre</th>
                                             <th scope="col">Apellido</th>
-                                            <th scope="col">Acciones</th>
+                                            <th scope="col" style="width:45%">Acciones</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -231,7 +231,9 @@ col-md-8
                                             <td>{{$up->dni}}</td>
                                             <td>{{$up->nombre}}</td>
                                             <td>{{$up->apellido}}</td>
-                                            <td><a href="{{route ('verinternacion', $up->id)}}" class="btn btn-info btn-sm">Ver</a></td>
+                                            <td><a href="{{route ('verinternacion', $up->id)}}" class="btn btn-info btn-sm">Ver</a>
+                                            <a href="{{route('asignarmedico',$up->id)}}" class="btn btn-success btn-sm">Asignar médico</a>
+                                            <a href="{{route ('cargar_evolucion', $up->id)}}" class="btn btn-success btn-sm">Cargar evolución</a></td>
                                         </tr>
                                         @endforeach
                                     </tbody>

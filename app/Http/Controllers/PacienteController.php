@@ -21,6 +21,18 @@ class PacienteController extends Controller
         $config= App\Models\Config::findOrFail(1);
         $camas=App\Models\Cama::all();
 
+        $usuario=App\Models\Paciente::where('dni', '=', $request->dni)->first();
+        
+        if (!empty($usuario)) {
+            $internaciones=App\Models\Internacion::where('paciente_id', '=', $usuario->id)->get();
+            foreach ($internaciones as $internacion) {
+                if ($internacion->fObito != NULL) {
+                    return redirect('home')->with('mensaje2','Paciente con óbito');
+                }
+            }
+        }
+
+
         if (!empty($camas)) {
             foreach ($camas as $cama) {
                 if (($cama->paciente != NULL) && ($cama->paciente->dni == $request->dni)) {

@@ -48,7 +48,7 @@ col-md-13
             <td>{{date("d/m/Y",strtotime($item->fnac))}}</td>
             <td>{{$item->obrasocial}}</td>
             <td>
-                <a href="#" class="btn btn-info btn-sm">Internaciones</a>  
+                <a href="{{route('internaciones',$item)}}" class="btn btn-info btn-sm">Internaciones</a>  
                 <a href="{{route('editarpaciente',$item)}}" class="btn btn-warning btn-sm">Editar</a>  
                 <form action="{{route('eliminarpaciente',$item)}}" method="POST" class="d-inline">
                     @method('DELETE')

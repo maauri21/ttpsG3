@@ -281,6 +281,7 @@ col-md-12
                                         </tbody>
                                     </table>
                                 </div>
+                                {{$evoluciones->links()}}
 
                         </div>
                         
