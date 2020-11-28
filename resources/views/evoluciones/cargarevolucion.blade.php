@@ -121,14 +121,14 @@ col-md-8
                             <div class="form-group row">
                                 <label for="o2suplementario" class="col-md-4 col-form-label text-md-right">{{ __('O2 suplementario') }}</label>
                                 <div class="col-md-6">
-                                    <input id="o2suplementario" type="checkbox" data-toggle="toggle" @if(old('o2suplementario')) checked @endif data-onstyle="success" data-offstyle="danger" data-on=" " data-off=" " name="o2suplementario">
+                                    <input id="o2suplementario" type="checkbox" data-toggle="toggle" @if(!empty($evolucion->o2suplementario)) checked @endif data-onstyle="success" data-offstyle="danger" data-on=" " data-off=" " name="o2suplementario">
                                 </div>
                             </div>
 
                             <div id="canulanasal" style="display: none" class="form-group row">
                                 <label for="canulanasal" class="col-md-4 col-form-label text-md-right">{{ __('Cánula nasal') }}</label>
                                 <div class="col-md-6">
-                                    <input id="canulanasal" type="text" maxlength="3" class="form-control @error('canulanasal') is-invalid @enderror" name="canulanasal" value="{{ old('canulanasal') }}" autocomplete="canulanasal" autofocus>
+                                    <input id="canulanasal" type="text" maxlength="3" class="form-control @error('canulanasal') is-invalid @enderror" name="canulanasal" @if (!empty($evolucion->canulanasal)) value="{{ old('canulanasal', $evolucion->canulanasal) }}" @endif autocomplete="canulanasal" autofocus>
                                     @error('canulanasal')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -140,7 +140,7 @@ col-md-8
                             <div id="mascarares" style="display: none" class="form-group row">
                                 <label for="mascarares" class="col-md-4 col-form-label text-md-right">{{ __('Máscara con reservorio') }}</label>
                                 <div class="col-md-6">
-                                    <input id="mascarares" type="text" maxlength="4" class="form-control @error('mascarares') is-invalid @enderror" name="mascarares" value="{{ old('mascarares') }}" autocomplete="mascarares" autofocus>
+                                    <input id="mascarares" type="text" maxlength="4" class="form-control @error('mascarares') is-invalid @enderror" name="mascarares" @if (!empty($evolucion->mascarares)) value="{{ old('mascarares', $evolucion->mascarares) }}" @endif autocomplete="mascarares" autofocus>
                                     @error('mascarares')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -152,7 +152,7 @@ col-md-8
                             <div id="sato2" class="form-group row">
                                 <label for="sato2" class="col-md-4 col-form-label text-md-right">{{ __('Saturación O2') }}</label>
                                 <div class="col-md-6">
-                                    <input id="sato2" type="text" maxlength="3" class="form-control @error('sato2') is-invalid @enderror" name="sato2" value="{{ old('sato2') }}" required autocomplete="sato2" autofocus>
+                                    <input id="sato2" type="text" maxlength="3" class="form-control @error('sato2') is-invalid @enderror" name="sato2" @if (!empty($evolucion->sato2)) value="{{ old('sato2', $evolucion->sato2) }}" @endif required autocomplete="sato2" autofocus>
                                     @error('sato2')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -164,14 +164,14 @@ col-md-8
                             <div class="form-group row">
                                 <label for="pafi" class="col-md-4 col-form-label text-md-right">{{ __('PaFi') }}</label>
                                 <div class="col-md-6">
-                                    <input id="pafi" type="checkbox" data-toggle="toggle" @if(old('pafi')) checked @endif data-onstyle="success" data-offstyle="danger" data-on=" " data-off=" " name="pafi">
+                                    <input id="pafi" type="checkbox" data-toggle="toggle" @if(!empty($evolucion->pafi)) checked @endif data-onstyle="success" data-offstyle="danger" data-on=" " data-off=" " name="pafi">
                                 </div>
                             </div>
 
                             <div id="valorpafi" style="display: none" class="form-group row">
                                 <label for="valorpafi" class="col-md-4 col-form-label text-md-right">{{ __('Valor PaFi') }}</label>
                                 <div class="col-md-6">
-                                    <input id="valorpafi" type="text" maxlength="4" class="form-control @error('valorpafi') is-invalid @enderror" name="valorpafi" value="{{ old('valorpafi') }}" autocomplete="valorpafi" autofocus>
+                                    <input id="valorpafi" type="text" maxlength="4" class="form-control @error('valorpafi') is-invalid @enderror" name="valorpafi" @if (!empty($evolucion->valorpafi)) value="{{ old('valorpafi', $evolucion->valorpafi) }}" @endif autocomplete="valorpafi" autofocus>
                                     @error('valorpafi')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -183,14 +183,14 @@ col-md-8
                             <div class="form-group row">
                                 <label for="pronovigil" class="col-md-4 col-form-label text-md-right">{{ __('Prono vigil') }}</label>
                                 <div class="col-md-6">
-                                    <input id="pronovigil" type="checkbox" data-toggle="toggle" @if(old('pronovigil')) checked @endif data-onstyle="success" data-offstyle="danger" data-on=" " data-off=" " name="pronovigil">
+                                    <input id="pronovigil" type="checkbox" data-toggle="toggle" @if ((!empty($evolucion->pronovigil)) && (old('pafi', $evolucion->pronovigil))) checked @endif data-onstyle="success" data-offstyle="danger" data-on=" " data-off=" " name="pronovigil">
                                 </div>
                             </div>
 
                             <div class="form-group row">
                                 <label for="tos" class="col-md-4 col-form-label text-md-right">{{ __('Tos') }}</label>
                                 <div class="col-md-6">
-                                    <input id="tos" type="checkbox" data-toggle="toggle" @if(old('tos')) checked @endif data-onstyle="success" data-offstyle="danger" data-on=" " data-off=" " name="tos">
+                                    <input id="tos" type="checkbox" data-toggle="toggle" @if(!empty($evolucion->tos)) checked @endif data-onstyle="success" data-offstyle="danger" data-on=" " data-off=" " name="tos">
                                 </div>
                             </div>
 
@@ -199,11 +199,19 @@ col-md-8
                             
                                 <div class="col-md-6">
                                     <select id="disnea" name="disnea" class="form-control">
-                                        <option value="0" {{ old('disnea') == '0' ? 'selected="selected"' : '' }}>0</option>
-                                        <option value="1" {{ old('disnea') == '1' ? 'selected="selected"' : '' }}>1</option>
-                                        <option value="2" {{ old('disnea') == '2' ? 'selected="selected"' : '' }}>2</option>
-                                        <option value="3" {{ old('disnea') == '3' ? 'selected="selected"' : '' }}>3</option>
-                                        <option value="4" {{ old('disnea') == '4' ? 'selected="selected"' : '' }}>4</option>
+                                        @if (!empty($evolucion->disnea))
+                                            <option value="0" {{ old('disnea', $evolucion->disnea) == '0' ? 'selected="selected"' : '' }}>0</option>
+                                            <option value="1" {{ old('disnea', $evolucion->disnea) == '1' ? 'selected="selected"' : '' }}>1</option>
+                                            <option value="2" {{ old('disnea', $evolucion->disnea) == '2' ? 'selected="selected"' : '' }}>2</option>
+                                            <option value="3" {{ old('disnea', $evolucion->disnea) == '3' ? 'selected="selected"' : '' }}>3</option>
+                                            <option value="4" {{ old('disnea', $evolucion->disnea) == '4' ? 'selected="selected"' : '' }}>4</option>
+                                        @else
+                                            <option value="0" {{ old('disnea') == '0' ? 'selected="selected"' : '' }}>0</option>
+                                            <option value="1" {{ old('disnea') == '1' ? 'selected="selected"' : '' }}>1</option>
+                                            <option value="2" {{ old('disnea') == '2' ? 'selected="selected"' : '' }}>2</option>
+                                            <option value="3" {{ old('disnea') == '3' ? 'selected="selected"' : '' }}>3</option>
+                                            <option value="4" {{ old('disnea') == '4' ? 'selected="selected"' : '' }}>4</option>
+                                        @endif
                                         </select>
                                 </div>
                             </div>
@@ -211,7 +219,7 @@ col-md-8
                             <div class="form-group row">
                                 <label for="desaresp" class="col-md-4 col-form-label text-md-right">{{ __('Sin síntomas respiratorios') }}</label>
                                 <div class="col-md-6">
-                                    <input id="desaresp" type="checkbox" data-toggle="toggle" @if(old('desaresp')) checked @endif data-onstyle="success" data-offstyle="danger" data-on=" " data-off=" " name="desaresp">
+                                    <input id="desaresp" type="checkbox" data-toggle="toggle" @if(!empty($evolucion->desaresp)) checked @endif data-onstyle="success" data-offstyle="danger" data-on=" " data-off=" " name="desaresp">
                                 </div>
                             </div>
                         </div>

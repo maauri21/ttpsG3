@@ -7,3 +7,11 @@ $('#tipo').change(function(){
         $('#sistema').show();
     }
 }); 
+
+window.onload = () => {
+    var tipo=(document.getElementById('tipo').value);
+    if ((tipo == 'administrador') || (tipo == 'configurador')) {
+        $('#legajo').hide();
+        $('#sistema').hide();
+    }
+};

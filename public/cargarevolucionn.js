@@ -108,7 +108,17 @@ $('#vasopresores').change(function(){
     }
 });
 
-
+window.onload = () => {
+    var o2suplementario= $(document.getElementById('o2suplementario')).is(":checked");
+    var pafi= $(document.getElementById('pafi')).is(":checked");
+    if (pafi) {
+        $('#valorpafi').show();
+    }
+    if (o2suplementario) {
+        $('#canulanasal').show();
+        $('#mascarares').show();
+    }
+};
 
 
 

@@ -111,6 +111,23 @@ col-md-8
                                     </div>
                                 </div>
 
+                                <div class="form-group row">
+                                    <label for="valor_bajoso2" class="col-md-4 col-form-label text-md-right">{{ __('Bajó Saturación O2') }}</label>
+                                    <div class="col-xs-2">
+                                        <input id="valor_bajoso2" type="text" maxlength="3" class="form-control @error('valor_bajoso2') is-invalid @enderror" name="valor_bajoso2" value="{{ $config->valor_bajoO2 }}" spellcheck="false" required autocomplete="valor_bajoso2">
+                                        @error('valor_bajoso2')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group row ml-1">
+                                        <div class="col-md-6">
+                                            <input id="bajosato2" type="checkbox" data-toggle="toggle" @if(!empty($config->bajosato2)) checked @endif data-onstyle="success" data-offstyle="danger" data-on=" " data-off=" " name="bajosato2">
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <div class="form-group row mb-0">
                                     <div class="col-md-6 offset-md-4">
                                         <button type="submit" class="btn btn-primary">
