@@ -25,11 +25,9 @@ col-md-13
 <table class="table table-hover" style="text-align: center">
     <thead>
         <tr>
-            <th scope="col">id</th>
             <th scope="col">DNI</th>
             <th scope="col">Nombre</th>
             <th scope="col">Apellido</th>
-            <th scope="col">Direccion</th>
             <th scope="col">Teléfono</th>
             <th scope="col">Fecha de nacimiento</th>
             <th scope="col">Obra Social</th>
@@ -39,14 +37,16 @@ col-md-13
     <tbody>
     @foreach($pacientes as $item)
         <tr>
-            <td scope="row">{{$item->id}}</td>
             <td>{{$item->dni}}</a></td>
-            <td>{{$item->nombre}}</td>
-            <td>{{$item->apellido}}</td>
-            <td>{{$item->direccion}}</td>
+            <td>{{ucfirst($item->nombre)}}</td>
+            <td>{{ucfirst($item->apellido)}}</td>
             <td>{{$item->telefono}}</td>
             <td>{{date("d/m/Y",strtotime($item->fnac))}}</td>
-            <td>{{$item->obrasocial}}</td>
+            @if (!empty($item->obrasocial))
+                <td>{{$item->obrasocial}}</td>
+            @else
+                <td>-</td>
+            @endif
             <td>
                 <a href="{{route('internaciones',$item)}}" class="btn btn-info btn-sm">Internaciones</a>  
                 <a href="{{route('editarpaciente',$item)}}" class="btn btn-warning btn-sm">Editar</a>  

@@ -31,7 +31,7 @@ class EvolucionListener
         User::all()
             ->each (function(User $user) use($event){
                 foreach ($user->pacientes as $up) {                    
-                    if ($up->id == $event->evolucion->paciente_alerta) {      # Si mi paciente coincide con el que estoy cargando, mando alerta
+                    if (($up->id == $event->evolucion->paciente_alerta) && ($user->recibir_alertas == True)) {      # Si mi paciente coincide con el que estoy cargando, mando alerta
                         Notification::send($user, new EvolucionNotification($event->evolucion));
                         break;
                     }

@@ -104,6 +104,17 @@
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle text-primary" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre><i class="fa fa-user fa-lg" aria-hidden="true"></i> {{ Auth::user()->nombreUsuario }}</a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    @if (auth()->user()->hasRole(['jefe', 'medico']))
+                                        @if (!empty(auth()->user()->recibir_alertas))
+                                            <a class="dropdown-item" href="{{ route('desactivar_alertas', ['id' => auth()->user()->id]) }}">
+                                                {{ __('Desactivar Alertas') }}
+                                            </a>
+                                        @else
+                                            <a class="dropdown-item" href="{{ route('activar_alertas', ['id' => auth()->user()->id]) }}">
+                                                {{ __('Activar Alertas') }}
+                                            </a>
+                                        @endif
+                                    @endif
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

@@ -65,4 +65,18 @@ class PersonalController extends Controller
         $usuario->save();
         return redirect('personal')->with('mensaje','Cambio de sistema registrado');
     }
+
+    public function activar_alertas($id) {
+        $usuario= App\Models\User::findOrFail($id);
+        $usuario->recibir_alertas = True;
+        $usuario->save();
+        return back()->with('mensaje','Alertas activadas');
+    }
+
+    public function desactivar_alertas($id) {
+        $usuario= App\Models\User::findOrFail($id);
+        $usuario->recibir_alertas = False;
+        $usuario->save();
+        return back()->with('mensaje','Alertas desactivadas');
+    }
 }

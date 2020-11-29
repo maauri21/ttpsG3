@@ -104,8 +104,10 @@ class InternacionController extends Controller
     }
 
     public function internacion($id) {
+        $internacion=App\Models\Internacion::findOrFail($id);
         $evoluciones=App\Models\Evolucion::where('internacion_id', '=', $id)->paginate(10);
-        return view ('internaciones.internacion',compact ('evoluciones'));
+        $paciente= App\Models\Paciente::findOrFail($internacion->paciente_id);
+        return view ('internaciones.internacion',compact ('evoluciones','paciente'));
     }
 
 }

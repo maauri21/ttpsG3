@@ -24,10 +24,8 @@ col-md-13
 <table class="table table-hover" style="text-align: center">
     <thead>
         <tr>
-            <th scope="col">id</th>
             <th scope="col">Nombre</th>
             <th scope="col">Apellido</th>
-            <th scope="col">Legajo</th>
             <th scope="col">Usuario</th>
             <th scope="col">Rol</th>
             <th scope="col">Sistema</th>
@@ -37,14 +35,9 @@ col-md-13
     <tbody>
     @foreach($usuarios as $item)
         <tr>
-            <td scope="row">{{$item->id}}</td>
-            <td>
-                    {{$item->nombre}}
-                </a>
-            </td>
-            <td>{{$item->apellido}}</td>
-            <td>{{$item->legajo}}</td>
-            <td>{{$item->nombreUsuario}}</td>
+            <td>{{ucfirst($item->nombre)}}</td>
+            <td>{{ucfirst($item->apellido)}}</td>
+            <td>{{ucfirst($item->nombreUsuario)}}</td>
             <td>{{ucfirst($item->getRoleNames()->first())}}</td>
             @if (!empty($item->sistema))
                 <td>{{$item->sistema->nombre}}</td>

@@ -41,4 +41,5 @@ col-md-8
     </table>
 </div>
 {{$evoluciones->links()}}
+<a href="{{route ('internaciones', $paciente->id)}}" class="btn btn-primary">Volver</a>
 @endsection

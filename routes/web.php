@@ -24,6 +24,8 @@ Route::put('/actualizarpersonal/{id}', 'App\Http\Controllers\PersonalController@
 Route::delete('/eliminarusuario/{id}', 'App\Http\Controllers\PersonalController@eliminarusuario')->name('eliminarusuario')->middleware('auth');
 Route::get('/cambiar_sistema/{id}', 'App\Http\Controllers\PersonalController@cambiar_sistema')->name('cambiar_sistema')->middleware('auth');
 Route::put('/cambiar_sistema2/{id}', 'App\Http\Controllers\PersonalController@cambiar_sistema2')->name('cambiar_sistema2')->middleware('auth');
+Route::get('/activar_alertas/{id}', 'App\Http\Controllers\PersonalController@activar_alertas')->name('activar_alertas')->middleware('auth');
+Route::get('/desactivar_alertas/{id}', 'App\Http\Controllers\PersonalController@desactivar_alertas')->name('desactivar_alertas')->middleware('auth');
 
 # Sala
 Route::get('administrarsala/{id}', 'App\Http\Controllers\SalaController@administrarsala')->name('administrarsala')->middleware('auth');
