@@ -234,11 +234,11 @@ col-md-12
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach($paciente->sistemas as $pc)
+                                        @foreach($internacion->sistemas as $interSist)
                                         <tr>
                                             <td>{{current($array)}}</td>
-                                            <td>{{date("d/m/Y",strtotime($pc->pivot->inicio))}}</td>
-                                            <td>{{!empty($pc->pivot->fin) ? date("d/m/Y",strtotime($pc->pivot->fin)):''}}</td>
+                                            <td>{{date("d/m/Y",strtotime($interSist->pivot->inicio))}}</td>
+                                            <td>{{!empty($interSist->pivot->fin) ? date("d/m/Y",strtotime($interSist->pivot->fin)):''}}</td>
                                         </tr>
                                             <?php next($array) ?>
                                         @endforeach

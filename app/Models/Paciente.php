@@ -13,10 +13,6 @@ class Paciente extends Model
         return $this->belongsTo(Contacto::class); // 1 a muchos
     }
 
-    public function sistemas(){
-        return $this->belongsToMany(Sistema::class)->withPivot('inicio', 'fin');
-    }
-
     public function cama()  //1 a1
     {
         return $this->hasOne(Cama::class);

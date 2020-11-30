@@ -50,11 +50,12 @@ class SistemaController extends Controller
     public function cambio_obito($id) {
 
         $paciente=App\Models\Paciente::findOrFail($id);
-        $sistemaActual = $paciente->sistemas()->orderBy('id', 'desc')->first();
+        $internacion=App\Models\Internacion::where('paciente_id', '=', $id)->orderBy('id', 'desc')->first();
+        $sistemaActual = $internacion->sistemas()->wherePivot('fin', NULL)->first();
         $sistema=App\Models\Sistema::findOrFail($sistemaActual->id);
         $cama=App\Models\Cama::where('paciente_id', '=', $paciente->id)->first();
 
-        $paciente->sistemas()->detach();
+        $internacion->sistemas()->wherePivot('fin', NULL)->updateExistingPivot($sistema, ['fin' => date('Y-m-d')]);
         $paciente->users()->detach();
 
         if (($sistema->nombre != 'Hotel') && ($sistema->nombre != 'Domicilio')) {
@@ -78,11 +79,12 @@ class SistemaController extends Controller
     public function cambio_egreso($id, $tipo) {
 
         $paciente=App\Models\Paciente::findOrFail($id);
-        $sistemaActual = $paciente->sistemas()->orderBy('id', 'desc')->first();
+        $internacion=App\Models\Internacion::where('paciente_id', '=', $id)->orderBy('id', 'desc')->first();
+        $sistemaActual = $internacion->sistemas()->wherePivot('fin', NULL)->first();
         $sistema=App\Models\Sistema::findOrFail($sistemaActual->id);
         $cama=App\Models\Cama::where('paciente_id', '=', $paciente->id)->first();
 
-        $paciente->sistemas()->detach();
+        $internacion->sistemas()->wherePivot('fin', NULL)->updateExistingPivot($sistema, ['fin' => date('Y-m-d')]);
         $paciente->users()->detach();
 
         if (($sistema->nombre != 'Hotel') && ($sistema->nombre != 'Domicilio')) {
@@ -113,7 +115,8 @@ class SistemaController extends Controller
     public function cambio_uti($id) {
 
         $paciente=App\Models\Paciente::findOrFail($id);
-        $sistemaActual = $paciente->sistemas()->orderBy('id', 'desc')->first();
+        $internacion=App\Models\Internacion::where('paciente_id', '=', $id)->orderBy('id', 'desc')->first();
+        $sistemaActual = $internacion->sistemas()->wherePivot('fin', NULL)->first();
         $sistema=App\Models\Sistema::findOrFail($sistemaActual->id);
 
         $camas=App\Models\Cama::all();
@@ -122,9 +125,9 @@ class SistemaController extends Controller
             if ($cama->sala->sistema->id == 3) {            # Me fijo si lo puedo meter en UTI
                 if ($cama->paciente_id == NULL) {
                     # Pongo fecha fin en el sistema actual
-                    $paciente->sistemas()->wherePivot('fin', NULL)->updateExistingPivot($sistema, ['fin' => date('Y-m-d')]);
+                    $internacion->sistemas()->wherePivot('fin', NULL)->updateExistingPivot($sistema, ['fin' => date('Y-m-d')]);
                     # Va a estar en UTI
-                    $paciente->sistemas()->attach(3, ['inicio' => date('Y-m-d')]);
+                    $internacion->sistemas()->attach(3, ['inicio' => date('Y-m-d')]);
 
                     # Borro medicos actuales y le asigno al jefe
                     $paciente->users()->detach();
@@ -160,9 +163,9 @@ class SistemaController extends Controller
                     if ($cama->sala->sistema->id == 1) {
                         if ($cama->paciente_id == NULL) {
                             # Pongo fecha fin en el sistema actual
-                            $paciente->sistemas()->wherePivot('fin', NULL)->updateExistingPivot($sistema, ['fin' => date('Y-m-d')]);
+                            $internacion->sistemas()->wherePivot('fin', NULL)->updateExistingPivot($sistema, ['fin' => date('Y-m-d')]);
                             # Va a estar en Guardia
-                            $paciente->sistemas()->attach(1, ['inicio' => date('Y-m-d')]);
+                            $internacion->sistemas()->attach(1, ['inicio' => date('Y-m-d')]);
 
                             # Borro medicos actuales y le asigno al jefe
                             $paciente->users()->detach();
@@ -196,9 +199,9 @@ class SistemaController extends Controller
                     if ($cama->sala->sistema->id == 1) {
                         if ($cama->paciente_id == NULL) {
                             # Pongo fecha fin en el sistema actual
-                            $paciente->sistemas()->wherePivot('fin', NULL)->updateExistingPivot($sistema, ['fin' => date('Y-m-d')]);
+                            $internacion->sistemas()->wherePivot('fin', NULL)->updateExistingPivot($sistema, ['fin' => date('Y-m-d')]);
                             # Va a estar en Guardia
-                            $paciente->sistemas()->attach(1, ['inicio' => date('Y-m-d')]);
+                            $internacion->sistemas()->attach(1, ['inicio' => date('Y-m-d')]);
 
                             # Borro medicos actuales y le asigno al jefe
                             $paciente->users()->detach();
@@ -230,9 +233,9 @@ class SistemaController extends Controller
             if ($salaNueva) {
                 $salaGInfinita= App\Models\Sala::findOrFail(1);
                 # Pongo fecha fin en el sistema actual
-                $paciente->sistemas()->wherePivot('fin', NULL)->updateExistingPivot($sistema, ['fin' => date('Y-m-d')]);
+                $internacion->sistemas()->wherePivot('fin', NULL)->updateExistingPivot($sistema, ['fin' => date('Y-m-d')]);
                 # Va a estar en Guardia
-                $paciente->sistemas()->attach(1, ['inicio' => date('Y-m-d')]);
+                $internacion->sistemas()->attach(1, ['inicio' => date('Y-m-d')]);
 
                 # Borro medicos actuales y le asigno al jefe
                 $paciente->users()->detach();
@@ -270,7 +273,8 @@ class SistemaController extends Controller
     public function cambio_pc($id) {
 
         $paciente=App\Models\Paciente::findOrFail($id);
-        $sistemaActual = $paciente->sistemas()->orderBy('id', 'desc')->first();
+        $internacion=App\Models\Internacion::where('paciente_id', '=', $id)->orderBy('id', 'desc')->first();
+        $sistemaActual = $internacion->sistemas()->wherePivot('fin', NULL)->first();
         $sistema=App\Models\Sistema::findOrFail($sistemaActual->id);
         $camaActual=App\Models\Cama::where('paciente_id', '=', $paciente->id)->first();
 
@@ -280,9 +284,9 @@ class SistemaController extends Controller
             if ($cama->sala->sistema->id == 2) {            # Me fijo si lo puedo meter en PC
                 if ($cama->paciente_id == NULL) {
                     # Pongo fecha fin en el sistema actual
-                    $paciente->sistemas()->wherePivot('fin', NULL)->updateExistingPivot($sistema, ['fin' => date('Y-m-d')]);
+                    $internacion->sistemas()->wherePivot('fin', NULL)->updateExistingPivot($sistema, ['fin' => date('Y-m-d')]);
                     # Va a estar en PC
-                    $paciente->sistemas()->attach(2, ['inicio' => date('Y-m-d')]);
+                    $internacion->sistemas()->attach(2, ['inicio' => date('Y-m-d')]);
 
                     # Borro medicos actuales y le asigno al jefe
                     $paciente->users()->detach();
@@ -319,13 +323,14 @@ class SistemaController extends Controller
 
     public function cambio_hotel($id) {
         $paciente=App\Models\Paciente::findOrFail($id);
-        $sistemaActual = $paciente->sistemas()->wherePivot('fin', NULL)->first();
+        $internacion=App\Models\Internacion::where('paciente_id', '=', $id)->orderBy('id', 'desc')->first();
+        $sistemaActual = $internacion->sistemas()->wherePivot('fin', NULL)->first();
         $sistema=App\Models\Sistema::findOrFail($sistemaActual->id);
         $salaHotel= App\Models\Sala::findOrFail(2);
         # Pongo fecha fin en el sistema actual
-        $paciente->sistemas()->wherePivot('fin', NULL)->updateExistingPivot($sistema, ['fin' => date('Y-m-d')]);
+        $internacion->sistemas()->wherePivot('fin', NULL)->updateExistingPivot($sistema, ['fin' => date('Y-m-d')]);
         # Va a estar en Hotel
-        $paciente->sistemas()->attach(4, ['inicio' => date('Y-m-d')]);
+        $internacion->sistemas()->attach(4, ['inicio' => date('Y-m-d')]);
 
         # Borro medicos actuales y le asigno al jefe
         $paciente->users()->detach();
@@ -353,13 +358,14 @@ class SistemaController extends Controller
 
     public function cambio_domicilio($id) {
         $paciente=App\Models\Paciente::findOrFail($id);
-        $sistemaActual = $paciente->sistemas()->wherePivot('fin', NULL)->first();
+        $internacion=App\Models\Internacion::where('paciente_id', '=', $id)->orderBy('id', 'desc')->first();
+        $sistemaActual = $internacion->sistemas()->wherePivot('fin', NULL)->first();
         $sistema=App\Models\Sistema::findOrFail($sistemaActual->id);
         $salaDomicilio= App\Models\Sala::findOrFail(3);
         # Pongo fecha fin en el sistema actual
-        $paciente->sistemas()->wherePivot('fin', NULL)->updateExistingPivot($sistema, ['fin' => date('Y-m-d')]);
+        $internacion->sistemas()->wherePivot('fin', NULL)->updateExistingPivot($sistema, ['fin' => date('Y-m-d')]);
         # Va a estar en Domicilio
-        $paciente->sistemas()->attach(5, ['inicio' => date('Y-m-d')]);
+        $internacion->sistemas()->attach(5, ['inicio' => date('Y-m-d')]);
 
         # Borro medicos actuales y le asigno al jefe
         $paciente->users()->detach();

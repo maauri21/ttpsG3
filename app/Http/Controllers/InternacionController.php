@@ -28,8 +28,7 @@ class InternacionController extends Controller
         $internacion->paciente()->associate($paciente);
         $internacion->save();
         
-        #$pacienteNuevo->sistemas()->attach(1);     #Le asigno guardia
-        $paciente->sistemas()->attach(1, ['inicio' => date('Y-m-d')]);     #Ademas de asignarle guardia, Agrego fecha en la tabla intermedia
+        $internacion->sistemas()->attach(1, ['inicio' => date('Y-m-d')]);     #Ademas de asignarle guardia, Agrego fecha en la tabla intermedia
 
         $usuarios=App\Models\User::where('sistema_id', '=', 1)->get();      # Para buscar al jefe de guardia
         foreach ($usuarios as $jf) {
@@ -81,17 +80,17 @@ class InternacionController extends Controller
 
     public function verinternacion($id) {
         $array = array();
-        $internacion=App\Models\Internacion::where('paciente_id', '=', $id)->orderBy('fInternacion', 'desc')->first();
+        $internacion=App\Models\Internacion::where('paciente_id', '=', $id)->orderBy('id', 'desc')->first();
         $evoluciones=App\Models\Evolucion::where('internacion_id', '=', $internacion->id)->paginate(10);
         # try para que tire 404 si entró desde URL a una cama sin paciente
         try {
             $paciente=App\Models\Paciente::findOrFail($id);
             # Recorro los sistemas donde estuvo
-            foreach ($paciente->sistemas as $PC) {
+            foreach ($internacion->sistemas as $PC) {
                 $sistema=App\Models\Sistema::findOrFail($PC->pivot->sistema_id);
                 array_push($array, $sistema->nombre);
             }
-            return view('internaciones.verinternacion',compact('paciente','sistema','array', 'evoluciones'));
+            return view('internaciones.verinternacion',compact('paciente','sistema','array', 'evoluciones', 'internacion'));
         } catch(\Exception $error){
             abort(404);
         }
@@ -104,10 +103,15 @@ class InternacionController extends Controller
     }
 
     public function internacion($id) {
+        $array = array();
         $internacion=App\Models\Internacion::findOrFail($id);
         $evoluciones=App\Models\Evolucion::where('internacion_id', '=', $id)->paginate(10);
         $paciente= App\Models\Paciente::findOrFail($internacion->paciente_id);
-        return view ('internaciones.internacion',compact ('evoluciones','paciente'));
+        foreach ($internacion->sistemas as $PC) {
+            $sistema=App\Models\Sistema::findOrFail($PC->pivot->sistema_id);
+            array_push($array, $sistema->nombre);
+        }
+        return view ('internaciones.internacion',compact ('evoluciones','paciente', 'internacion', 'array'));
     }
 
 }

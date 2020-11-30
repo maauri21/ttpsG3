@@ -153,7 +153,8 @@ class PacienteController extends Controller
 
     public function asignarmedico ($id){
         $paciente=App\Models\Paciente::findOrFail($id);
-        $sistemaActual = $paciente->sistemas()->wherePivot('fin', NULL)->first();
+        $internacion=App\Models\Internacion::where('paciente_id', '=', $id)->orderBy('id', 'desc')->first();
+        $sistemaActual = $internacion->sistemas()->wherePivot('fin', NULL)->first();
         $usuarios=App\Models\User::where('sistema_id', '=', $sistemaActual->id)->get();
 
         $array = array();

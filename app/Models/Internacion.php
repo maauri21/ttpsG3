@@ -19,4 +19,9 @@ class Internacion extends Model
     {
         return $this->hasMany(Evolucion::class);
     }
+
+    public function sistemas(){
+        return $this->belongsToMany(Sistema::class)->withPivot('inicio', 'fin');
+    }
+
 }

@@ -38,8 +38,8 @@ col-md-11
             <td>{{date("d/m/Y",strtotime($item->fIniciosintomas))}}</td>
             <td>{{date("d/m/Y",strtotime($item->fDiagnosticocovid))}}</td>
             <td>{{date("d/m/Y",strtotime($item->fInternacion))}}</td>
-            <td>{{!empty($item->fObito) ? date("d/m/Y",strtotime($item->fObito)):''}}</td>
-            <td>{{!empty($item->fAlta) ? date("d/m/Y",strtotime($item->fAlta)):''}}</td>
+            <td>{{!empty($item->fObito) ? date("d/m/Y",strtotime($item->fObito)):'-'}}</td>
+            <td>{{!empty($item->fAlta) ? date("d/m/Y",strtotime($item->fAlta)):'-'}}</td>
             <td>
                 @if(!empty($item->fAlta) || !empty($item->fObito))
                     <a href="{{route ('internacion', $item)}}" class="btn btn-info btn-sm">Ver</a>  

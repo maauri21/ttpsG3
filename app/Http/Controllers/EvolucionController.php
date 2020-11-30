@@ -16,8 +16,8 @@ class EvolucionController extends Controller
 {
     public function cargar_evolucion($id) {
         $paciente=App\Models\Paciente::findOrFail($id);
-        $sistemaActual = $paciente->sistemas()->wherePivot('fin', NULL)->first();
-        $internacion=App\Models\Internacion::where('paciente_id', '=', $id)->orderBy('fInternacion', 'desc')->first();
+        $internacion=App\Models\Internacion::where('paciente_id', '=', $id)->orderBy('id', 'desc')->first();
+        $sistemaActual = $internacion->sistemas()->wherePivot('fin', NULL)->first();
         $evolucion=App\Models\Evolucion::where('internacion_id', '=', $internacion->id)->orderBy('id', 'desc')->first();
         return view('evoluciones.cargarevolucion',compact('sistemaActual', 'id', 'evolucion'));
     }
@@ -37,7 +37,7 @@ class EvolucionController extends Controller
 
 
         $evolucion = new App\Models\Evolucion;
-        $internacion=App\Models\Internacion::where('paciente_id', '=', $request->paciente)->orderBy('fInternacion', 'desc')->first();
+        $internacion=App\Models\Internacion::where('paciente_id', '=', $request->paciente)->orderBy('id', 'desc')->first();
         $ultimaEvolucion=App\Models\Evolucion::where('internacion_id', '=', $internacion->id)->orderBy('id', 'desc')->first();
         $config= App\Models\Config::findOrFail(1);
         $paciente=App\Models\Paciente::findOrFail($request->paciente);
