@@ -15,8 +15,7 @@ class CreateEvolucionsTable extends Migration
     {
         Schema::create('evolucions', function (Blueprint $table) {
             $table->id();
-            $table->date('fecha');
-            $table->time('hora');
+            $table->datetime('fecha');
 
             $table->float('temperatura');
             $table->integer('tasistolica');

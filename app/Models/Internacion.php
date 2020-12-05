@@ -21,7 +21,7 @@ class Internacion extends Model
     }
 
     public function sistemas(){
-        return $this->belongsToMany(Sistema::class)->withPivot('inicio', 'fin');
+        return $this->belongsToMany(Sistema::class)->withPivot('fecha', 'fin');
     }
 
 }

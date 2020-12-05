@@ -127,7 +127,7 @@ class SistemaController extends Controller
                     # Pongo fecha fin en el sistema actual
                     $internacion->sistemas()->wherePivot('fin', NULL)->updateExistingPivot($sistema, ['fin' => date('Y-m-d')]);
                     # Va a estar en UTI
-                    $internacion->sistemas()->attach(3, ['inicio' => date('Y-m-d')]);
+                    $internacion->sistemas()->attach(3, ['fecha' => date('Y-m-d H:i:s')]);
 
                     # Borro medicos actuales y le asigno al jefe
                     $paciente->users()->detach();
@@ -165,7 +165,7 @@ class SistemaController extends Controller
                             # Pongo fecha fin en el sistema actual
                             $internacion->sistemas()->wherePivot('fin', NULL)->updateExistingPivot($sistema, ['fin' => date('Y-m-d')]);
                             # Va a estar en Guardia
-                            $internacion->sistemas()->attach(1, ['inicio' => date('Y-m-d')]);
+                            $internacion->sistemas()->attach(1, ['fecha' => date('Y-m-d H:i:s')]);
 
                             # Borro medicos actuales y le asigno al jefe
                             $paciente->users()->detach();
@@ -201,7 +201,7 @@ class SistemaController extends Controller
                             # Pongo fecha fin en el sistema actual
                             $internacion->sistemas()->wherePivot('fin', NULL)->updateExistingPivot($sistema, ['fin' => date('Y-m-d')]);
                             # Va a estar en Guardia
-                            $internacion->sistemas()->attach(1, ['inicio' => date('Y-m-d')]);
+                            $internacion->sistemas()->attach(1, ['fecha' => date('Y-m-d H:i:s')]);
 
                             # Borro medicos actuales y le asigno al jefe
                             $paciente->users()->detach();
@@ -235,7 +235,7 @@ class SistemaController extends Controller
                 # Pongo fecha fin en el sistema actual
                 $internacion->sistemas()->wherePivot('fin', NULL)->updateExistingPivot($sistema, ['fin' => date('Y-m-d')]);
                 # Va a estar en Guardia
-                $internacion->sistemas()->attach(1, ['inicio' => date('Y-m-d')]);
+                $internacion->sistemas()->attach(1, ['fecha' => date('Y-m-d H:i:s')]);
 
                 # Borro medicos actuales y le asigno al jefe
                 $paciente->users()->detach();
@@ -286,7 +286,7 @@ class SistemaController extends Controller
                     # Pongo fecha fin en el sistema actual
                     $internacion->sistemas()->wherePivot('fin', NULL)->updateExistingPivot($sistema, ['fin' => date('Y-m-d')]);
                     # Va a estar en PC
-                    $internacion->sistemas()->attach(2, ['inicio' => date('Y-m-d')]);
+                    $internacion->sistemas()->attach(2, ['fecha' => date('Y-m-d H:i:s')]);
 
                     # Borro medicos actuales y le asigno al jefe
                     $paciente->users()->detach();
@@ -330,7 +330,7 @@ class SistemaController extends Controller
         # Pongo fecha fin en el sistema actual
         $internacion->sistemas()->wherePivot('fin', NULL)->updateExistingPivot($sistema, ['fin' => date('Y-m-d')]);
         # Va a estar en Hotel
-        $internacion->sistemas()->attach(4, ['inicio' => date('Y-m-d')]);
+        $internacion->sistemas()->attach(4, ['fecha' => date('Y-m-d H:i:s')]);
 
         # Borro medicos actuales y le asigno al jefe
         $paciente->users()->detach();
@@ -365,7 +365,7 @@ class SistemaController extends Controller
         # Pongo fecha fin en el sistema actual
         $internacion->sistemas()->wherePivot('fin', NULL)->updateExistingPivot($sistema, ['fin' => date('Y-m-d')]);
         # Va a estar en Domicilio
-        $internacion->sistemas()->attach(5, ['inicio' => date('Y-m-d')]);
+        $internacion->sistemas()->attach(5, ['fecha' => date('Y-m-d H:i:s')]);
 
         # Borro medicos actuales y le asigno al jefe
         $paciente->users()->detach();

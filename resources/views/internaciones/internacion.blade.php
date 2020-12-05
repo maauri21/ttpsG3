@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('nombrePanel')
-Evoluciones
+Sistemas y Evoluciones
 @endsection
 
 @section('tamañoPanel')
@@ -24,61 +24,27 @@ col-md-8
     <table class="table table-hover">
         <thead>
             <tr>
+                <th scope="col"></th>
                 <th scope="col">Fecha</th>
-                <th scope="col">Hora</th>
                 <th scope="col">Acciones</th>
             </tr>
         </thead>
         <tbody>
-            @foreach($evoluciones as $evolucion)
+            @foreach($evo_y_cambios as $ec)
             <tr>
-                <td>{{date("d/m/Y",strtotime($evolucion->fecha))}}</td>
-                <td>{{substr($evolucion->hora, 0, -3)}}</td>
-                <td><a href="{{route('ver_evolucion',$evolucion->id)}}" class="btn btn-info btn-sm">Ver</a></td>
+                @if(!empty($ec->sistema_id))
+                    <td class="text-primary"><b>{{$ec->sistema_id}}</b></td>
+                    <td>{{date("d/m/Y H:i",strtotime($ec->fecha))}}</td>
+                    <td>-</td>
+                @else
+                    <td class="text-success"><b>{{'Evolución'}}</b></td>
+                    <td>{{date("d/m/Y H:i",strtotime($ec->fecha))}}</td>
+                    <td><a href="{{route('ver_evolucion',$ec->id)}}" class="btn btn-info btn-sm">Ver</a></td>
+                @endif
             </tr>
             @endforeach
         </tbody>
     </table>
 </div>
-{{$evoluciones->links()}}
 <a href="{{route ('internaciones', $paciente->id)}}" class="btn btn-primary">Volver</a>
-@endsection
-
-@section('content2')
-
-<main class="mt-4">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card border-primary">
-                    <div class="card-header text-white bg-primary">Sistemas</div>
-                        <div class="card-body">
-                                <div style="overflow-x:auto;">
-                                    <table class="table table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">Nombre</th>
-                                                <th scope="col">Desde</th>
-                                                <th scope="col">Hasta</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach($internacion->sistemas as $interSist)
-                                            <tr>
-                                                <td>{{current($array)}}</td>
-                                                <td>{{date("d/m/Y",strtotime($interSist->pivot->inicio))}}</td>
-                                                <td>{{!empty($interSist->pivot->fin) ? date("d/m/Y",strtotime($interSist->pivot->fin)):''}}</td>
-                                            </tr>
-                                                <?php next($array) ?>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
-                        </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</main>
-
 @endsection

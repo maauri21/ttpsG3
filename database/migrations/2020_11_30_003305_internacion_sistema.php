@@ -17,7 +17,7 @@ class InternacionSistema extends Migration
             $table->id();
             $table->unsignedBigInteger('internacion_id');
             $table->unsignedBigInteger('sistema_id');
-            $table->date('inicio');
+            $table->datetime('fecha');
             $table->date('fin')->nullable();
             $table->foreign('internacion_id')->references('id')->on('internacions')->onDelete('cascade');
             $table->foreign('sistema_id')->references('id')->on('sistemas')->onDelete('cascade');

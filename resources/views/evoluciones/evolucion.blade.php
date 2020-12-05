@@ -13,14 +13,7 @@ col-md-8
     <div class="form-group row">
         <label class="col-md-4 col-form-label text-md-right">{{ __('Fecha') }}</label>
         <div class="col-md-6">
-            <input type="text" readonly class="form-control" value="{{ date("d/m/Y",strtotime($evolucion->fecha)) }}">
-        </div>
-    </div>
-
-    <div class="form-group row">
-        <label class="col-md-4 col-form-label text-md-right">{{ __('Hora') }}</label>
-        <div class="col-md-6">
-            <input type="text" readonly class="form-control" value="{{ substr($evolucion->hora, 0, -3) }}">
+            <input type="text" readonly class="form-control" value="{{ date("d/m/Y H:i",strtotime($evolucion->fecha)) }}">
         </div>
     </div>
 

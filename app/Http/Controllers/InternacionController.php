@@ -30,7 +30,7 @@ class InternacionController extends Controller
         $internacion->paciente()->associate($paciente);
         $internacion->save();
         
-        $internacion->sistemas()->attach(1, ['inicio' => date('Y-m-d')]);     #Ademas de asignarle guardia, Agrego fecha en la tabla intermedia
+        $internacion->sistemas()->attach(1, ['fecha' => date('Y-m-d H:i:s')]);     #Ademas de asignarle guardia, Agrego fecha en la tabla intermedia
 
         $usuarios=App\Models\User::where('sistema_id', '=', 1)->get();      # Para buscar al jefe de guardia
         foreach ($usuarios as $jf) {
@@ -107,9 +107,9 @@ class InternacionController extends Controller
         });
 
         $evo_y_cambios = new Collection;
-        $evo_y_cambios = $evo_y_cambios->merge($evoluciones)->merge($cambios_sistema)->sortBy('fechon');
+        $evo_y_cambios = $evo_y_cambios->merge($evoluciones)->merge($cambios_sistema)->sortBy('fecha');
 
-        return view('internaciones.internacion_actual',compact('paciente','sistema', 'evo_y_cambios'));
+        return view('internaciones.internacion_actual',compact('paciente','sistema', 'internacion', 'evo_y_cambios'));
     }
 
     public function internaciones($id) {
@@ -119,15 +119,36 @@ class InternacionController extends Controller
     }
 
     public function internacion($id) {
-        $array = array();
+
         $internacion=App\Models\Internacion::findOrFail($id);
-        $evoluciones=App\Models\Evolucion::where('internacion_id', '=', $id)->paginate(10);
+        $evoluciones = DB::table('evolucions')->where('internacion_id', $id)->get();
         $paciente= App\Models\Paciente::findOrFail($internacion->paciente_id);
-        foreach ($internacion->sistemas as $PC) {
-            $sistema=App\Models\Sistema::findOrFail($PC->pivot->sistema_id);
-            array_push($array, $sistema->nombre);
-        }
-        return view ('internaciones.internacion',compact ('evoluciones','paciente', 'internacion', 'array'));
+
+        $cambios_sistema = DB::table('internacion_sistema')->where('internacion_id', $internacion->id)->get();
+
+        $cambios_sistema->each(function(&$sist) {
+            if ($sist->sistema_id == 1) {
+                $sist->sistema_id = 'Guardia';
+            }
+            elseif ($sist->sistema_id == 2) {
+                $sist->sistema_id = 'Piso Covid';
+            }
+            elseif ($sist->sistema_id == 3) {
+                $sist->sistema_id = 'Unidad Terapia Intensiva';
+            }
+            elseif ($sist->sistema_id == 4) {
+                $sist->sistema_id = 'Hotel';
+            }
+            elseif ($sist->sistema_id == 5) {
+                $sist->sistema_id = 'Domicilio';
+            }
+        });
+
+        $evo_y_cambios = new Collection;
+        $evo_y_cambios = $evo_y_cambios->merge($evoluciones)->merge($cambios_sistema)->sortBy('fecha');
+
+        return view('internaciones.internacion',compact('paciente', 'evo_y_cambios'));
+
     }
 
 }

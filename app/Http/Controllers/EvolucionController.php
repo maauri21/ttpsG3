@@ -42,8 +42,7 @@ class EvolucionController extends Controller
         $config= App\Models\Config::findOrFail(1);
         $paciente=App\Models\Paciente::findOrFail($request->paciente);
 
-        $evolucion->fecha = date('Y-m-d');
-        $evolucion->hora = date("H:i");
+        $evolucion->fecha = date('Y-m-d H:i:s');
         $evolucion->temperatura = $request->temperatura;
         $evolucion->tasistolica = $request->tasistolica;
         $evolucion->tadiastolica = $request->tadiastolica;

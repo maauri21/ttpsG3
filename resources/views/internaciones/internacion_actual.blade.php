@@ -91,6 +91,25 @@ col-md-12
 </div>
 @endif
 
+<div style="overflow-x:auto;">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Inicio de síntomas</th>
+                <th scope="col">Diagnóstico de COVID</th>
+                <th scope="col">Internación</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{date("d/m/Y",strtotime($internacion->fIniciosintomas))}}</td>
+                <td>{{date("d/m/Y",strtotime($internacion->fDiagnosticocovid))}}</td>
+                <td>{{date("d/m/Y",strtotime($internacion->fInternacion))}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
 @endsection
 
 @section('content2')
@@ -247,11 +266,11 @@ col-md-12
                                         <tr>
                                             @if(!empty($ec->sistema_id))
                                                 <td class="text-primary"><b>{{$ec->sistema_id}}</b></td>
-                                                <td>{{date("d/m/Y H:i",strtotime($ec->fechon))}}</td>
+                                                <td>{{date("d/m/Y H:i",strtotime($ec->fecha))}}</td>
                                                 <td>-</td>
                                             @else
                                                 <td class="text-success"><b>{{'Evolución'}}</b></td>
-                                                <td>{{date("d/m/Y H:i",strtotime($ec->fechon))}}</td>
+                                                <td>{{date("d/m/Y H:i",strtotime($ec->fecha))}}</td>
                                                 <td><a href="{{route('ver_evolucion',$ec->id)}}" class="btn btn-info btn-sm">Ver</a></td>
                                             @endif
                                         </tr>
