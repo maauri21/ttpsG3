@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Collection;
 
 class InternacionController extends Controller
 {
@@ -78,22 +80,36 @@ class InternacionController extends Controller
         }
     }
 
-    public function verinternacion($id) {
-        $array = array();
+    public function internacion_actual($id) {
         $internacion=App\Models\Internacion::where('paciente_id', '=', $id)->orderBy('id', 'desc')->first();
-        $evoluciones=App\Models\Evolucion::where('internacion_id', '=', $internacion->id)->paginate(10);
-        # try para que tire 404 si entró desde URL a una cama sin paciente
-        try {
-            $paciente=App\Models\Paciente::findOrFail($id);
-            # Recorro los sistemas donde estuvo
-            foreach ($internacion->sistemas as $PC) {
-                $sistema=App\Models\Sistema::findOrFail($PC->pivot->sistema_id);
-                array_push($array, $sistema->nombre);
+        $sistema = $internacion->sistemas()->wherePivot('fin', NULL)->first();
+        $paciente=App\Models\Paciente::findOrFail($id);
+
+        $evoluciones = DB::table('evolucions')->where('internacion_id', $internacion->id)->get();
+        $cambios_sistema = DB::table('internacion_sistema')->where('internacion_id', $internacion->id)->get();
+
+        $cambios_sistema->each(function(&$sist) {
+            if ($sist->sistema_id == 1) {
+                $sist->sistema_id = 'Guardia';
             }
-            return view('internaciones.verinternacion',compact('paciente','sistema','array', 'evoluciones', 'internacion'));
-        } catch(\Exception $error){
-            abort(404);
-        }
+            elseif ($sist->sistema_id == 2) {
+                $sist->sistema_id = 'Piso Covid';
+            }
+            elseif ($sist->sistema_id == 3) {
+                $sist->sistema_id = 'Unidad Terapia Intensiva';
+            }
+            elseif ($sist->sistema_id == 4) {
+                $sist->sistema_id = 'Hotel';
+            }
+            elseif ($sist->sistema_id == 5) {
+                $sist->sistema_id = 'Domicilio';
+            }
+        });
+
+        $evo_y_cambios = new Collection;
+        $evo_y_cambios = $evo_y_cambios->merge($evoluciones)->merge($cambios_sistema)->sortBy('fechon');
+
+        return view('internaciones.internacion_actual',compact('paciente','sistema', 'evo_y_cambios'));
     }
 
     public function internaciones($id) {

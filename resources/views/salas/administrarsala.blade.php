@@ -53,7 +53,7 @@ col-md-11
                 <td>{{!empty($cama->paciente) ? $cama->paciente->apellido:''}}</td>
                 <td>{{!empty($cama->paciente) ? $cama->paciente->dni:''}}</td>
                 @if (!empty($cama->paciente))
-                    <td><a href="{{route ('verinternacion', $cama->paciente_id)}}" class="btn btn-info btn-sm">Ver</a>
+                    <td><a href="{{route ('internacion_actual', $cama->paciente_id)}}" class="btn btn-info btn-sm">Ver</a>
                         <a href="{{route('asignarmedico',$cama->paciente_id)}}" class="btn btn-success btn-sm">Asignar médico</a>
                         <a href="{{route ('cargar_evolucion', $cama->paciente_id)}}" class="btn btn-success btn-sm">Cargar evolución</a>
                         <form action="{{route('eliminarcama',$cama)}}" method="POST" class="d-inline">

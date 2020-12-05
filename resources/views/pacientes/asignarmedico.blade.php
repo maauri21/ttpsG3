@@ -45,6 +45,6 @@ col-md-11
     @endforeach
     </tbody>
 </table>
-<a href="{{route ('verinternacion', $id)}}" class="btn btn-primary">Volver a la internación</a>
+<a href="{{route ('internacion_actual', $id)}}" class="btn btn-primary">Volver a la internación</a>
 </div>
 @endsection

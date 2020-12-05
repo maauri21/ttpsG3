@@ -44,7 +44,7 @@ col-md-11
                 @if(!empty($item->fAlta) || !empty($item->fObito))
                     <a href="{{route ('internacion', $item)}}" class="btn btn-info btn-sm">Ver</a>  
                 @else
-                    <a href="{{route ('verinternacion', $paciente)}}" class="btn btn-success btn-sm">Ver Actual</a>  
+                    <a href="{{route ('internacion_actual', $paciente)}}" class="btn btn-success btn-sm">Ver Actual</a>  
                 @endif
             </td>
         </tr>

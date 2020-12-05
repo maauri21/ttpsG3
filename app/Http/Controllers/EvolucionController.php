@@ -127,7 +127,7 @@ class EvolucionController extends Controller
         }
 
         $evolucion->save();
-        return redirect()->route('verinternacion', ['id' => $request->paciente])->with('mensaje','Evolución cargada');
+        return redirect()->route('internacion_actual', ['id' => $request->paciente])->with('mensaje','Evolución cargada');
     }
 
     public function ver_evolucion($id) {

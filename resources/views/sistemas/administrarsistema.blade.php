@@ -48,6 +48,8 @@ col-md-9
 
 @section('content2')
 
+@if (($sistema->nombre != 'Hotel') && ($sistema->nombre != 'Domicilio'))
+
 <main class="mt-4">
     <div class="container">
         <div class="row justify-content-center">
@@ -100,6 +102,8 @@ col-md-9
     </div>
 </main>
 
+@endif
+
 
 <main class="mt-4">
     <div class="container">
@@ -149,6 +153,8 @@ col-md-9
     </div>
 </main>
 
+@if (($sistema->nombre != 'Hotel') && ($sistema->nombre != 'Domicilio'))
+
 <main class="mt-4">
     <div class="container">
         <div class="row justify-content-center">
@@ -189,6 +195,8 @@ col-md-9
         </div>
     </div>
 </main>
+
+@endif
 
 <main class="mt-4">
     <div class="container">

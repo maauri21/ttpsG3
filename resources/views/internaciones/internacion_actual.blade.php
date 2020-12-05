@@ -141,7 +141,7 @@ col-md-12
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card border-primary">
-                    <div class="card-header text-white bg-primary">Sistemas</div>
+                    <div class="card-header text-white bg-primary">Sistemas y Evoluciones</div>
                         <div class="card-body">
 
 
@@ -150,7 +150,7 @@ col-md-12
                                     <thead>
                                         <tr>
                                             <th scope="col">Cambio de sistema</th>
-
+                                            <th scope="col" style="width:25%">Evolución</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -160,14 +160,18 @@ col-md-12
                                                 <a href="{{route('cambio_pc',$paciente)}}" class="btn btn-success btn">Piso Covid</a>
                                                 <a href="{{route('cambio_obito',$paciente)}}" class="btn btn-dark btn">Óbito</a>
                                             </td>
+                                            <td><a href="{{route('cargar_evolucion',$paciente)}}" class="btn btn-success btn">Cargar evolución</a></td>
                                         </tr>
+                                        
                                     </tbody>
                                 </table>
+                                
                             @elseif ($sistema->nombre == 'Piso Covid')
                                 <table class="table table-hover">
                                     <thead>
                                         <tr>
                                             <th scope="col">Cambio de sistema</th>
+                                            <th scope="col" style="width:25%">Evolución</th>
 
                                         </tr>
                                     </thead>
@@ -181,6 +185,7 @@ col-md-12
                                                 <a href="{{route('cambio_egreso',['id'=>$paciente, 'tipo'=>'C'])}}" class="btn btn-success btn">Curado</a>
                                                 <a href="{{route('cambio_egreso',['id'=>$paciente, 'tipo'=>'A'])}}" class="btn btn-success btn">Alta Epidemiológica</a>
                                             </td>
+                                            <td><a href="{{route('cargar_evolucion',$paciente)}}" class="btn btn-success btn">Cargar evolución</a></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -189,6 +194,7 @@ col-md-12
                                     <thead>
                                         <tr>
                                             <th scope="col">Cambio de sistema</th>
+                                            <th scope="col" style="width:25%">Evolución</th>
 
                                         </tr>
                                     </thead>
@@ -198,6 +204,7 @@ col-md-12
                                                 <a href="{{route('cambio_pc',$paciente)}}" class="btn btn-success btn">Piso Covid</a>
                                                 <a href="{{route('cambio_obito',$paciente)}}" class="btn btn-dark btn">Óbito</a>
                                             </td>
+                                            <td><a href="{{route('cargar_evolucion',$paciente)}}" class="btn btn-success btn">Cargar evolución</a></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -206,6 +213,7 @@ col-md-12
                                     <thead>
                                         <tr>
                                             <th scope="col">Cambio de sistema</th>
+                                            <th scope="col" style="width:25%">Evolución</th>
 
                                         </tr>
                                     </thead>
@@ -217,6 +225,7 @@ col-md-12
                                                 <a href="{{route('cambio_egreso',['id'=>$paciente, 'tipo'=>'C'])}}" class="btn btn-success btn">Curado</a>
                                                 <a href="{{route('cambio_egreso',['id'=>$paciente, 'tipo'=>'A'])}}" class="btn btn-success btn">Alta Epidemiológica</a>
                                             </td>
+                                            <td><a href="{{route('cargar_evolucion',$paciente)}}" class="btn btn-success btn">Cargar evolución</a></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -228,63 +237,29 @@ col-md-12
                                 <table class="table table-hover">
                                     <thead>
                                         <tr>
-                                            <th scope="col">Nombre</th>
-                                            <th scope="col">Desde</th>
-                                            <th scope="col">Hasta</th>
+                                            <th scope="col"></th>
+                                            <th scope="col">Fecha</th>
+                                            <th scope="col">Acciones</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach($internacion->sistemas as $interSist)
+                                        @foreach($evo_y_cambios as $ec)
                                         <tr>
-                                            <td>{{current($array)}}</td>
-                                            <td>{{date("d/m/Y",strtotime($interSist->pivot->inicio))}}</td>
-                                            <td>{{!empty($interSist->pivot->fin) ? date("d/m/Y",strtotime($interSist->pivot->fin)):''}}</td>
+                                            @if(!empty($ec->sistema_id))
+                                                <td class="text-primary"><b>{{$ec->sistema_id}}</b></td>
+                                                <td>{{date("d/m/Y H:i",strtotime($ec->fechon))}}</td>
+                                                <td>-</td>
+                                            @else
+                                                <td class="text-success"><b>{{'Evolución'}}</b></td>
+                                                <td>{{date("d/m/Y H:i",strtotime($ec->fechon))}}</td>
+                                                <td><a href="{{route('ver_evolucion',$ec->id)}}" class="btn btn-info btn-sm">Ver</a></td>
+                                            @endif
                                         </tr>
-                                            <?php next($array) ?>
                                         @endforeach
                                     </tbody>
                                 </table>
                             </div>
                         </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</main>
-
-<main class="mt-4">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-12">
-                <div class="card border-primary">
-                    <div class="card-header text-white bg-primary">Evoluciones</div>
-                        <div class="card-body">
-                            <a href="{{route('cargar_evolucion',$paciente)}}" class="btn btn-success btn">Cargar evolución</a>
-                            <main class="mt-4">
-                                <div style="overflow-x:auto;">
-                                    <table class="table table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">Fecha</th>
-                                                <th scope="col">Hora</th>
-                                                <th scope="col">Acciones</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach($evoluciones as $evolucion)
-                                            <tr>
-                                                <td>{{date("d/m/Y",strtotime($evolucion->fecha))}}</td>
-                                                <td>{{substr($evolucion->hora, 0, -3)}}</td>
-                                                <td><a href="{{route('ver_evolucion',$evolucion->id)}}" class="btn btn-info btn-sm">Ver</a></td>
-                                            </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
-                                {{$evoluciones->links()}}
-
-                        </div>
-                        
                 </div>
             </div>
         </div>
