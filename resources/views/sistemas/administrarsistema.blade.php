@@ -50,12 +50,13 @@ col-md-9
 
 @if (($sistema->nombre != 'Hotel') && ($sistema->nombre != 'Domicilio'))
 
+@can('crear_salas')
 <main class="mt-4">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-9">
                 <div class="card border-primary">
-                    <div class="card-header text-white bg-primary">{{ 'Nueva sala en ' . $sistema->nombre . '(ROOL ADMIN)' }}</div>
+                    <div class="card-header text-white bg-primary">{{ 'Nueva sala en ' . $sistema->nombre }}</div>
                         <div class="card-body">
                             <form method="POST" action="{{ route('crearsala',$sistema->id) }}">
                                 @csrf
@@ -101,16 +102,17 @@ col-md-9
         </div>
     </div>
 </main>
+@endcan
 
 @endif
 
-
+@can('panel_jefe')
 <main class="mt-4">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-9">
                 <div class="card border-primary">
-                    <div class="card-header text-white bg-primary">{{'Panel Jefe (ROOL JEFE) - ' . $sistema->nombre}}</div>
+                    <div class="card-header text-white bg-primary">{{'Panel Jefe - ' . $sistema->nombre}}</div>
                         <div class="card-body">
                             <div style="overflow-x:auto;">
                                 <table class="table table-hover" style="text-align: center">
@@ -152,15 +154,17 @@ col-md-9
         </div>
     </div>
 </main>
+@endcan
 
 @if (($sistema->nombre != 'Hotel') && ($sistema->nombre != 'Domicilio'))
 
+@can('administrar_salas')
 <main class="mt-4">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-9">
                 <div class="card border-primary">
-                    <div class="card-header text-white bg-primary">{{ __('Administrar salas de ' . $sistema->nombre . '(ROOL ADMIN)') }}</div>
+                    <div class="card-header text-white bg-primary">{{ __('Administrar salas de ' . $sistema->nombre) }}</div>
                         <div class="card-body">
                             <div style="overflow-x:auto;">
                                 <table class="table table-hover" style="text-align: center">
@@ -176,7 +180,8 @@ col-md-9
                                         <tr>
                                             <td scope="row">{{$item->id}}</td>
                                             <td>{{$item->nombre}}</td>
-                                            <td><a href="{{route ('editarsala', $item)}}" class="btn btn-warning btn-sm">Editar</a>  
+                                            <td><a href="{{route ('administrarsala', $item)}}" class="btn btn-info btn-sm">Ver</a>
+                                                <a href="{{route ('editarsala', $item)}}" class="btn btn-warning btn-sm">Editar</a>  
                                                 <form action="{{route('eliminarsala', $item) }}" method="POST" class="d-inline">
                                                     @method('DELETE')
                                                     @csrf
@@ -195,15 +200,17 @@ col-md-9
         </div>
     </div>
 </main>
+@endcan
 
 @endif
 
+@can('panel_medico')
 <main class="mt-4">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-9">
                 <div class="card border-primary">
-                    <div class="card-header text-white bg-primary">{{'Panel Médico (ROOL MEDICO) - ' . $sistema->nombre}}</div>
+                    <div class="card-header text-white bg-primary">{{'Panel Médico - ' . $sistema->nombre}}</div>
                         <div class="card-body">
                             <div style="overflow-x:auto;">
                                 <table class="table table-hover" style="text-align: center">
@@ -232,9 +239,6 @@ col-md-9
         </div>
     </div>
 </main>
-
-
-
-
+@endcan
 
 @endsection

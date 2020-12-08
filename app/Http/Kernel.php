@@ -65,5 +65,12 @@ class Kernel extends HttpKernel
         'role' => \Spatie\Permission\Middlewares\RoleMiddleware::class,
         'permission' => \Spatie\Permission\Middlewares\PermissionMiddleware::class,
         'role_or_permission' => \Spatie\Permission\Middlewares\RoleOrPermissionMiddleware::class,
+        'mi_sistema' => \App\Http\Middleware\MiSistema::class,
+        'comprobar_sistema' => \App\Http\Middleware\ComprobarSistema::class,
+        'desasignar_medico' => \App\Http\Middleware\DesasignarMedico::class,
+        'administrar_sistema' => \App\Http\Middleware\AdministrarSistema::class,
+        'cambiar_sistema' => \App\Http\Middleware\CambioSistema::class,
+        'asignar_medico' => \App\Http\Middleware\AsignarMedico::class,
+        'cargar_evolucion' => \App\Http\Middleware\CargarEvolucion::class,
     ];
 }

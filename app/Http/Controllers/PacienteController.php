@@ -172,8 +172,8 @@ class PacienteController extends Controller
         return view('pacientes.asignarmedico', compact ('medicos', 'id'));
     } 
 
-    public function asignarmedico2 ($idP, $idM){
-        $paciente=App\Models\Paciente::findOrFail($idP);
+    public function asignarmedico2 ($id, $idM){
+        $paciente=App\Models\Paciente::findOrFail($id);
         $medico=App\Models\User::findOrFail($idM);
 
         $asignado = false;

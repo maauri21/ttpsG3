@@ -21,6 +21,7 @@ col-md-11
 
 @section('content')
 
+@can('panel_jefe')
 <div style="overflow-x:auto;">
     <table class="table table-hover" style="text-align: center">
         <thead>
@@ -33,6 +34,7 @@ col-md-11
         </thead>
     </table>
 </div>
+@endcan
 
 <div style="overflow-x:auto;">
     <table class="table table-hover" style="text-align: center">
@@ -53,21 +55,37 @@ col-md-11
                 <td>{{!empty($cama->paciente) ? $cama->paciente->apellido:''}}</td>
                 <td>{{!empty($cama->paciente) ? $cama->paciente->dni:''}}</td>
                 @if (!empty($cama->paciente))
-                    <td><a href="{{route ('internacion_actual', $cama->paciente_id)}}" class="btn btn-info btn-sm">Ver</a>
-                        <a href="{{route('asignarmedico',$cama->paciente_id)}}" class="btn btn-success btn-sm">Asignar médico</a>
-                        <a href="{{route ('cargar_evolucion', $cama->paciente_id)}}" class="btn btn-success btn-sm">Cargar evolución</a>
+                    <td>
+                        @can('ver_paciente')
+                            <a href="{{route ('internacion_actual', $cama->paciente_id)}}" class="btn btn-info btn-sm">Ver</a>
+                        @endcan
+                        @if((!empty(auth()->user()->sistema->nombre)) && (auth()->user()->sistema->nombre == $sala->sistema->nombre))
+                        @can('asignar_medico')
+                            <a href="{{route('asignarmedico',$cama->paciente_id)}}" class="btn btn-success btn-sm">Asignar médico</a>
+                        @endcan
+                        @endif
+                        @if((!empty(auth()->user()->sistema->nombre)) && (auth()->user()->sistema->nombre == $sala->sistema->nombre))
+                        @can('cargar_evolucion')
+                            <a href="{{route ('cargar_evolucion', $cama->paciente_id)}}" class="btn btn-success btn-sm">Cargar evolución</a>
+                        @endcan
+                        @endif
+                        @can('eliminar_cama')
+                            <form action="{{route('eliminarcama',$cama)}}" method="POST" class="d-inline">
+                                @method('DELETE')
+                                @csrf
+                                <button class="btn btn-danger btn-sm" type="submit" onclick="return confirm ('¿Está seguro?')">Eliminar</button>
+                            </form>
+                        @endcan
+                    </td>
+                @else
+                <td>
+                    @can('eliminar_cama')
                         <form action="{{route('eliminarcama',$cama)}}" method="POST" class="d-inline">
                             @method('DELETE')
                             @csrf
                             <button class="btn btn-danger btn-sm" type="submit" onclick="return confirm ('¿Está seguro?')">Eliminar</button>
                         </form>
-                    </td>
-                @else
-                <td><form action="{{route('eliminarcama',$cama)}}" method="POST" class="d-inline">
-                        @method('DELETE')
-                        @csrf
-                        <button class="btn btn-danger btn-sm" type="submit" onclick="return confirm ('¿Está seguro?')">Eliminar</button>
-                    </form>
+                    @endcan
                 </td>
                 @endif
             </tr>

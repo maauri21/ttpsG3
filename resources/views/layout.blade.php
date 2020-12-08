@@ -68,18 +68,38 @@
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle text-primary" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre><i class="fa fa-building fa-lg"></i> Sistema</a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('administrarsistema', ['id' => 1]) }}">Guardia</a>
-                                    <a class="dropdown-item" href="{{ route('administrarsistema', ['id' => 2]) }}">Piso Covid</a>
-                                    <a class="dropdown-item" href="{{ route('administrarsistema', ['id' => 3]) }}">UTI</a>
-                                    <a class="dropdown-item" href="{{ route('administrarsistema', ['id' => 4]) }}">Hotel</a>
-                                    <a class="dropdown-item" href="{{ route('administrarsistema', ['id' => 5]) }}">Domicilio</a>
+                                    @if (auth()->user()->hasRole('medico'))
+                                        @if(auth()->user()->sistema->nombre == 'Guardia')
+                                            <a class="dropdown-item" href="{{ route('administrarsistema', ['id' => 1]) }}">Guardia</a>
+                                        @endif
+                                        @if(auth()->user()->sistema->nombre == 'Piso Covid')
+                                            <a class="dropdown-item" href="{{ route('administrarsistema', ['id' => 2]) }}">Piso Covid</a>
+                                        @endif
+                                        @if(auth()->user()->sistema->nombre == 'Unidad Terapia Intensiva')
+                                            <a class="dropdown-item" href="{{ route('administrarsistema', ['id' => 3]) }}">UTI</a>
+                                        @endif
+                                        @if(auth()->user()->sistema->nombre == 'Hotel')
+                                            <a class="dropdown-item" href="{{ route('administrarsistema', ['id' => 4]) }}">Hotel</a>
+                                        @endif
+                                        @if(auth()->user()->sistema->nombre == 'Domicilio')
+                                            <a class="dropdown-item" href="{{ route('administrarsistema', ['id' => 5]) }}">Domicilio</a>
+                                        @endif
+                                    @else
+                                        <a class="dropdown-item" href="{{ route('administrarsistema', ['id' => 1]) }}">Guardia</a>
+                                        <a class="dropdown-item" href="{{ route('administrarsistema', ['id' => 2]) }}">Piso Covid</a>
+                                        <a class="dropdown-item" href="{{ route('administrarsistema', ['id' => 3]) }}">UTI</a>
+                                        <a class="dropdown-item" href="{{ route('administrarsistema', ['id' => 4]) }}">Hotel</a>
+                                        <a class="dropdown-item" href="{{ route('administrarsistema', ['id' => 5]) }}">Domicilio</a>
+                                    @endif
                                 </div>
                             </li>
 
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle text-primary" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre><i class="fa fa-male fa-lg"></i> Personal</a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{route('register')}}">Cargar</a>
+                                    @can('cargar_personal')
+                                        <a class="dropdown-item" href="{{route('register')}}">Cargar</a>
+                                    @endcan
                                     <a class="dropdown-item" href="{{route('administrarpersonal')}}">Administrar</a>
                                 </div>
                             </li>
@@ -87,24 +107,29 @@
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle text-primary" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre><i class="fa fa-users fa-lg"></i> Paciente</a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{route('cargarpaciente')}}">Cargar</a>
-                                    <a class="dropdown-item" href="{{route('administrarpacientes')}}">Administrar</a>
+                                    @if((!empty(auth()->user()->sistema->nombre)) && (auth()->user()->sistema->nombre == 'Guardia'))
+                                        @can('cargar_paciente')
+                                            <a class="dropdown-item" href="{{route('cargarpaciente')}}">Cargar</a>
+                                        @endcan
+                                    @endif
+                                        <a class="dropdown-item" href="{{route('administrarpacientes')}}">Administrar</a>
                                 </div>
                             </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link text-primary" href="{{ route('mostrar_alertas') }}" role="button" aria-haspopup="true" aria-expanded="false" v-pre><i class="fa fa-inbox fa-lg">
-                                    </i> Notificaciones 
-                                    @if (count(auth()->user()->unreadNotifications))
-                                        <span class="badge badge-warning">{{ count(auth()->user()->unreadNotifications) }}</span>
-                                    @endif
-                                </a> 
-                            </li>
+                            @can('panel_alertas')
+                                <li class="nav-item">
+                                    <a class="nav-link text-primary" href="{{ route('mostrar_alertas') }}" role="button" aria-haspopup="true" aria-expanded="false" v-pre><i class="fa fa-inbox fa-lg">
+                                        </i> Notificaciones 
+                                        @if (count(auth()->user()->unreadNotifications))
+                                            <span class="badge badge-warning">{{ count(auth()->user()->unreadNotifications) }}</span>
+                                        @endif
+                                    </a> 
+                                </li>
+                            @endcan
 
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle text-primary" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre><i class="fa fa-user fa-lg" aria-hidden="true"></i> {{ Auth::user()->nombreUsuario }}</a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    @if (auth()->user()->hasRole(['jefe', 'medico']))
+                                    @can('mis_pacientes')
                                         @if (!empty(auth()->user()->recibir_alertas))
                                             <a class="dropdown-item" href="{{ route('desactivar_alertas', ['id' => auth()->user()->id]) }}">
                                                 {{ __('Desactivar Alertas') }}
@@ -114,7 +139,7 @@
                                                 {{ __('Activar Alertas') }}
                                             </a>
                                         @endif
-                                    @endif
+                                    @endcan
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

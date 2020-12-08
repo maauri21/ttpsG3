@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('nombrePanel')
-Panel - (rool admin)
+Usuario
 @endsection
 
 @section('tamañoPanel')
@@ -21,36 +21,77 @@ col-md-8
 @endsection
 
 @section('content')
-    @can('cargarPaciente')
-        <div class="form-group row"><a href="{{route('cargarpaciente')}}" class="btn btn-primary ml-3">Cargar paciente</a></div>
-    @endcan
-    <form method="POST" action="{{ route('camasinfinitas') }}">
-        @csrf
-        <div class="form-group row">
-            <label for="cinfinitas" class="col-md-4 col-form-label text-md-right">{{ __('Camas Infinitas') }}</label>
-            <div class="col-md-6">
-                <input id="cinfinitas" type="checkbox" data-toggle="toggle" @if(!empty($config->camasinfinitas)) checked @endif data-onstyle="success" data-offstyle="danger" data-on=" " data-off=" " name="cinfinitas">
-            </div>
-        </div>
-        <div class="form-group row mb-0">
-            <div class="col-md-6 offset-md-4">
-                <button type="submit" class="btn btn-primary">
-                    {{ __('Aceptar') }}
-                </button>
-                <a href="{{ route('home') }}" class="btn btn-secondary">Cancelar</a>
-            </div>
-        </div>
-    </form>
-
+<div style="overflow-x:auto;">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Nombre</th>
+                <th scope="col">Apellido</th>
+                <th scope="col">Rol</th>
+                <th scope="col">Sistema</th>
+                <th scope="col">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ucfirst(auth()->user()->nombre)}}</td>
+                <td>{{ucfirst(auth()->user()->apellido)}}</td>
+                <td>{{ucfirst(auth()->user()->getRoleNames()->first())}}</td>
+                @if (!empty(auth()->user()->sistema))
+                    <td>{{auth()->user()->sistema->nombre}}</td>
+                    <td><a href="{{ route('administrarsistema', ['id' => auth()->user()->sistema->id]) }}" class="btn btn-sm btn-primary">Ir a mi sistema</a></td>
+                @else
+                    <td>-</td>
+                    <td>-</td>
+                @endif
+            </tr>
+        </tbody>
+    </table>
+</div>
 @endsection
 
 @section('content2')
+
+@can('camasInfinitas')
 <main class="mt-4">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card border-primary">
-                    <div class="card-header text-white bg-primary">Panel Reglas - ROOL CONFIGURADOR DE REGLAS</div>
+                    <div class="card-header text-white bg-primary">Panel Admin</div>
+                        <div class="card-body">
+                            <form method="POST" action="{{ route('camasinfinitas') }}">
+                                @csrf
+                                <div class="form-group row">
+                                    <label for="cinfinitas" class="col-md-4 col-form-label text-md-right">{{ __('Camas Infinitas') }}</label>
+                                    <div class="col-md-6">
+                                        <input id="cinfinitas" type="checkbox" data-toggle="toggle" @if(!empty($config->camasinfinitas)) checked @endif data-onstyle="success" data-offstyle="danger" data-on=" " data-off=" " name="cinfinitas">
+                                    </div>
+                                </div>
+                                <div class="form-group row mb-0">
+                                    <div class="col-md-6 offset-md-4">
+                                        <button type="submit" class="btn btn-primary">
+                                            {{ __('Aceptar') }}
+                                        </button>
+                                        <a href="{{ route('home') }}" class="btn btn-secondary">Cancelar</a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+@endcan
+
+@can('configurar_reglas')
+<main class="mt-4">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card border-primary">
+                    <div class="card-header text-white bg-primary">Panel Reglas</div>
                         <div class="card-body">
                             <form action="{{ route('actualizar_reglas') }}" method="POST">
                                 @method('PUT')
@@ -143,13 +184,15 @@ col-md-8
         </div>
     </div>
 </main>
+@endcan
 
+@can('panel_jefe')
 <main class="mt-4">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card border-primary">
-                    <div class="card-header text-white bg-primary">Panel Jefe - (ROOL JEFE)</div>
+                    <div class="card-header text-white bg-primary">Panel Jefe</div>
                         <div class="card-body">
                             <div style="overflow-x:auto;">
                                 <table class="table table-hover" style="text-align: center">
@@ -207,30 +250,15 @@ col-md-8
         </div>
     </div>
 </main>
-
-@can('panelJefe', 'panelMedico')
-<main class="mt-4">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card border-primary">
-                    <div class="card-header text-white bg-primary">ROOL MEDICO/JEFE</div>
-                        <div class="card-body">
-                            <a href="{{ route('administrarsistema', ['id' => auth()->user()->sistema->id]) }}" class="btn btn-info">Ir a mi sistema</a>
-                        </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</main>
 @endcan
 
+@can('mis_pacientes')
 <main class="mt-4">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card border-primary">
-                    <div class="card-header text-white bg-primary">Mis pacientes - ROOL MEDICO/JEFE</div>
+                    <div class="card-header text-white bg-primary">Mis pacientes</div>
                         <div class="card-body">
                             <div style="overflow-x:auto;">
                                 <table class="table table-hover">
@@ -249,7 +277,9 @@ col-md-8
                                             <td>{{$up->nombre}}</td>
                                             <td>{{$up->apellido}}</td>
                                             <td><a href="{{route ('internacion_actual', $up->id)}}" class="btn btn-info btn-sm">Ver</a>
-                                            <a href="{{route('asignarmedico',$up->id)}}" class="btn btn-success btn-sm">Asignar médico</a>
+                                            @can('asignar_medico')
+                                                <a href="{{route('asignarmedico',$up->id)}}" class="btn btn-success btn-sm">Asignar médico</a>
+                                            @endcan
                                             <a href="{{route ('cargar_evolucion', $up->id)}}" class="btn btn-success btn-sm">Cargar evolución</a></td>
                                         </tr>
                                         @endforeach
@@ -263,5 +293,6 @@ col-md-8
         </div>
     </div>
 </main>
+@endcan
 
 @endsection

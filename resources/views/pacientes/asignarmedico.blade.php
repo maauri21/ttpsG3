@@ -39,7 +39,7 @@ col-md-11
             <td>{{$item->legajo}}</td>
             <td>{{$item->nombreUsuario}}</td>
             <td>
-                <a href="{{route('asignarmedico2',['idP'=>$id, 'idM'=>$item->id])}}" class="btn btn-primary btn-sm">Asignar</a>  
+                <a href="{{route('asignarmedico2',['id'=>$id, 'idM'=>$item->id])}}" class="btn btn-primary btn-sm">Asignar</a>  
             </td>
         </tr>
     @endforeach

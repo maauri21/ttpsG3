@@ -113,47 +113,57 @@ col-md-12
 @endsection
 
 @section('content2')
-<main class="mt-4">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-12">
-                <div class="card border-primary">
-                    <div class="card-header text-white bg-primary">Médicos asignados - ROOL JEFE</div>
-                        <div class="card-body">
-                            <a href="{{route('asignarmedico',$paciente)}}" class="btn btn-success btn">Asignar médico</a>
-                            
-                            <main class="mt-4">
-                            <div style="overflow-x:auto;">
-                                <table class="table table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">Nombre</th>
-                                            <th scope="col">Apellido</th>
-                                            <th scope="col">Legajo</th>
-                                            <th scope="col">Usuario</th>
-                                            <th scope="col">Acciones</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach($paciente->users as $pu)
-                                        <tr>
-                                            <td>{{$pu->nombre}}</td>
-                                            <td>{{$pu->apellido}}</td>
-                                            <td>{{$pu->legajo}}</td>
-                                            <td>{{$pu->nombreUsuario}}</td>
-                                            <td><a href="{{route('desasignarmedico',['idP'=>$paciente->id, 'idM'=>$pu->id])}}" class="btn btn-danger btn-sm">Desasignar</a></td>
-                                        </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
+@can('ver_medicos_asignados')
+    <main class="mt-4">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-12">
+                    <div class="card border-primary">
+                        <div class="card-header text-white bg-primary">Médicos asignados</div>
+                            <div class="card-body">
+                                @if((!empty(auth()->user()->sistema->nombre)) && (auth()->user()->sistema->nombre == $sistema->nombre))
+                                @can('asignar_medico')
+                                    <a href="{{route('asignarmedico',$paciente)}}" class="btn btn-success btn">Asignar médico</a>
+                                @endcan
+                                @endif
+                                
+                                <main class="mt-4">
+                                <div style="overflow-x:auto;">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Nombre</th>
+                                                <th scope="col">Apellido</th>
+                                                <th scope="col">Legajo</th>
+                                                <th scope="col">Usuario</th>
+                                                <th scope="col">Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach($paciente->users as $pu)
+                                            <tr>
+                                                <td>{{$pu->nombre}}</td>
+                                                <td>{{$pu->apellido}}</td>
+                                                <td>{{$pu->legajo}}</td>
+                                                <td>{{$pu->nombreUsuario}}</td>
+                                                @if((!empty(auth()->user()->sistema->nombre)) && (auth()->user()->sistema->nombre == $pu->sistema->nombre))
+                                                    @can('desasignar_medico')
+                                                        <td><a href="{{route('desasignarmedico',['idP'=>$paciente->id, 'idM'=>$pu->id])}}" class="btn btn-danger btn-sm">Desasignar</a></td>
+                                                    @endcan
+                                                @endif
+                                            </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
 
-                        </div>
+                            </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</main>
+    </main>
+@endcan
 
 <main class="mt-4">
     <div class="container">
@@ -163,91 +173,94 @@ col-md-12
                     <div class="card-header text-white bg-primary">Sistemas y Evoluciones</div>
                         <div class="card-body">
 
+                            @if((!empty(auth()->user()->sistema->nombre)) && (auth()->user()->sistema->nombre == $sistema->nombre))
+                            @can('cambiar_sistema')
+                                @if ($sistema->nombre == 'Guardia')
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Cambio de sistema</th>
+                                                <th scope="col" style="width:25%">Evolución</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <a href="{{route('cambio_uti',$paciente)}}" class="btn btn-danger btn">UTI</a>
+                                                    <a href="{{route('cambio_pc',$paciente)}}" class="btn btn-success btn">Piso Covid</a>
+                                                    <a href="{{route('cambio_obito',$paciente)}}" class="btn btn-dark btn">Óbito</a>
+                                                </td>
+                                                <td><a href="{{route('cargar_evolucion',$paciente)}}" class="btn btn-success btn">Cargar evolución</a></td>
+                                            </tr>
+                                            
+                                        </tbody>
+                                    </table>
+                                    
+                                @elseif ($sistema->nombre == 'Piso Covid')
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Cambio de sistema</th>
+                                                <th scope="col" style="width:25%">Evolución</th>
 
-                            @if ($sistema->nombre == 'Guardia')
-                                <table class="table table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">Cambio de sistema</th>
-                                            <th scope="col" style="width:25%">Evolución</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <a href="{{route('cambio_uti',$paciente)}}" class="btn btn-danger btn">UTI</a>
-                                                <a href="{{route('cambio_pc',$paciente)}}" class="btn btn-success btn">Piso Covid</a>
-                                                <a href="{{route('cambio_obito',$paciente)}}" class="btn btn-dark btn">Óbito</a>
-                                            </td>
-                                            <td><a href="{{route('cargar_evolucion',$paciente)}}" class="btn btn-success btn">Cargar evolución</a></td>
-                                        </tr>
-                                        
-                                    </tbody>
-                                </table>
-                                
-                            @elseif ($sistema->nombre == 'Piso Covid')
-                                <table class="table table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">Cambio de sistema</th>
-                                            <th scope="col" style="width:25%">Evolución</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <a href="{{route('cambio_uti',$paciente)}}" class="btn btn-danger btn">UTI</a>
+                                                    <a href="{{route('cambio_hotel',$paciente)}}" class="btn btn-success btn">Hotel</a>
+                                                    <a href="{{route('cambio_domicilio',$paciente)}}" class="btn btn-success btn">Domicilio</a>
+                                                    <a href="{{route('cambio_obito',$paciente)}}" class="btn btn-dark btn">Óbito</a>
+                                                    <a href="{{route('cambio_egreso',['id'=>$paciente, 'tipo'=>'C'])}}" class="btn btn-success btn">Curado</a>
+                                                    <a href="{{route('cambio_egreso',['id'=>$paciente, 'tipo'=>'A'])}}" class="btn btn-success btn">Alta Epidemiológica</a>
+                                                </td>
+                                                <td><a href="{{route('cargar_evolucion',$paciente)}}" class="btn btn-success btn">Cargar evolución</a></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                @elseif ($sistema->nombre == 'Unidad Terapia Intensiva')
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Cambio de sistema</th>
+                                                <th scope="col" style="width:25%">Evolución</th>
 
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <a href="{{route('cambio_uti',$paciente)}}" class="btn btn-danger btn">UTI</a>
-                                                <a href="{{route('cambio_hotel',$paciente)}}" class="btn btn-success btn">Hotel</a>
-                                                <a href="{{route('cambio_domicilio',$paciente)}}" class="btn btn-success btn">Domicilio</a>
-                                                <a href="{{route('cambio_obito',$paciente)}}" class="btn btn-dark btn">Óbito</a>
-                                                <a href="{{route('cambio_egreso',['id'=>$paciente, 'tipo'=>'C'])}}" class="btn btn-success btn">Curado</a>
-                                                <a href="{{route('cambio_egreso',['id'=>$paciente, 'tipo'=>'A'])}}" class="btn btn-success btn">Alta Epidemiológica</a>
-                                            </td>
-                                            <td><a href="{{route('cargar_evolucion',$paciente)}}" class="btn btn-success btn">Cargar evolución</a></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            @elseif ($sistema->nombre == 'Unidad Terapia Intensiva')
-                                <table class="table table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">Cambio de sistema</th>
-                                            <th scope="col" style="width:25%">Evolución</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <a href="{{route('cambio_pc',$paciente)}}" class="btn btn-success btn">Piso Covid</a>
+                                                    <a href="{{route('cambio_obito',$paciente)}}" class="btn btn-dark btn">Óbito</a>
+                                                </td>
+                                                <td><a href="{{route('cargar_evolucion',$paciente)}}" class="btn btn-success btn">Cargar evolución</a></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                @else
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Cambio de sistema</th>
+                                                <th scope="col" style="width:25%">Evolución</th>
 
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <a href="{{route('cambio_pc',$paciente)}}" class="btn btn-success btn">Piso Covid</a>
-                                                <a href="{{route('cambio_obito',$paciente)}}" class="btn btn-dark btn">Óbito</a>
-                                            </td>
-                                            <td><a href="{{route('cargar_evolucion',$paciente)}}" class="btn btn-success btn">Cargar evolución</a></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            @else
-                                <table class="table table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">Cambio de sistema</th>
-                                            <th scope="col" style="width:25%">Evolución</th>
-
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <a href="{{route('cambio_pc',$paciente)}}" class="btn btn-danger btn">Piso Covid</a>
-                                                <a href="{{route('cambio_obito',$paciente)}}" class="btn btn-dark btn">Óbito</a>
-                                                <a href="{{route('cambio_egreso',['id'=>$paciente, 'tipo'=>'C'])}}" class="btn btn-success btn">Curado</a>
-                                                <a href="{{route('cambio_egreso',['id'=>$paciente, 'tipo'=>'A'])}}" class="btn btn-success btn">Alta Epidemiológica</a>
-                                            </td>
-                                            <td><a href="{{route('cargar_evolucion',$paciente)}}" class="btn btn-success btn">Cargar evolución</a></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <a href="{{route('cambio_pc',$paciente)}}" class="btn btn-danger btn">Piso Covid</a>
+                                                    <a href="{{route('cambio_obito',$paciente)}}" class="btn btn-dark btn">Óbito</a>
+                                                    <a href="{{route('cambio_egreso',['id'=>$paciente, 'tipo'=>'C'])}}" class="btn btn-success btn">Curado</a>
+                                                    <a href="{{route('cambio_egreso',['id'=>$paciente, 'tipo'=>'A'])}}" class="btn btn-success btn">Alta Epidemiológica</a>
+                                                </td>
+                                                <td><a href="{{route('cargar_evolucion',$paciente)}}" class="btn btn-success btn">Cargar evolución</a></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                @endif
+                            @endcan
                             @endif
 
 

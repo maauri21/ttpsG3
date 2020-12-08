@@ -46,20 +46,32 @@ col-md-13
             @endif
             <td>
                 @if ($item->hasRole('medico'))
-                    <a href="{{route ('cambiar_sistema', $item)}}" class="btn btn-info btn-sm">Cambiar sistema</a>  
-                    <a href="{{route ('editarpersonal', $item)}}" class="btn btn-warning btn-sm">Editar</a>  
+                    @if((!empty(auth()->user()->sistema->nombre)) && (auth()->user()->sistema->nombre == $item->sistema->nombre))
+                        @can('cambiar_sistema_personal')
+                            <a href="{{route ('cambiar_sistema', $item)}}" class="btn btn-info btn-sm">Cambiar sistema</a>  
+                        @endcan
+                    @endif
+                    @can('modificar_personal')
+                        <a href="{{route ('editarpersonal', $item)}}" class="btn btn-warning btn-sm">Editar</a>
+                    @endcan  
+                    @can('eliminar_personal')
                     <form action="{{route('eliminarusuario', $item) }}" method="POST" class="d-inline">
                         @method('DELETE')
                         @csrf
                         <button class="btn btn-danger btn-sm" type="submit" onclick="return confirm ('¿Está seguro?')">Eliminar</button>
                     </form>
+                    @endcan
                 @else
-                    <a href="{{route ('editarpersonal', $item)}}" class="btn btn-warning btn-sm">Editar</a>  
+                    @can('modificar_personal')
+                        <a href="{{route ('editarpersonal', $item)}}" class="btn btn-warning btn-sm">Editar</a>  
+                    @endcan
+                    @can('eliminar_personal')
                     <form action="{{route('eliminarusuario', $item) }}" method="POST" class="d-inline">
                         @method('DELETE')
                         @csrf
                         <button class="btn btn-danger btn-sm" type="submit" onclick="return confirm ('¿Está seguro?')">Eliminar</button>
                     </form>
+                    @endcan
                 @endif
             </td>
         </tr>

@@ -48,13 +48,19 @@ col-md-13
                 <td>-</td>
             @endif
             <td>
+                @can('ver_internaciones')
                 <a href="{{route('internaciones',$item)}}" class="btn btn-info btn-sm">Internaciones</a>  
-                <a href="{{route('editarpaciente',$item)}}" class="btn btn-warning btn-sm">Editar</a>  
-                <form action="{{route('eliminarpaciente',$item)}}" method="POST" class="d-inline">
-                    @method('DELETE')
-                    @csrf
-                    <button class="btn btn-danger btn-sm" type="submit" onclick="return confirm ('¿Está seguro?')">Eliminar</button>
-                </form>
+                @endcan
+                @can('modificar_paciente')
+                    <a href="{{route('editarpaciente',$item)}}" class="btn btn-warning btn-sm">Editar</a>  
+                @endcan
+                @can('eliminar_paciente')
+                    <form action="{{route('eliminarpaciente',$item)}}" method="POST" class="d-inline">
+                        @method('DELETE')
+                        @csrf
+                        <button class="btn btn-danger btn-sm" type="submit" onclick="return confirm ('¿Está seguro?')">Eliminar</button>
+                    </form>
+                @endcan
             </td>
         </tr>
     @endforeach
