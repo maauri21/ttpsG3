@@ -17,6 +17,5 @@
 17) Reglas y alertas
 18) Panel configurador de reglas
 19) Ver evolución
-
-
-- Roles y permisos completo
+20) Ver internaciones anteriores
+21) Permisos aplicados
