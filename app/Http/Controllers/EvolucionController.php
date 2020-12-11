@@ -117,7 +117,7 @@ class EvolucionController extends Controller
             event (new EvolucionEvent($evolucion));
         }
         # regla 6
-        elseif ($config->bajosato2) {
+        elseif ($config->bajosato2 and !empty($ultimaEvolucion)) {
             $sat = $ultimaEvolucion->sato2 - $request->sato2;
             if ($sat >= $config->valor_bajoO2) {
                 $evolucion->textoAlerta = "$paciente->apellido, $paciente->nombre - Saturación bajó $config->valor_bajoO2: evaluar oxígeno, terapia y prono";
