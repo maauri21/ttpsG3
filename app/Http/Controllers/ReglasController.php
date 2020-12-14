@@ -10,8 +10,8 @@ class ReglasController extends Controller
     public function actualizar_reglas(Request $request){
         $request->validate([
             'sato2' => ['required', 'numeric', 'between:0,100'],
-            'valor_bajoO2' => ['required', 'numeric', 'between:0,100'],
             'valor_frecres' => ['required', 'numeric', 'between:0,100'],
+            'valor_bajoso2' => ['required', 'numeric', 'between:0,100'],
         ]);
         $config= App\Models\Config::findOrFail(1);
         $config->valor_sato2 = $request->sato2;
